@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/settings"
+        android:title="Settings"
+        android:icon="@drawable/ic_settings" />
+    <item
+        android:id="@+id/kcal"
+        android:title="kcal"
+        android:icon="@drawable/ic_kcal1"/>
+    <item
+        android:id="@+id/sleep"
+        android:title="Sleep"
+        android:icon="@drawable/ic_sleep"/>
+    <item
+        android:id="@+id/water"
+        android:title="Water"
+        android:icon="@drawable/ic_water"/>
+    <item
+        android:id="@+id/fridge"
+        android:title="Fridge"
+        android:icon="@drawable/ic_fridge"/>
+</menu>
