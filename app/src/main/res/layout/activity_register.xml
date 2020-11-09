@@ -5,22 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_screen"
-    tools:context=".LogIn">
+    tools:context=".Register">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="223dp"
         android:layout_height="212dp"
         android:contentDescription="Logo"
-        android:src="@drawable/siaurintas"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.057" />
+        app:layout_constraintVertical_bias="0.115"
+        app:srcCompat="@drawable/siaurintas" />
 
     <EditText
-        android:id="@+id/usernameLogin"
+        android:id="@+id/usernameRegister"
         android:layout_width="210dp"
         android:layout_height="50dp"
         android:background="#00C1C1C1"
@@ -30,14 +30,31 @@
         android:singleLine="true"
         android:textColor="#000000"
         android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/passwordLogin"
+        app:layout_constraintBottom_toTopOf="@+id/emailRegister"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.779" />
+        app:layout_constraintVertical_bias="0.437" />
 
     <EditText
-        android:id="@+id/passwordLogin"
+        android:id="@+id/emailRegister"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:background="#00C1C1C1"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:singleLine="true"
+        android:textColor="#000000"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/passwordRegister"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/usernameRegister"
+        app:layout_constraintVertical_bias="0.888" />
+
+    <EditText
+        android:id="@+id/passwordRegister"
         android:layout_width="210dp"
         android:layout_height="50dp"
         android:background="#00FFFFFF"
@@ -47,9 +64,10 @@
         android:singleLine="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.524" />
+        app:layout_constraintVertical_bias="0.61" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -57,14 +75,14 @@
         android:layout_height="50dp"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="openMain"
+        android:onClick="register"
         app:cardBackgroundColor="#5fff26"
         app:cardCornerRadius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.681">
+        app:layout_constraintTop_toBottomOf="@+id/passwordRegister"
+        app:layout_constraintVertical_bias="0.12">
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -72,12 +90,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Login"
+                android:text="Register"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -94,8 +111,8 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="false"
-        android:onClick="register"
-        android:text="Don't have an account?"
+        android:onClick="logIn"
+        android:text="Already have an account?"
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

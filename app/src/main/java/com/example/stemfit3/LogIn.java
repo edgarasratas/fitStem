@@ -12,18 +12,14 @@ public class LogIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-        cardView = (CardView) findViewById(R.id.cardView);
-
-        cardView.setOnClickListener(new  View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                openMain();
-            }
-        });
-
 
     }
-    public void openMain(){
+    public void register(View v){
+        Intent signup = new Intent(this, Register.class);
+        startActivity(signup);
+    }
+
+    public void openMain(View v){
         Intent intent = new Intent(this, MainScreen.class);
         startActivity(intent);
 

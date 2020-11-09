@@ -18,32 +18,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdbb8c64-a8ef-4549-b48a-a3df01d3ad74" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/Settings.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/fridge.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/kcal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/sleep.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/water.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_food_bank_24.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_settings_24.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_fridge.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_kcal1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_sleep.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_water.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_fridge.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_kcal.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_sleep.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_water.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/menu/bottom_nav_menu.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/navigation/nav.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fridge.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kcal1.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sleep.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/water.svg" afterDir="false" />
+    <list default="true" id="cdbb8c64-a8ef-4549-b48a-a3df01d3ad74" name="Default Changelist" comment="Register screen">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/Register.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" afterDir="false" />
@@ -54,38 +31,24 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_1_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_1_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_1_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/StemFit3.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/StemFit3.app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/MainScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/MainScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main_screen.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-night/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-night/themes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/LogIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/LogIn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_log_in.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_log_in.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fifth.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fourth.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/info.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/third.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_2_API_27]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -135,14 +98,17 @@
     <key name="android.template.-770518387">
       <recent name="com.example.stemfit3" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\StemFit3\app\src\main\res\drawable" />
-    </key>
     <key name="android.template.222897164">
       <recent name="com.example.stemfit3" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\StemFit3\app\src\main\res\layout" />
+    </key>
+    <key name="android.template.905626197">
+      <recent name="com.example.stemfit3" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\StemFit3\app\src\main\res\drawable" />
     </key>
   </component>
   <component name="RunManager">
@@ -222,10 +188,20 @@
       <option name="presentableId" value="Default" />
       <updated>1603879127366</updated>
     </task>
+    <task id="LOCAL-00001" summary="Navigation Bar">
+      <created>1604908301633</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1604908301633</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="Navigation Bar" />
+    <MESSAGE value="Register screen" />
+    <option name="LAST_COMMIT_MESSAGE" value="Register screen" />
   </component>
   <component name="WindowStateProjectService">
     <state x="357" y="40" width="1092" height="854" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604046361990">
@@ -249,35 +225,35 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="540" y="230" key="AndroidThemeDialog/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604044873684" />
-    <state x="565" y="109" key="CommitChangelistDialog2" timestamp="1604655026918">
+    <state x="565" y="109" key="CommitChangelistDialog2" timestamp="1604918982477">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="565" y="109" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1604655026918" />
+    <state x="565" y="109" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1604918982477" />
     <state x="740" y="288" key="FileChooserDialogImpl" timestamp="1604603104935">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="740" y="280" key="FileChooserDialogImpl/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1603887228281" />
     <state x="740" y="288" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1604603104935" />
-    <state width="1479" height="41" key="GridCell.Tab.0.bottom" timestamp="1604609897440">
+    <state width="1816" height="54" key="GridCell.Tab.0.bottom" timestamp="1604919891941">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1876" height="285" key="GridCell.Tab.0.bottom/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604046785332" />
-    <state width="1479" height="41" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1604609897440" />
-    <state width="1479" height="41" key="GridCell.Tab.0.center" timestamp="1604609897440">
+    <state width="1816" height="54" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1604919891941" />
+    <state width="1816" height="54" key="GridCell.Tab.0.center" timestamp="1604919891940">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1876" height="285" key="GridCell.Tab.0.center/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604046785332" />
-    <state width="1479" height="41" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1604609897440" />
-    <state width="1479" height="41" key="GridCell.Tab.0.left" timestamp="1604609897440">
+    <state width="1816" height="54" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1604919891940" />
+    <state width="1816" height="54" key="GridCell.Tab.0.left" timestamp="1604919891940">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1876" height="285" key="GridCell.Tab.0.left/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604046785332" />
-    <state width="1479" height="41" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1604609897440" />
-    <state width="1479" height="41" key="GridCell.Tab.0.right" timestamp="1604609897440">
+    <state width="1816" height="54" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1604919891940" />
+    <state width="1816" height="54" key="GridCell.Tab.0.right" timestamp="1604919891941">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1876" height="285" key="GridCell.Tab.0.right/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604046785332" />
-    <state width="1479" height="41" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1604609897440" />
+    <state width="1816" height="54" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1604919891941" />
     <state x="701" y="242" key="RollbackChangesDialog" timestamp="1604606873998">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -287,10 +263,10 @@
     </state>
     <state x="211" y="100" width="998" height="708" key="SettingsEditor/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604435998558" />
     <state x="211" y="103" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1604526359888" />
-    <state x="418" y="289" key="Vcs.Push.Dialog.v2" timestamp="1604610599484">
+    <state x="418" y="289" key="Vcs.Push.Dialog.v2" timestamp="1604908311534">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="418" y="289" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1604610599484" />
+    <state x="418" y="289" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1604908311534" />
     <state x="662" y="334" key="com.android.tools.idea.run.deployment.ModifyDeviceSetDialog" timestamp="1603888603524">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -299,5 +275,9 @@
       <screen x="-1280" y="0" width="1280" height="994" />
     </state>
     <state x="-951" y="169" width="1296" height="1036" key="dock-window-1/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604341878801" />
+    <state x="630" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1604918580845">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="630" y="239" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1604918580845" />
   </component>
 </project>
