@@ -12,41 +12,45 @@
         android:layout_width="223dp"
         android:layout_height="212dp"
         android:contentDescription="Logo"
+        android:src="@drawable/siaurintas"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.115"
-        app:srcCompat="@drawable/siaurintas" />
+        app:layout_constraintVertical_bias="0.057" />
 
     <EditText
         android:id="@+id/usernameRegister"
         android:layout_width="210dp"
         android:layout_height="50dp"
-        android:background="#00C1C1C1"
+        android:background="@drawable/edit_text_border"
         android:ems="10"
+        android:gravity="center"
         android:hint="Username"
         android:inputType="textPersonName"
         android:singleLine="true"
-        android:textColor="#000000"
-        android:textSize="18dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/emailRegister"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.437" />
+        app:layout_constraintVertical_bias="0.779" />
 
     <EditText
         android:id="@+id/emailRegister"
         android:layout_width="210dp"
         android:layout_height="50dp"
-        android:background="#00C1C1C1"
+        android:background="@drawable/edit_text_border"
         android:ems="10"
+        android:gravity="center"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:singleLine="true"
-        android:textColor="#000000"
-        android:textSize="18dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/passwordRegister"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,17 +61,35 @@
         android:id="@+id/passwordRegister"
         android:layout_width="210dp"
         android:layout_height="50dp"
-        android:background="#00FFFFFF"
+        android:background="@drawable/edit_text_border"
         android:ems="10"
+        android:gravity="center"
         android:hint="Password"
         android:inputType="textPassword"
         android:singleLine="true"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.61" />
+        app:layout_constraintVertical_bias="0.593" />
+
+    <EditText
+        android:id="@+id/confirmPasswordRegister"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edit_text_border"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.69" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -81,8 +103,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordRegister"
-        app:layout_constraintVertical_bias="0.12">
+        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordRegister"
+        app:layout_constraintVertical_bias="0.157">
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -110,7 +132,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:focusable="false"
+        android:focusable="true"
         android:onClick="logIn"
         android:text="Already have an account?"
         android:textColor="#fff"
