@@ -9,8 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StemFit3">
-        <activity android:name=".Register"></activity>
-        <activity android:name=".MainScreen" />
+        <activity android:name=".Register" ></activity>
+        <activity android:name=".kcal"></activity>
+        <activity android:name=".Settings"></activity>
+        <activity android:name=".water"></activity>
+        <activity android:name=".sleep"></activity>
+        <activity android:name=".fridge"></activity>
         <activity android:name=".LogIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -20,7 +20,7 @@ public class LogIn extends AppCompatActivity {
     }
 
     public void openMain(View v){
-        Intent intent = new Intent(this, MainScreen.class);
+        Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
 
     }

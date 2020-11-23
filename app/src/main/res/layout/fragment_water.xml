@@ -16,4 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <include layout="@layout/layout_bottom_nav_view"></include>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

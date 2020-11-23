@@ -68,11 +68,11 @@
         android:inputType="textPassword"
         android:singleLine="true"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/confirmPasswordRegister"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.593" />
+        app:layout_constraintTop_toBottomOf="@id/emailRegister"
+        app:layout_constraintVertical_bias="0.596" />
 
     <EditText
         android:id="@+id/confirmPasswordRegister"
@@ -85,11 +85,10 @@
         android:inputType="textPassword"
         android:singleLine="true"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.69" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordRegister" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -103,8 +102,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordRegister"
-        app:layout_constraintVertical_bias="0.157">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.77">
 
         <androidx.constraintlayout.widget.ConstraintLayout
 

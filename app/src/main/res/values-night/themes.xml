@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.StemFit3" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">#5fff26</item>
+        <item name="colorPrimaryVariant">#1f5e00</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

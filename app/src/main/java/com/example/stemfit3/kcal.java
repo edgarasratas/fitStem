@@ -1,64 +1,65 @@
 package com.example.stemfit3;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link kcal#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class kcal extends Fragment {
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_kcal);
+        setupBottomNavigationView();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public kcal() {
-        // Required empty public constructor
+    }
+    private void setupBottomNavigationView() {
+        BottomNavigationView navigationbar = (BottomNavigationView) findViewById(R.id.nav);
+        BottomNavigationViewHelper.enableNavigation(kcal.this, navigationbar);
+        Menu menu = navigationbar.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment kcal.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static kcal newInstance(String param1, String param2) {
-        kcal fragment = new kcal();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public void menuopen(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.kcal_menu, popup.getMenu());
+        popup.show();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.add:
+                Toast.makeText(this, "Clicked add", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.create:
+                Toast.makeText(this, "Clicked create", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return false;
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_kcal, container, false);
+    public void onBackPressed(){
+        Intent intent = new Intent(this, LogIn.class);
+        finish();
+        startActivity(intent);
     }
+
 }
+
+
+
+

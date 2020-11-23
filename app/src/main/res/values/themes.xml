@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.StemFit3" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowAnimationStyle">@null</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">#5fff26</item>
         <item name="colorPrimaryVariant">#1f5e00</item>
