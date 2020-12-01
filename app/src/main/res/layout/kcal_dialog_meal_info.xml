@@ -28,32 +28,14 @@
         android:maxWidth="250dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/button_border"
-        android:text="  custom meal  "
+        android:hint="custom meal"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/That_green_line"
-        app:layout_constraintBottom_toTopOf="@+id/mealIngredientsInfo"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"/>
-
-    <TextView
-        android:id="@+id/mealIngredientsInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="35dp"
-        android:minWidth="150dp"
-        android:maxWidth="250dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button_border"
-        android:text="  Ingredients  "
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mealNameInfo"
         app:layout_constraintBottom_toTopOf="@+id/mealCaloriesInfo"
-        android:textAlignment="center"
-        android:gravity="center_horizontal" />
+        android:padding="5dp"/>
+
 
     <TextView
         android:id="@+id/mealCaloriesInfo"
@@ -64,31 +46,27 @@
         android:maxWidth="250dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_border"
-        android:text="  calorie count  "
+        android:hint="calorie count"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mealIngredientsInfo"
+        app:layout_constraintTop_toBottomOf="@+id/mealNameInfo"
         app:layout_constraintBottom_toTopOf="@+id/mealWeightInfo"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"/>
+        android:padding="5dp"/>
 
     <TextView
+        android:padding="6dp"
         android:id="@+id/mealWeightInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="35dp"
-        android:minWidth="150dp"
-        android:maxWidth="250dp"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_border"
-        android:text="  weight  "
+        android:hint="Description"
         android:textSize="20sp"
         android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mealCaloriesInfo"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"/>
+/>
 </androidx.constraintlayout.widget.ConstraintLayout>

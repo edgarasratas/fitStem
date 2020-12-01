@@ -33,19 +33,11 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_1_0_rc01_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_1_0_rc01_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager2_viewpager2_1_0_0_rc01_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_2_0_alpha02_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/StemFit3.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/StemFit3.app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/button_border.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/button_border.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_kcal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_kcal.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/kcal_dialog_create.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/kcal_dialog_create.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/kcal_dialog_meal_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/kcal_dialog_meal_info.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +84,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_2_API_27" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-12-01T11:44:59.751Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-12-01T12:20:35.154Z" />
     <property name="ResourceManagerPrefKey.ResourceType" value="INTEGER" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -219,7 +211,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605180988756</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="kcal screen front-end">
+      <created>1606824667887</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1606824667887</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -227,13 +226,14 @@
     <MESSAGE value="Register screen" />
     <MESSAGE value="added register screen" />
     <MESSAGE value="Added Confirm Password field in Register screen&#10;Added borders to edit_text fields" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Confirm Password field in Register screen&#10;Added borders to edit_text fields" />
+    <MESSAGE value="kcal screen front-end" />
+    <option name="LAST_COMMIT_MESSAGE" value="kcal screen front-end" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="845" y="403" key="#Notifications" timestamp="1606823697778">
+    <state x="845" y="403" key="#Notifications" timestamp="1606824700279">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="845" y="403" key="#Notifications/0.0.1920.1080@0.0.1920.1080" timestamp="1606823697778" />
+    <state x="845" y="403" key="#Notifications/0.0.1920.1080@0.0.1920.1080" timestamp="1606824700279" />
     <state x="690" y="295" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1605799598269">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -268,10 +268,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="540" y="230" key="AndroidThemeDialog/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604044873684" />
-    <state x="565" y="116" width="745" height="855" key="CommitChangelistDialog2" timestamp="1605180987857">
+    <state x="565" y="116" width="745" height="855" key="CommitChangelistDialog2" timestamp="1606824666662">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="565" y="116" width="745" height="855" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1605180987857" />
+    <state x="565" y="116" width="745" height="855" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1606824666662" />
     <state x="740" y="288" key="FileChooserDialogImpl" timestamp="1604603104935">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -306,10 +306,10 @@
     </state>
     <state x="211" y="100" width="998" height="708" key="SettingsEditor/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604435998558" />
     <state x="211" y="103" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1604526359888" />
-    <state x="418" y="289" key="Vcs.Push.Dialog.v2" timestamp="1605181004659">
+    <state x="418" y="289" key="Vcs.Push.Dialog.v2" timestamp="1606824723415">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="418" y="289" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1605181004659" />
+    <state x="418" y="289" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1606824723415" />
     <state x="662" y="334" key="com.android.tools.idea.run.deployment.ModifyDeviceSetDialog" timestamp="1603888603524">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -318,10 +318,10 @@
       <screen x="-1280" y="0" width="1280" height="994" />
     </state>
     <state x="-951" y="169" width="1296" height="1036" key="dock-window-1/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604341878801" />
-    <state x="618" y="252" key="run.anything.popup" timestamp="1605180015742">
+    <state x="618" y="252" key="run.anything.popup" timestamp="1606838681549">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="618" y="252" key="run.anything.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1605180015742" />
+    <state x="618" y="252" key="run.anything.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1606838681549" />
     <state x="630" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1604918580845">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
