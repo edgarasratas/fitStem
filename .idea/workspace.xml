@@ -22,13 +22,37 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdbb8c64-a8ef-4549-b48a-a3df01d3ad74" name="Default Changelist" comment="" />
+    <list default="true" id="cdbb8c64-a8ef-4549-b48a-a3df01d3ad74" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/jarAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_1_0_rc01_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_1_0_rc01_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager2_viewpager2_1_0_0_rc01_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_2_0_alpha02_aar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/StemFit3.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/StemFit3.app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Nexus_5X_API_24]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_2_API_27]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -67,8 +91,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Nexus_5X_API_24" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-10-28T12:42:53.914Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_2_API_27" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-12-01T11:44:59.751Z" />
     <property name="ResourceManagerPrefKey.ResourceType" value="INTEGER" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -206,6 +230,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="Added Confirm Password field in Register screen&#10;Added borders to edit_text fields" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="845" y="403" key="#Notifications" timestamp="1606823697778">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="845" y="403" key="#Notifications/0.0.1920.1080@0.0.1920.1080" timestamp="1606823697778" />
     <state x="690" y="295" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1605799598269">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -249,26 +277,26 @@
     </state>
     <state x="740" y="280" key="FileChooserDialogImpl/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1603887228281" />
     <state x="740" y="288" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1604603104935" />
-    <state width="1860" height="2" key="GridCell.Tab.0.bottom" timestamp="1606121154672">
+    <state width="1877" height="387" key="GridCell.Tab.0.bottom" timestamp="1606824075325">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1876" height="285" key="GridCell.Tab.0.bottom/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604046785332" />
-    <state width="1860" height="2" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1606121154672" />
-    <state width="1860" height="2" key="GridCell.Tab.0.center" timestamp="1606121154672">
+    <state width="1877" height="387" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1606824075325" />
+    <state width="1877" height="387" key="GridCell.Tab.0.center" timestamp="1606824075325">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1876" height="285" key="GridCell.Tab.0.center/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604046785332" />
-    <state width="1860" height="2" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1606121154672" />
-    <state width="1860" height="2" key="GridCell.Tab.0.left" timestamp="1606121154672">
+    <state width="1877" height="387" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1606824075325" />
+    <state width="1877" height="387" key="GridCell.Tab.0.left" timestamp="1606824075325">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1876" height="285" key="GridCell.Tab.0.left/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604046785332" />
-    <state width="1860" height="2" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1606121154672" />
-    <state width="1860" height="2" key="GridCell.Tab.0.right" timestamp="1606121154672">
+    <state width="1877" height="387" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1606824075325" />
+    <state width="1877" height="387" key="GridCell.Tab.0.right" timestamp="1606824075325">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1876" height="285" key="GridCell.Tab.0.right/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604046785332" />
-    <state width="1860" height="2" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1606121154672" />
+    <state width="1877" height="387" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1606824075325" />
     <state x="701" y="242" key="RollbackChangesDialog" timestamp="1604606873998">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
