@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "646632366480",
+    "firebase_url": "https://fitstem-df65e.firebaseio.com",
+    "project_id": "fitstem-df65e",
+    "storage_bucket": "fitstem-df65e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646632366480:android:e3fa5a14777fb3a56e1315",
+        "android_client_info": {
+          "package_name": "com.example.stemfit3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "646632366480-6nguuliaumqd444f4p0p86osm6hbmra9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVzf5_r085eM-scVVr0O63PPF_INNTlHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "646632366480-6nguuliaumqd444f4p0p86osm6hbmra9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

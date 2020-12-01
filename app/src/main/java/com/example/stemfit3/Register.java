@@ -1,23 +1,134 @@
 package com.example.stemfit3;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextClock;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class Register extends AppCompatActivity {
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
+public class Register extends AppCompatActivity implements View.OnClickListener {
+
+    public EditText usernameEditText,passwordEditText,emailEditText,confirmPassEditText;
+    public FirebaseAuth mAuth;
+    public CardView register;
+    public TextView account;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        confirmPassEditText  = findViewById(R.id.confirmPasswordRegister);
+        mAuth =  FirebaseAuth.getInstance();
+
+        register = (CardView) findViewById(R.id.cardView);
+        register.setOnClickListener(this);
+
+        usernameEditText = (EditText) findViewById(R.id.usernameRegister);
+        passwordEditText= findViewById(R.id.passwordRegister);
+
+        emailEditText = findViewById(R.id.emailRegister);
+
+        account = (TextView) findViewById(R.id.textView4);
+        account.setOnClickListener(this);
+
+
     }
-    public void logIn(View v){
-        Intent login = new Intent(this, LogIn.class);
-        startActivity(login);
+//    public void logIn(View v){
+//        Intent login = new Intent(this, LogIn.class);
+//        startActivity(login);
+//    }
+//    public void register(View v){
+//
+//    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.textView4:
+                startActivity(new Intent (this, LogIn.class));
+                break;
+            case R.id.cardView:
+                registerUser();
+                break;
+        }
     }
-    public void register(View v){
+
+    private void registerUser() {
+        String email = emailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+        String username = usernameEditText.getText().toString().trim();
+        String confirm = confirmPassEditText.getText().toString().trim();
+
+        if(email.isEmpty()){
+            emailEditText.setError("Email is required");
+            emailEditText.requestFocus();
+            return;
+        }
+        if(password.isEmpty()){
+            passwordEditText.setError("Password is required");
+            passwordEditText.requestFocus();
+            return;
+        }
+        if(username.isEmpty()){
+            usernameEditText.setError("Username is required");
+            usernameEditText.requestFocus();
+            return;
+        }
+        if(!confirm.equals(password)){
+            confirmPassEditText.setError("Passwords must match");
+            confirmPassEditText.requestFocus();
+            return;
+        }
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            emailEditText.setError("Please provide a valid email");
+            emailEditText.requestFocus();
+            return;
+        }
+        if(password.length()<8){
+            passwordEditText.setError("Password must be longer then 8");
+            return;
+        }
+
+        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    User user = new User(username,email);
+                    FirebaseUser newUser = FirebaseAuth.getInstance().getCurrentUser();
+                    FirebaseDatabase.getInstance().getReference("Users")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(Register.this,"Please verify your email",Toast.LENGTH_LONG).show();
+                                newUser.sendEmailVerification();
+                            }
+                            else
+                                Toast.makeText(Register.this, "Failed to register!",Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }else
+                    Toast.makeText(Register.this, "Failed to register!",Toast.LENGTH_LONG).show();
+            }
+        });
+
 
     }
 }
