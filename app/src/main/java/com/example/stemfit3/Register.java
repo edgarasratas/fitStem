@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -19,9 +20,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
 
@@ -75,6 +82,21 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         String username = usernameEditText.getText().toString().trim();
         String confirm = confirmPassEditText.getText().toString().trim();
 
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Usernames");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren())
+                    if(username.equals(snapshot.getValue().toString())){
+                        usernameEditText.setError("Username is taken");
+                        return;
+                    }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
         if(email.isEmpty()){
             emailEditText.setError("Email is required");
             emailEditText.requestFocus();
@@ -111,6 +133,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 if(task.isSuccessful()){
                     User user = new User(username,email);
                     FirebaseUser newUser = FirebaseAuth.getInstance().getCurrentUser();
+                    FirebaseDatabase.getInstance().getReference("Usernames").setValue(username);
                     FirebaseDatabase.getInstance().getReference("Users")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
