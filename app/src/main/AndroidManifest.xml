@@ -9,15 +9,20 @@
         android:roundIcon="@mipmap/ic_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.StemFit3">
-        <activity android:name=".Register" ></activity>
-        <activity android:name=".kcal"></activity>
-        <activity android:name=".Settings"></activity>
-        <activity android:name=".water"></activity>
-        <activity android:name=".sleep"></activity>
-        <activity android:name=".fridge"></activity>
+        <activity
+            android:name=".ScrollingActivitytest"
+            android:label="@string/title_activity_scrolling_activitytest"
+            android:theme="@style/Theme.StemFit3.NoActionBar"></activity>
+        <activity android:name=".Register" />
+        <activity android:name=".kcal" />
+        <activity android:name=".Settings" />
+        <activity android:name=".water" />
+        <activity android:name=".sleep" />
+        <activity android:name=".fridge" />
         <activity android:name=".LogIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

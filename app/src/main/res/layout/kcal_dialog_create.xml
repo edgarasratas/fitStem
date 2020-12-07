@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:minHeight="550dp">
+
+    <TextView
+        android:id="@+id/calorieCount"
+        android:layout_width="155dp"
+        android:layout_height="35dp"
+        android:background="@drawable/edit_text_border"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="calorie count"
+        android:inputType="text"
+        android:padding="5dp"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.815" />
 
     <View
         android:id="@+id/That_green_line"
@@ -16,7 +34,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.06" />
+        app:layout_constraintVertical_bias="0.024" />
 
 
     <EditText
@@ -30,61 +48,120 @@
         android:inputType="textPersonName"
         android:padding="5dp"
         android:textSize="22sp"
-        app:layout_constraintBottom_toTopOf="@id/mealCalories"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/That_green_line" />
-
-    <EditText
-        android:id="@+id/mealCalories"
-        android:layout_width="177dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/edit_text_border"
-        android:ems="10"
-        android:hint="Calorie count"
-        android:inputType="text"
-        android:textSize="22sp"
-        android:padding="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/mealWeight"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mealName" />
-
-    <EditText
-        android:id="@+id/mealWeight"
-        android:layout_width="300dp"
-        android:layout_height="250dp"
-        android:background="@drawable/edit_text_border"
-        android:ems="10"
-        android:hint="Description"
-        android:inputType="text"
-        android:padding="5dp"
-        android:textAlignment="textStart"
-        android:textSize="22sp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mealCalories"
-        android:gravity="start" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="30dp"
-        android:textSize="20sp"
-        android:text="Add"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/mealWeight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.013" />
+
+    <Button
+        android:id="@+id/addIngredientButton"
+        android:layout_width="121dp"
+        android:layout_height="37dp"
         android:background="@drawable/round_button"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="Add"/>
+        android:onClick="addIngredient"
+        android:text="Add"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.281" />
+
+    <TextView
+        android:id="@+id/ingredientList"
+        android:layout_width="302dp"
+        android:layout_height="217dp"
+        android:background="@drawable/edit_text_border"
+        android:ems="10"
+        android:gravity="start"
+        android:padding="5dp"
+        android:text="Ingredient list"
+        android:textAlignment="textStart"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.571" />
+
+    <Button
+        android:id="@+id/addMealButton"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/round_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="addMeal"
+        android:text="Add"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.939" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="298dp"
+        android:layout_height="42dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.179">
+
+        <EditText
+            android:id="@+id/ingredient"
+            android:layout_width="177dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_border"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:hint="Ingredient"
+            android:inputType="text"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textSize="22sp" />
+
+        <EditText
+            android:id="@+id/ingredientCount"
+            android:layout_width="49dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@id/ingredient"
+            android:layout_toRightOf="@id/ingredient"
+            android:background="@drawable/edit_text_border"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:padding="5dp"
+            android:text="2"
+            android:textAlignment="center"
+            android:textSize="22sp" />
+
+        <Spinner
+            android:id="@+id/Units"
+            android:layout_width="44dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="3dp"
+            android:layout_toRightOf="@id/ingredientCount"
+            android:background="@drawable/edit_text_border" />
+
+
+    </RelativeLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

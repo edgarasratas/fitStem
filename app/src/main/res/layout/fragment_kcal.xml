@@ -142,4 +142,5 @@
         android:clickable="true"
         android:onClick="onClickMeal"
         android:focusable="true" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
