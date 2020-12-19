@@ -9,10 +9,12 @@
         android:roundIcon="@mipmap/ic_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.StemFit3">
+        <activity android:name=".ChangePassword" />
+        <activity android:name=".UserInfo" />
         <activity
             android:name=".ScrollingActivitytest"
             android:label="@string/title_activity_scrolling_activitytest"
-            android:theme="@style/Theme.StemFit3.NoActionBar"></activity>
+            android:theme="@style/Theme.StemFit3.NoActionBar" />
         <activity android:name=".Register" />
         <activity android:name=".kcal" />
         <activity android:name=".Settings" />

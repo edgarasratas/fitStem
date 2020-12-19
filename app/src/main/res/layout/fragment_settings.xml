@@ -7,16 +7,66 @@
     tools:context=".Settings">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/Settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="45sp"
         android:text="Settings"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.025" />
+
+    <View
+        android:id="@+id/That_green_line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#5fff26"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.164" />
 
     <include layout="@layout/layout_bottom_nav_view"> </include>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/UserInfo"
+        android:layout_width="257dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_border"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="openUserInfo"
+        android:text="User info"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.558"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.248" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ChangePassword"
+        android:layout_width="257dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_border"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="openChangePassword"
+        android:text="Change password"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.558"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.371" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

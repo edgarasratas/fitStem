@@ -8,4 +8,13 @@
         <item>vnt</item>
         <item>g</item>
     </string-array>
+
+    <string-array name="Activity">
+        <item>Sedentary: little or no exercise</item>
+        <item>Light: exercise 1-3/week</item>
+        <item>Moderate: exercise 4-5/week</item>
+        <item>Active: intense exercise 3-4/week</item>
+        <item>Very active: intense exercise 6-7/week</item>
+        <item>Extra active: very intense exercise daily</item>
+    </string-array>
 </resources>

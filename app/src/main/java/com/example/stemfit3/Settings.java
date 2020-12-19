@@ -36,6 +36,16 @@ public class Settings extends AppCompatActivity {
         menuItem.setChecked(true);
     }
 
+    public void openUserInfo(View v){
+        Intent intent = new Intent(this, UserInfo.class);
+        startActivity(intent);
+    }
+
+    public void openChangePassword(View v){
+        Intent intent = new Intent(this, ChangePassword.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(this, LogIn.class);
