@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="285dp"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="285dp"
     android:id="@+id/fridgeItem"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="140dp"
@@ -9,7 +10,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/itemName"
             android:layout_width="wrap_content"
             android:layout_height="23dp"
             android:layout_marginTop="16dp"
@@ -37,7 +38,7 @@
             app:layout_constraintVertical_bias="0.367" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/expiringDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -58,10 +59,10 @@
             android:progressTint="#5fff26"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintTop_toBottomOf="@+id/expiringDate" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/daysLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
@@ -73,4 +74,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progressBar"
             app:layout_constraintVertical_bias="0.0" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/xButton"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:background="@drawable/green_circle"
+            android:gravity="center_horizontal"
+            android:text="X"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.941"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.125" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

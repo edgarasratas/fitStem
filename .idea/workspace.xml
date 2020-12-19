@@ -43,12 +43,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdbb8c64-a8ef-4549-b48a-a3df01d3ad74" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/fridge_item_border_green.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/fridge_item_border_red.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/fridge_item_border_yellow.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fridge_dialog.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fridge_scrolling_core.xml" afterDir="false" />
+    <list default="true" id="cdbb8c64-a8ef-4549-b48a-a3df01d3ad74" name="Default Changelist" comment="virtual fridge front-end.">
+      <change afterPath="$PROJECT_DIR$/app/src/main/ic_launcher-playstore.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ellipse_17.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/green_circle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/red_circle.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" afterDir="false" />
@@ -59,19 +58,9 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/BottomNavigationViewHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/BottomNavigationViewHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/ScrollingActivitytest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/fridge.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/fridge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_scrolling_activitytest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_scrolling.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fridge_scrolling.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_fridge.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_fridge.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/fridge_dialog.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fridge_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fridge_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/add_item_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/add_item_menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/style.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/style.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,6 +98,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectId" id="1jVAx0MvidTum1l2RdPJJSnLNMI" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -118,7 +108,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_2_API_27" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-12-19T12:08:08.935Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-12-19T14:29:45.580Z" />
     <property name="ResourceManagerPrefKey.ResourceType" value="INTEGER" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -265,7 +255,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607335072422</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="virtual fridge front-end.">
+      <created>1608380546748</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1608380546748</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -287,7 +284,8 @@
     <MESSAGE value="Added Confirm Password field in Register screen&#10;Added borders to edit_text fields" />
     <MESSAGE value="kcal screen front-end" />
     <MESSAGE value="kcal screen front-end update; virtual fridge in progress." />
-    <option name="LAST_COMMIT_MESSAGE" value="kcal screen front-end update; virtual fridge in progress." />
+    <MESSAGE value="virtual fridge front-end." />
+    <option name="LAST_COMMIT_MESSAGE" value="virtual fridge front-end." />
   </component>
   <component name="WindowStateProjectService">
     <state x="770" y="216" key="#Auto_Import" timestamp="1607946080154">
@@ -340,35 +338,35 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="540" y="230" key="AndroidThemeDialog/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604044873684" />
-    <state x="565" y="116" width="745" height="855" key="CommitChangelistDialog2" timestamp="1607335071406">
+    <state x="565" y="116" width="745" height="855" key="CommitChangelistDialog2" timestamp="1608382647439">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="565" y="116" width="745" height="855" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1607335071406" />
-    <state x="740" y="280" key="FileChooserDialogImpl" timestamp="1606848584662">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="565" y="116" width="745" height="855" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1608382647439" />
+    <state x="740" y="288" key="FileChooserDialogImpl" timestamp="1608387105828">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="740" y="280" key="FileChooserDialogImpl/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1606848584662" />
-    <state x="740" y="288" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1604603104935" />
-    <state width="1877" height="99" key="GridCell.Tab.0.bottom" timestamp="1608379726222">
+    <state x="740" y="288" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1608387105828" />
+    <state width="1877" height="99" key="GridCell.Tab.0.bottom" timestamp="1608388077068">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1876" height="285" key="GridCell.Tab.0.bottom/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1606868550469" />
-    <state width="1877" height="99" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1608379726222" />
-    <state width="1877" height="99" key="GridCell.Tab.0.center" timestamp="1608379726222">
+    <state width="1877" height="99" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1608388077068" />
+    <state width="1877" height="99" key="GridCell.Tab.0.center" timestamp="1608388077068">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1876" height="285" key="GridCell.Tab.0.center/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1606868550469" />
-    <state width="1877" height="99" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1608379726222" />
-    <state width="1877" height="99" key="GridCell.Tab.0.left" timestamp="1608379726221">
+    <state width="1877" height="99" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1608388077068" />
+    <state width="1877" height="99" key="GridCell.Tab.0.left" timestamp="1608388077068">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1876" height="285" key="GridCell.Tab.0.left/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1606868550469" />
-    <state width="1877" height="99" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1608379726221" />
-    <state width="1877" height="99" key="GridCell.Tab.0.right" timestamp="1608379726222">
+    <state width="1877" height="99" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1608388077068" />
+    <state width="1877" height="99" key="GridCell.Tab.0.right" timestamp="1608388077068">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1876" height="285" key="GridCell.Tab.0.right/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1606868550469" />
-    <state width="1877" height="99" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1608379726222" />
+    <state width="1877" height="99" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1608388077068" />
     <state width="1876" height="285" key="GridCell.Tab.1.bottom" timestamp="1606868550470">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -385,24 +383,28 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state width="1876" height="285" key="GridCell.Tab.1.right/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1606868550469" />
-    <state x="701" y="235" key="RollbackChangesDialog" timestamp="1606864550325">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="701" y="242" key="RollbackChangesDialog" timestamp="1608382658704">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="701" y="235" key="RollbackChangesDialog/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1606864550325" />
-    <state x="701" y="242" key="RollbackChangesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1604606873998" />
+    <state x="701" y="242" key="RollbackChangesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1608382658704" />
     <state x="211" y="103" width="998" height="708" key="SettingsEditor" timestamp="1604526359888">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="211" y="100" width="998" height="708" key="SettingsEditor/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604435998558" />
     <state x="211" y="103" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1604526359888" />
-    <state x="418" y="289" key="Vcs.Push.Dialog.v2" timestamp="1607335078002">
+    <state x="418" y="289" key="Vcs.Push.Dialog.v2" timestamp="1608380578000">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="418" y="289" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1607335078002" />
+    <state x="418" y="289" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1608380578000" />
     <state x="662" y="334" key="com.android.tools.idea.run.deployment.ModifyDeviceSetDialog" timestamp="1603888603524">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="662" y="334" key="com.android.tools.idea.run.deployment.ModifyDeviceSetDialog/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1603888603524" />
+    <state x="722" y="481" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1608382453570">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="722" y="481" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1080@0.0.1920.1080" timestamp="1608382453570" />
     <state x="529" y="254" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1606865223210">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
