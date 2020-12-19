@@ -35,7 +35,7 @@ public class BottomNavigationViewHelper {
                         context.startActivity(intent4);
                         break;
                     case R.id.fridge:
-                        Intent intent5 = new Intent(context, fridge.class);
+                        Intent intent5 = new Intent(context, ScrollingActivitytest.class);
                         intent5.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         context.startActivity(intent5);
                         break;

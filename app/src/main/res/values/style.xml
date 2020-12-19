@@ -4,9 +4,4 @@
         <item name="colorAccent">#5fff26</item> <!-- Whatever color you want-->
     </style>
 
-    <style name="CalenderViewCustom" parent="Theme.AppCompat">
-        <item name="colorAccent">@color/secondary</item>
-        <item name="colorPrimary">@color/white</item>
-    </style>
-
 </resources>

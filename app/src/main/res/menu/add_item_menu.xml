@@ -1,12 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.stemfit3.fridge"
-    >
+    tools:context="com.example.stemfit3.ScrollingActivitytest">
     <item
         android:id="@+id/add_item"
         android:orderInCategory="100"
         android:title="Add new item to fridge"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never" />
 </menu>

@@ -1,99 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".fridge">
+    tools:context=".Settings">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="176dp"
-        android:fitsSystemWindows="true"
-        android:theme="@style/Theme.StemFit3.AppBarOverlay"
-        app:layout_anchor="@+id/app_bar"
-        app:layout_anchorGravity="center">
+    <!-- TODO: Update blank fragment layout -->
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Virtual fridge"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="50sp" />
+    <include layout="@layout/layout_bottom_nav_view" />
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="2020-11-01"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="8:35 PM"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="3 items are expirering soon!"
-            android:textAlignment="center"
-            android:textColor="#ff0000" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <include
-        android:id="@+id/include"
-        layout="@layout/fridge_scrolling"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="177dp"
-        android:layout_marginBottom="60dp"/>
-
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        layout="@layout/layout_bottom_nav_view" />
-
-    <View
-        android:id="@+id/That_green_line"
-        android:layout_width="match_parent"
-        android:layout_height="7dp"
-        android:background="#5fff26"
-        app:layout_anchor="@+id/app_bar"
-        app:layout_anchorGravity="bottom|center" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="84dp"
-        android:backgroundTint="#5fff26"
-        android:clickable="true"
-        android:focusable="true"
-        android:onClick="fridgeMenu"
-        app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="end|bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:menu="@menu/add_item_menu"
-        app:srcCompat="@drawable/ic_baseline_add_24" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
