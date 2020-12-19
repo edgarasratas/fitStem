@@ -12,7 +12,7 @@
         <activity android:name=".ChangePassword" />
         <activity android:name=".UserInfo" />
         <activity
-            android:name=".ScrollingActivitytest"
+            android:name=".fridge"
             android:label="@string/title_activity_scrolling_activitytest"
             android:theme="@style/Theme.StemFit3.NoActionBar" />
         <activity android:name=".Register" />
@@ -20,7 +20,6 @@
         <activity android:name=".Settings" />
         <activity android:name=".water" />
         <activity android:name=".sleep" />
-        <activity android:name=".fridge" />
         <activity android:name=".LogIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
