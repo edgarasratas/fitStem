@@ -36,12 +36,11 @@
             android:textColor="@color/white"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/textView7"
+        <android.widget.DigitalClock
+            android:id="@+id/fridgeClock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="8:35 PM"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="18sp" />
