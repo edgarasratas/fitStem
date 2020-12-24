@@ -18,28 +18,27 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024" />
+        app:layout_constraintVertical_bias="0.009" />
 
     <EditText
         android:id="@+id/fridgeItemName"
-        android:layout_width="181dp"
-        android:layout_height="38dp"
+        android:layout_width="177dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="123dp"
         android:layout_marginLeft="123dp"
         android:layout_marginEnd="124dp"
         android:layout_marginRight="124dp"
         android:background="@drawable/edit_text_border"
         android:gravity="center_horizontal"
-        android:hint="Item name"
         android:textAlignment="center"
         android:textColor="@color/white"
+        android:padding="5dp"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.101" />
+        app:layout_constraintVertical_bias="0.093" />
 
     <Button
         android:id="@+id/addMealButton"
@@ -55,7 +54,6 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.893" />
@@ -65,11 +63,39 @@
         android:layout_width="303dp"
         android:layout_height="298dp"
         android:background="@drawable/edit_text_border"
+        android:theme="@style/CalenderViewCustom"
         app:layout_constraintBottom_toTopOf="@+id/addMealButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fridgeItemName"
-        app:layout_constraintVertical_bias="0.578"
-        android:theme="@style/CalenderViewCustom"/>
+        app:layout_constraintVertical_bias="0.628" />
+
+    <TextView
+        android:id="@+id/itemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item name"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/fridgeItemName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.818" />
+
+    <TextView
+        android:id="@+id/Exp."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item expiring on:"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/calendarView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.206"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fridgeItemName"
+        app:layout_constraintVertical_bias="0.482" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
