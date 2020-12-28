@@ -55,13 +55,24 @@
         app:layout_constraintVertical_bias="0.524"
         android:gravity="center" />
 
+    <CheckBox
+        android:id="@+id/rememberMe"
+        android:layout_width="135dp"
+        android:layout_height="44dp"
+        android:text="Remember me"
+        android:buttonTint="@color/secondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="openMain"
         app:cardBackgroundColor="#5fff26"
         app:cardCornerRadius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -98,7 +109,6 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="register"
         android:text="Don't have an account?"
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -106,5 +116,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
         app:layout_constraintVertical_bias="0.131" />
+
+    <TextView
+        android:id="@+id/forgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Forgot your password?"
+        android:onClick="forgotPassword"
+        android:textColor="#fff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.284" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
