@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.text.CaseMap;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -108,13 +109,26 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener{
         }
     }
     private void logIn(String email, String pass){
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = currentUser.getUid();
+
+        SharedPreferences sharedPreferencesFirstTime = getSharedPreferences(uid, MODE_PRIVATE);
+        boolean firstTimeMessage = sharedPreferencesFirstTime.getBoolean(uid, true);
+
         mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if(user.isEmailVerified()){
-                        startActivity(new Intent(LogIn.this,Settings.class));
+                        if(!firstTimeMessage) {
+                            firstTime();
+                            startActivity(new Intent(LogIn.this, UserInfoRegister.class));
+                        }
+                        else {
+                            startActivity(new Intent(LogIn.this,Settings.class));
+                        }
                     }
                     else {
                         user.sendEmailVerification();
@@ -191,7 +205,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener{
             public void onClick(DialogInterface dialog, int which) {
 
             }
-
         });
 
         builder.setPositiveButton("Send", null);
@@ -236,6 +249,20 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener{
                 });
             }
         });
+    }
+
+    public void openUserInfoRegister(View v) {
+        Intent intent = new Intent(this, UserInfoRegister.class);
+        startActivity(intent);
+    }
+
+    private void firstTime() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = currentUser.getUid();
+        SharedPreferences sharedPreferencesFirstTime = getSharedPreferences(uid, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferencesFirstTime.edit();
+        editor.putBoolean(uid, false);
+        editor.apply();
     }
 }
 

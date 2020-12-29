@@ -11,6 +11,7 @@
         android:theme="@style/Theme.StemFit3">
         <activity android:name=".ChangePassword" />
         <activity android:name=".UserInfo" />
+        <activity android:name=".UserInfoRegister"/>
         <activity
             android:name=".fridge"
             android:label="@string/title_activity_scrolling_activitytest"

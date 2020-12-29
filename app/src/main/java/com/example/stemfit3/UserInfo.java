@@ -1,5 +1,6 @@
 package com.example.stemfit3;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,9 +10,11 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -24,10 +27,16 @@ import android.widget.Toast;
 
 import android.widget.EditText;
 
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -44,16 +53,15 @@ public class UserInfo extends AppCompatActivity {
     private Button mSave, mBack;
     private DatabaseReference mDatabase;
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-    String uid;
+    String uid = currentUser.getUid();
 
-    public static final String SHARED_PREFS = "sharedPrefs";
     public static final String AGE = "Age";
     public static final String GENDER = "Gender";
     public static final String HEIGHT = "Height";
     public static final String WEIGHT = "Weight";
 
     private String Age;
-    private String Gender;
+    private int Gender;
     private String Height;
     private String Weight;
 
@@ -65,7 +73,7 @@ public class UserInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
 
-        LastSelect = getSharedPreferences("LastSetting", Context.MODE_PRIVATE);
+        LastSelect = getSharedPreferences(uid, Context.MODE_PRIVATE);
         editor = LastSelect.edit();
 
         final int LastClick = LastSelect.getInt("LastClick", 0);
@@ -95,6 +103,9 @@ public class UserInfo extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             saveData();
+
+                            mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
+                            uid = currentUser.getUid();
 
                             String Age = editAge.getText().toString();
                             if(Age.isEmpty()) {
@@ -147,50 +158,47 @@ public class UserInfo extends AppCompatActivity {
             });
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
-
         uid = currentUser.getUid();
-
-        editGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int checkedRadioButtonId = editGender.getCheckedRadioButtonId();
-                String text = editMale.getText().toString();
-            }
-        });
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        int checkedRadioButtonId = sharedPreferences.getInt("checkedRadioButtonId", R.id.radioGenderGroup);
-        int selectedItemPosition = editActivity.getSelectedItemPosition();
 
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String newAge = editAge.getText().toString();
-                int checkedRadioButtonIdNew = editGender.getCheckedRadioButtonId();
                 String newHeight = editHeight.getText().toString();
                 String newWeight = editWeight.getText().toString();
                 int selectedItemPositionNew = editActivity.getSelectedItemPosition();
-                if((!Age.equals(newAge)) || (checkedRadioButtonId != checkedRadioButtonIdNew) || (!Height.equals(newHeight) || (!Weight.equals(newWeight)) || (selectedItemPosition != selectedItemPositionNew))) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(UserInfo.this);
-                        builder.setTitle("Are you sure?");
-                        builder.setMessage("You have some unsaved changes");
-                        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                        builder.setPositiveButton("Discard", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                exitUserInfo(v);
-                            }
-                        });
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                }
-                else {
-                    exitUserInfo(v);
-                }
+
+                mDatabase.child(uid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String ageStr = snapshot.child("Age").getValue().toString();
+                        String genderStr = snapshot.child("Gender").getValue().toString();
+                        String heightStr = snapshot.child("Height").getValue().toString();
+                        String weightStr = snapshot.child("Weight").getValue().toString();
+                        String activityStr = snapshot.child("Activity").getValue().toString();
+                        String genderNew = null;
+
+                        if(editMale.isChecked())
+                            genderNew = editMale.getText().toString();
+                        else if(editFemale.isChecked())
+                            genderNew = editFemale.getText().toString();
+
+                        String activityString = editActivity.getSelectedItem().toString();
+
+                        if(!ageStr.equals(newAge) || (!genderStr.equals(genderNew)) || (!heightStr.equals(newHeight) || (!weightStr.equals(newWeight)) || (!activityStr.equals(activityString)))) {
+                            unsavedChangesDialog(v);
+                        }
+                        else {
+                            exitUserInfo(v);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
 
         });
@@ -200,13 +208,13 @@ public class UserInfo extends AppCompatActivity {
     }
 
     public void saveData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(uid, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+
 
         editor.putString(AGE, editAge.getText().toString());
 
-        int checkedRadioButtonId = editGender.getCheckedRadioButtonId();
-        editor.putInt("checkedRadioButtonId", checkedRadioButtonId);
+        editor.putInt(GENDER, editGender.getCheckedRadioButtonId());
 
         editor.putString(HEIGHT, editHeight.getText().toString());
         editor.putString(WEIGHT, editWeight.getText().toString());
@@ -216,21 +224,44 @@ public class UserInfo extends AppCompatActivity {
     }
 
     public void loadData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(uid, MODE_PRIVATE);
+
+
         Age = sharedPreferences.getString(AGE, "");
 
-        int checkedRadioButtonId = sharedPreferences.getInt("checkedRadioButtonId", R.id.radioGenderGroup);
-        this.editGender.check(checkedRadioButtonId);
+        Gender = sharedPreferences.getInt(GENDER, 0);
 
         Height = sharedPreferences.getString(HEIGHT, "");
         Weight = sharedPreferences.getString(WEIGHT, "");
-
     }
 
     public void updateViews() {
         editAge.setText(Age);
         editHeight.setText(Height);
         editWeight.setText(Weight);
+        editGender.check(Gender);
+    }
+
+    public void unsavedChangesDialog(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(UserInfo.this);
+        builder.setTitle("Are you sure?");
+        builder.setMessage("You have some unsaved changes");
+        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                exitUserInfo(v);
+            }
+        });
+        AlertDialog dialog = builder.create();
+        if(!isFinishing()) {
+            dialog.show();
+        }
     }
 
     public void exitUserInfo(View v){
