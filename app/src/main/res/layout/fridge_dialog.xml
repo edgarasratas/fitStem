@@ -41,7 +41,7 @@
         app:layout_constraintVertical_bias="0.093" />
 
     <Button
-        android:id="@+id/addMealButton"
+        android:id="@+id/addItemButton"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -59,19 +59,18 @@
         app:layout_constraintVertical_bias="0.893" />
 
     <CalendarView
-        android:id="@+id/calendarView"
+        android:id="@+id/itemExpDate"
         android:layout_width="303dp"
         android:layout_height="298dp"
         android:background="@drawable/edit_text_border"
         android:theme="@style/CalenderViewCustom"
-        app:layout_constraintBottom_toTopOf="@+id/addMealButton"
+        app:layout_constraintBottom_toTopOf="@+id/addItemButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fridgeItemName"
         app:layout_constraintVertical_bias="0.628" />
 
     <TextView
-        android:id="@+id/itemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Item name"
@@ -84,13 +83,12 @@
         app:layout_constraintVertical_bias="0.818" />
 
     <TextView
-        android:id="@+id/Exp."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Item expiring on:"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/calendarView"
+        app:layout_constraintBottom_toTopOf="@+id/itemExpDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.206"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="320dp">
+
+    <Button
+        android:id="@+id/button250ml"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="250ml"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/button500ml"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="500ml"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/button1000ml"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="1000ml"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:id="@+id/button1500ml"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="1500ml"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/button2000ml"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="2000ml"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

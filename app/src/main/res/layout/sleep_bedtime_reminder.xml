@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="500dp"
+    android:minWidth="300dp"
+    android:padding="5dp">
+
+    <TextView
+        android:layout_width="367dp"
+        android:layout_height="65dp"
+        android:gravity="center_horizontal"
+        android:text="Choose which days you want a bedtime reminder:"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.027" />
+
+    <View
+        android:id="@+id/That_green_line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#5fff26"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.168" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutSleepSwitch"
+        android:layout_width="359dp"
+        android:layout_height="84dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.29">
+
+        <ToggleButton
+            android:id="@+id/Mon"
+            style="@style/toggleButton"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="M"
+            android:textOn="M"
+            android:textSize="30sp" />
+
+        <ToggleButton
+            android:id="@+id/Tue"
+            style="@style/toggleButton"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="T"
+            android:textOn="T"
+            android:textSize="30sp" />
+
+        <ToggleButton
+            android:id="@+id/Wed"
+            style="@style/toggleButton"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="W"
+            android:textOn="W"
+            android:textSize="30sp" />
+
+        <ToggleButton
+            android:id="@+id/Thu"
+            style="@style/toggleButton"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="T"
+            android:textOn="T"
+            android:textSize="30sp" />
+
+        <ToggleButton
+            android:id="@+id/Fri"
+            style="@style/toggleButton"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="F"
+            android:textOn="F"
+            android:textSize="30sp" />
+
+        <ToggleButton
+            android:id="@+id/Sat"
+            style="@style/toggleButton"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="S"
+            android:textOn="S"
+            android:textSize="30sp" />
+
+        <ToggleButton
+            android:id="@+id/Sun"
+            style="@style/toggleButton"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/toggle_bg"
+            android:textOff="S"
+            android:textOn="S"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="345dp"
+        android:layout_height="75dp"
+        android:gravity="center_horizontal"
+        android:text="Choose when do you want to be reminded:"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <NumberPicker
+        android:id="@+id/reminderPickerSleep"
+        android:layout_width="282dp"
+        android:layout_height="138dp"
+        android:background="@drawable/button_border"
+        android:theme="@style/NumberPickerText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.89" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

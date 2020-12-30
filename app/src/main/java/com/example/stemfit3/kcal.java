@@ -182,7 +182,7 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
 
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent(this, LogIn.class);
+        Intent intent = new Intent(this, Settings.class);
         finish();
         startActivity(intent);
     }

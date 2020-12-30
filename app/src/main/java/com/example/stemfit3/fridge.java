@@ -1,6 +1,7 @@
 package com.example.stemfit3;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -38,10 +39,9 @@ public class fridge extends AppCompatActivity implements PopupMenu.OnMenuItemCli
         MenuItem menuItem = menu.getItem(4);
         menuItem.setChecked(true);
     }
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     public void fridgeMenu(View v) {
         PopupMenu popup = new PopupMenu(this, v);
-        popup.setGravity(Gravity.END);
         popup.setOnMenuItemClickListener(this);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.add_item_menu, popup.getMenu());
@@ -73,12 +73,20 @@ public class fridge extends AppCompatActivity implements PopupMenu.OnMenuItemCli
     public void addItem(View v){
         LinearLayout myRoot = (LinearLayout) findViewById(R.id.fridgecontent);
         LayoutInflater inf = LayoutInflater.from(this);
-        View child;
-        child = inf.inflate(R.layout.fridge_item, null);
+        View fridgeItem;
+        fridgeItem = inf.inflate(R.layout.fridge_item, null);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int)(285 * getResources().getDisplayMetrics().density), (int)(140 * getResources().getDisplayMetrics().density));
         params.setMargins(0, (int)(30* getResources().getDisplayMetrics().density), 0, 0);
-        child.setLayoutParams(params);
-        myRoot.addView(child);
+        fridgeItem.setLayoutParams(params);
+        myRoot.addView(fridgeItem);
         dialog.dismiss();
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(this, Settings.class);
+        finish();
+        startActivity(intent);
+    }
+
 }
