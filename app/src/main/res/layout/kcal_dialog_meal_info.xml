@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:minHeight="500dp">
+
 
     <View
         android:id="@+id/That_green_line"
@@ -16,14 +18,12 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.06" />
-
+        app:layout_constraintVertical_bias="0.024" />
 
     <TextView
         android:id="@+id/mealNameInfo"
         android:layout_width="248dp"
         android:layout_height="49dp"
-        android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
         android:hint="custom meal"
         android:maxWidth="250dp"
@@ -32,11 +32,12 @@
         android:padding="5dp"
         android:textAlignment="center"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/mealCaloriesInfo"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/That_green_line" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.047" />
 
     <TextView
         android:id="@+id/mealCaloriesInfo"
@@ -44,32 +45,51 @@
         android:layout_height="43dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_border"
+        android:gravity="center_horizontal"
         android:hint="calorie count"
         android:maxWidth="250dp"
         android:minWidth="150dp"
         android:minHeight="35dp"
         android:padding="5dp"
-        android:textSize="25sp"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/ingredientListInfo"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mealNameInfo"
-        android:gravity="center_horizontal" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:padding="6dp"
         android:id="@+id/ingredientListInfo"
         android:layout_width="300dp"
         android:layout_height="250dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/edit_text_border"
         android:hint="Ingredient List"
+        android:padding="6dp"
         android:textSize="20sp"
-        android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mealCaloriesInfo"
-/>
+        app:layout_constraintVertical_bias="0.166" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/removeMealButton"
+        android:layout_width="187dp"
+        android:layout_height="46dp"
+        android:background="@drawable/round_button"
+        android:backgroundTint="#ff0000"
+        android:text="Remove meal"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.973" />
 </androidx.constraintlayout.widget.ConstraintLayout>
