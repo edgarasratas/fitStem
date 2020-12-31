@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".kcal">
+    tools:context="com.example.stemfit3.kcal">
 
 
     <TextView
+        android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
@@ -61,87 +62,47 @@
         app:menu="@menu/kcal_menu"
         app:srcCompat="@drawable/ic_baseline_add_24" />
 
-    <include layout="@layout/layout_bottom_nav_view" />
+    <include
+        android:id="@+id/include2"
+        layout="@layout/layout_bottom_nav_view" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/customMealButton1"
-        android:layout_width="257dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_border"
-        android:text="custom meal 1  8:00 am"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/customMealButton2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/That_green_line"
-        app:layout_constraintVertical_bias="0.0"
-        android:clickable="true"
-        android:onClick="onClickMeal"
-        android:focusable="true" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/customMealButton2"
-        android:layout_width="257dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_border"
-        android:text="custom meal 2  8:00 am"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customMealButton1"
-        app:layout_constraintBottom_toTopOf="@+id/customMealButton3"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="246dp"
-        android:clickable="true"
-        android:onClick="onClickMeal"
-        android:focusable="true" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/customMealButton3"
-        android:layout_width="257dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_border"
-        android:text="custom meal 3  8:00 am"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/customMealButton4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customMealButton2"
-        android:clickable="true"
-        android:onClick="onClickMeal"
-        android:focusable="true" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/customMealButton4"
-        android:layout_width="257dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_border"
-        android:text="custom meal 4  8:00 am"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/customMealButton3"
-        app:layout_constraintBottom_toTopOf="@+id/customMealButton5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="392dp"
-        android:clickable="true"
-        android:onClick="onClickMeal"
-        android:focusable="true" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/customMealButton5"
-        android:layout_width="257dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="130dp"
-        android:background="@drawable/button_border"
-        android:text="custom meal 5  8:00 am"
-        android:textSize="20sp"
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="315dp"
+        android:layout_height="530dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customMealButton4"
-        app:layout_constraintVertical_bias="0.973"
-        android:clickable="true"
-        android:onClick="onClickMeal"
-        android:focusable="true" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.63">
 
+        <LinearLayout
+            android:id="@+id/mealButtonsLayout"
+            android:layout_width="343dp"
+            android:layout_height="479dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/That_green_line"></LinearLayout>
+    </ScrollView>
+
+
+    <!--    <androidx.appcompat.widget.AppCompatButton-->
+    <!--        android:id="@+id/customMealButton5"-->
+    <!--        android:layout_width="257dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginBottom="130dp"-->
+    <!--        android:background="@drawable/button_border"-->
+    <!--        android:text="custom meal 5  8:00 am"-->
+    <!--        android:textSize="20sp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/customMealButton4"-->
+    <!--        app:layout_constraintVertical_bias="0.973"-->
+    <!--        android:clickable="true"-->
+    <!--        android:onClick="onClickMeal"-->
+    <!--        android:focusable="true" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

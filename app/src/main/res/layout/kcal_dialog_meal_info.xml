@@ -58,18 +58,19 @@
         android:gravity="center_horizontal" />
 
     <TextView
-        android:padding="6dp"
         android:id="@+id/ingredientListInfo"
         android:layout_width="300dp"
         android:layout_height="250dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/edit_text_border"
         android:hint="Ingredient List"
+        android:padding="6dp"
         android:textSize="20sp"
-        android:layout_marginBottom="30dp"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mealCaloriesInfo"
-/>
+        app:layout_constraintTop_toBottomOf="@+id/mealCaloriesInfo" />
 </androidx.constraintlayout.widget.ConstraintLayout>
