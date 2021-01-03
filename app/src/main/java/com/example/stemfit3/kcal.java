@@ -52,6 +52,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -210,10 +211,11 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                                                 BMR = (10*weight+6.25*height-5*age -161)*2.4;
                                             }
                                         }
-                                        neededCal.child("UserInfo").child(uId).child("neededCal").setValue(String.valueOf(BMR));
-                                tempText.setText(String.valueOf(getTotalCal)+"/"+String.valueOf(BMR));
-
-                                }
+                                DecimalFormat df = new DecimalFormat("#");
+                                        String tempFormat  =df.format(BMR);
+                                neededCal.child("UserInfo").child(uId).child("neededCal").setValue(tempFormat);
+                                tempText.setText(String.valueOf(getTotalCal)+"/"+tempFormat);
+                            }
 
                                 @Override
                             public void onCancelled(@NonNull DatabaseError error) {
