@@ -281,7 +281,9 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                             a++;
                             myDatabase.child("mealCount").setValue(a);
                             finish();
-                            startActivity(getIntent());
+                            dialog.dismiss();
+                            Intent intent = new Intent(getApplicationContext(),kcal.class);
+                            startActivity(intent);
                         }
                     });
                     count++;

@@ -36,6 +36,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     public FirebaseAuth mAuth;
     public CardView register;
     public TextView account;
+    public Username username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +80,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     private void registerUser() {
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
-        String username = usernameEditText.getText().toString().trim();
+        username =new Username(usernameEditText.getText().toString().trim());
         String confirm = confirmPassEditText.getText().toString().trim();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Usernames");
@@ -90,7 +91,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                     if(username.equals(snapshot.getValue().toString())){
                         usernameEditText.setError("Username is taken");
                         return;
+                    }else{
+                        reference.setValue(username);
                     }
+
             }
 
             @Override
@@ -107,7 +111,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             passwordEditText.requestFocus();
             return;
         }
-        if(username.isEmpty()){
+        if(usernameEditText.getText().toString().trim().isEmpty()){
             usernameEditText.setError("Username is required");
             usernameEditText.requestFocus();
             return;
@@ -131,9 +135,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    User user = new User(username,email);
+                    User user = new User(usernameEditText.getText().toString().trim(),email);
                     FirebaseUser newUser = FirebaseAuth.getInstance().getCurrentUser();
-                    FirebaseDatabase.getInstance().getReference("Usernames").child(username);
                     FirebaseDatabase.getInstance().getReference("Users")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {

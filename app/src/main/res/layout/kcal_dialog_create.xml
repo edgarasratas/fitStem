@@ -38,6 +38,7 @@
 
 
     <EditText
+        android:digits ="0123456789qwertzuiopasdfghjklyxcvbnm"
         android:id="@+id/mealName"
         android:layout_width="177dp"
         android:layout_height="wrap_content"
@@ -122,6 +123,7 @@
         app:layout_constraintVertical_bias="0.179">
 
         <EditText
+            android:digits ="0123456789qwertzuiopasdfghjklyxcvbnm"
             android:id="@+id/ingredient"
             android:layout_width="177dp"
             android:layout_height="wrap_content"
@@ -135,6 +137,7 @@
             android:textSize="22sp" />
 
         <EditText
+            android:digits ="0123456789"
             android:id="@+id/ingredientCount"
             android:layout_width="49dp"
             android:layout_height="wrap_content"

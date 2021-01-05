@@ -140,8 +140,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener{
             }});
     }
     private void userLogin() {
-
-
         Log.w("kek","1");
         nickName = emailEditText.getText().toString().trim();
         password = passwordEditText.getText().toString().trim();

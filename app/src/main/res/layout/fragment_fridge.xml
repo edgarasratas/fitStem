@@ -49,8 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="3 items are expirering soon!"
-            android:textAlignment="center"
+           android:textAlignment="center"
             android:textColor="#ff0000" />
 
     </com.google.android.material.appbar.AppBarLayout>

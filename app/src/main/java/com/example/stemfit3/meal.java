@@ -7,6 +7,7 @@ public class meal {
     public int totalKcal;
     public int mealCount;
     public List<ingredient> ingredients;
+
     public meal(String mealName,int totalKcal, List<ingredient> ingredients){
         this.totalKcal = totalKcal;
         this.mealName = mealName;
