@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.057" />
 
     <EditText
-        android:digits ="0123456789qwertzuiopasdfghjklyxcvbnm"
+        android:digits ="0123456789qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
         android:id="@+id/usernameRegister"
         android:layout_width="210dp"
         android:layout_height="50dp"
@@ -40,7 +40,7 @@
         app:layout_constraintVertical_bias="0.779" />
 
     <EditText
-        android:digits ="0123456789qwertzuiopasdfghjklyxcvbnm"
+        android:digits ="0123456789qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
         android:id="@+id/emailRegister"
         android:layout_width="210dp"
         android:layout_height="50dp"
@@ -60,7 +60,7 @@
         app:layout_constraintVertical_bias="0.888" />
 
     <EditText
-        android:digits ="0123456789qwertzuiopasdfghjklyxcvbnm"
+        android:digits ="0123456789qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
         android:id="@+id/passwordRegister"
         android:layout_width="210dp"
         android:layout_height="50dp"
@@ -78,7 +78,7 @@
         app:layout_constraintVertical_bias="0.596" />
 
     <EditText
-        android:digits ="0123456789qwertzuiopasdfghjklyxcvbnm"
+        android:digits ="0123456789qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
         android:id="@+id/confirmPasswordRegister"
         android:layout_width="210dp"
         android:layout_height="50dp"
