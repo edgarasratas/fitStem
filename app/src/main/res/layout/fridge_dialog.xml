@@ -24,7 +24,7 @@
         android:id="@+id/fridgeItemName"
         android:layout_width="177dp"
         android:inputType="text"
-        android:digits ="0123456789qwertzuiopasdfghjklyxcvbnm"
+        android:digits ="0123456789qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
         android:layout_height="wrap_content"
         android:layout_marginStart="123dp"
         android:layout_marginLeft="123dp"

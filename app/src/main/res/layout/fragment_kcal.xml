@@ -12,7 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:text="1946/2000"
         android:textColor="@color/white"
         android:textSize="37sp"
         app:layout_constraintBottom_toTopOf="@+id/progressBar2"

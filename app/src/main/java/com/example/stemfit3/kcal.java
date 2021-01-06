@@ -179,48 +179,44 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                                         height = Integer.parseInt(snapshot.child("Height").getValue().toString());
                                         weight = Integer.parseInt(snapshot.child("Weight").getValue().toString());
                                         age = Integer.parseInt(snapshot.child("Age").getValue().toString());
-                                        if(snapshot.child("Gender").getValue().toString().equals("Male")){
-                                            if(snapshot.child("Activity").getValue().toString().equals("Sedentary: little or no exercise")){
-                                                BMR = (10*weight+6.25*height-5*age +5)*1.4;
-                                            }
-                                            else if(snapshot.child("Activity").getValue().toString().equals("Light: exercise 1-3/week")){
-                                                BMR = (10*weight+6.25*height-5*age +5)*1.69;
+                                if(snapshot.child("Gender").getValue().toString().equals("Male")){
+                                    if(snapshot.child("Activity").getValue().toString().equals("Sedentary: little or no exercise")){
+                                        BMR = (10*weight+6.25*height-5*age +5)*1.2;
+                                    }
+                                    else if(snapshot.child("Activity").getValue().toString().equals("Light: exercise 1-3/week")){
+                                        BMR = (10*weight+6.25*height-5*age +5)*1.375;
 
-                                            }
-                                            else if(snapshot.child("Activity").getValue().toString().equals("Active: intense exercise 3-4/week")){
-                                                BMR =( 10*weight+6.25*height-5*age +5)*1.8;
-                                            }
-                                            else if(snapshot.child("Activity").getValue().toString().equals("Moderate: exercise 4-5/week")){
-                                                BMR = (10*weight+6.25*height-5*age +5)*1.99;
-                                            }
-                                            else if(snapshot.child("Activity").getValue().toString().equals("Very active: intense exercise 6-7/week")){
-                                                BMR = (10*weight+6.25*height-5*age +5)*2.1;
-                                            }
-                                            else if(snapshot.child("Activity").getValue().toString().equals("Extra active: very intense exercise daily")){
-                                                BMR = (10*weight+6.25*height-5*age +5)*2.4;
-                                            }
-                                        }
-                                        else{
-                                            if(snapshot.child("Activity").getValue().toString().equals("Sedentary: little or no exercise")){
-                                                BMR = (10*weight+6.25*height-5*age -161)*1.4;
-                                            }
-                                            else if(snapshot.child("Activity").getValue().toString().equals("Light: exercise 1-3/week")){
-                                                BMR = (10*weight+6.25*height-5*age -161)*1.69;
+                                    }
+                                    else if(snapshot.child("Activity").getValue().toString().equals("Active: intense exercise 3-4/week")){
+                                        BMR =( 10*weight+6.25*height-5*age +5)*1.5;
+                                    }
+                                    else if(snapshot.child("Activity").getValue().toString().equals("Moderate: exercise 4-5/week")){
+                                        BMR = (10*weight+6.25*height-5*age +5)*1.6;
+                                    }
+                                    else if(snapshot.child("Activity").getValue().toString().equals("Very active: intense exercise 6-7/week")){
+                                        BMR = (10*weight+6.25*height-5*age +5)*1.725;
+                                    }
+                                    else if(snapshot.child("Activity").getValue().toString().equals("Extra active: very intense exercise daily")){
+                                        BMR = (10*weight+6.25*height-5*age +5)*1.9;
+                                    }
+                                }
+                                else {
+                                    if (snapshot.child("Activity").getValue().toString().equals("Sedentary: little or no exercise")) {
+                                        BMR = (10 * weight + 6.25 * height - 5 * age - 161) * 1.2;
+                                    } else if (snapshot.child("Activity").getValue().toString().equals("Light: exercise 1-3/week")) {
+                                        BMR = (10 * weight + 6.25 * height - 5 * age - 161) * 1.375;
 
-                                            }
-                                            else if(snapshot.child("Activity").getValue().toString().equals("Active: intense exercise 3-4/week")){
-                                                BMR =( 10*weight+6.25*height-5*age -161)*1.8;
-                                            }
-                                            else if(snapshot.child("Activity").getValue().toString().equals("Moderate: exercise 4-5/week")){
-                                                BMR = (10*weight+6.25*height-5*age -161)*1.99;
-                                            }
-                                            else if(snapshot.child("Activity").getValue().toString().equals("Very active: intense exercise 6-7/week")){
-                                                BMR = (10*weight+6.25*height-5*age -161)*2.1;
-                                            }
-                                            else if(snapshot.child("Activity").getValue().toString().equals("Extra active: very intense exercise daily")){
-                                                BMR = (10*weight+6.25*height-5*age -161)*2.4;
-                                            }
-                                        }
+                                    } else if (snapshot.child("Activity").getValue().toString().equals("Active: intense exercise 3-4/week")) {
+                                        BMR = (10 * weight + 6.25 * height - 5 * age - 161) * 1.5;
+                                    } else if (snapshot.child("Activity").getValue().toString().equals("Moderate: exercise 4-5/week")) {
+                                        BMR = (10 * weight + 6.25 * height - 5 * age - 161) * 1.6;
+                                    } else if (snapshot.child("Activity").getValue().toString().equals("Very active: intense exercise 6-7/week")) {
+                                        BMR = (10 * weight + 6.25 * height - 5 * age - 161) * 1.725;
+                                    } else if (snapshot.child("Activity").getValue().toString().equals("Extra active: very intense exercise daily")) {
+                                        BMR = (10 * weight + 6.25 * height - 5 * age - 161) * 1.9;
+                                    }
+                                }
+
                                 DecimalFormat df = new DecimalFormat("#");
                                         String tempFormat  =df.format(BMR);
                                 neededCal.child("UserInfo").child(uId).child("neededCal").setValue(tempFormat);
