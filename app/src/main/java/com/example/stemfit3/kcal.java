@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -19,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -141,6 +143,14 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                                     newBtn = new Button(linearLayout.getContext());
                                     newBtn.setText(snapshot.getKey());
                                     newBtn.setId(count);
+                                    newBtn.setTextSize(20);
+                                    newBtn.setBackground(ContextCompat.getDrawable(kcal.this, R.drawable.button_border));
+                                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                            (int)(290 * getResources().getDisplayMetrics().density),
+                                            (int)(55 * getResources().getDisplayMetrics().density)
+                                    );
+                                    params.setMargins(0,(int)(30 * getResources().getDisplayMetrics().density),0,0);
+                                    newBtn.setLayoutParams(params);
                                     linearLayout.addView(newBtn);
 
                                     Button tempButton = ((Button) findViewById(count));
@@ -269,8 +279,15 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                         newBtn = new Button(linearLayout.getContext());
                         newBtn.setText(snapshot.getKey());
                         newBtn.setId(count);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                (int)(270 * getResources().getDisplayMetrics().density),
+                                (int)(45 * getResources().getDisplayMetrics().density)
+                        );
+                        params.setMargins(0,(int)(10 * getResources().getDisplayMetrics().density),0,0);
+                        newBtn.setBackground(ContextCompat.getDrawable(kcal.this, R.drawable.edit_text_border));
+                        newBtn.setLayoutParams(params);
                         linearLayout.addView(newBtn);
-                    }
+
                     Button tempButton = ((Button) dialog.findViewById(count));
                     tempButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -286,7 +303,15 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                             startActivity(intent);
                         }
                     });
+                    tempButton.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            openMealInfo(snapshot.getKey());
+                            return false;
+                        }
+                    });
                     count++;
+                }
                 }
                 check = false;
             }
