@@ -76,7 +76,7 @@ public class UserInfo extends AppCompatActivity {
         LastSelect = getSharedPreferences(uid, Context.MODE_PRIVATE);
         editor = LastSelect.edit();
 
-        final int LastClick = LastSelect.getInt("LastClick", 0);
+        final int LastClick = LastSelect.getInt("LastPositionClicked", 0);
 
         mSave = (Button) findViewById(R.id.Save);
         mBack = (Button) findViewById(R.id.Back);
@@ -142,7 +142,7 @@ public class UserInfo extends AppCompatActivity {
                             else{
                                 mDatabase.child(uid).child("Gender").setValue(Gender2);
                             }
-                            editor.putInt("LastClick", position).apply();
+                            editor.putInt("LastPositionClicked", position).apply();
                             exitUserInfo(v);
 
 

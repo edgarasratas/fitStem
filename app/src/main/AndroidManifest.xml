@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.stemfit3">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,9 +12,10 @@
         android:roundIcon="@mipmap/ic_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.StemFit3">
+
         <activity android:name=".ChangePassword" />
         <activity android:name=".UserInfo" />
-        <activity android:name=".UserInfoRegister"/>
+        <activity android:name=".UserInfoRegister" />
         <activity
             android:name=".fridge"
             android:label="@string/title_activity_scrolling_activitytest"
@@ -22,12 +26,18 @@
         <activity android:name=".water" />
         <activity android:name=".sleep" />
         <activity android:name=".LogIn">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+                    <action android:name="android.intent.action.BOOT_COMPLETED" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
         </activity>
+        <receiver android:name=".MyReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

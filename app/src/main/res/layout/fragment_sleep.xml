@@ -90,7 +90,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.452"
-        android:onClick="wakeTime"/>
+        android:onClick="wakeUpTime"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sleepGoalButton"
@@ -99,7 +99,7 @@
         android:background="@drawable/button_border"
         android:clickable="true"
         android:focusable="true"
-        android:text="Sleep goal\n 8 hours"
+        android:text="Sleep goal\n 8 hours 0 minutes"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

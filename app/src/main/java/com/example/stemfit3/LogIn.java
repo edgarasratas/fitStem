@@ -123,7 +123,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener{
                 if(task.isSuccessful()) {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if(user.isEmailVerified()){
-                        if(!firstTimeMessage) {
+                        if(firstTimeMessage) {
                             firstTime();
                             startActivity(new Intent(LogIn.this, UserInfoRegister.class));
                         }

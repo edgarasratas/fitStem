@@ -123,7 +123,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             return;
         }
         if(password.length()<8){
-            passwordEditText.setError("Password must be longer then 8");
+            passwordEditText.setError("Password must be longer than 8 characters");
             return;
         }
 

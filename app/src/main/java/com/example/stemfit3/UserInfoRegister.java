@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.usb.UsbConfiguration;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,6 +45,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+
 public class UserInfoRegister extends AppCompatActivity {
 
     private RadioGroup editGender;
@@ -73,17 +75,12 @@ public class UserInfoRegister extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info_register);
 
-        SharedPreferences sharedPreferencesFirstTime = getSharedPreferences(uid, MODE_PRIVATE);
-        boolean firstTimeMessage = sharedPreferencesFirstTime.getBoolean(uid, true);
-
-        if(!firstTimeMessage) {
             firstTimeWelcome();
-        }
 
         LastSelect = getSharedPreferences(uid, Context.MODE_PRIVATE);
         editor = LastSelect.edit();
 
-        final int LastClick = LastSelect.getInt("LastClick", 0);
+        final int LastClick = LastSelect.getInt("LastPositionClicked", 0);
 
         mContinue = (Button) findViewById(R.id.continueBtn);
         editAge = (EditText)findViewById(R.id.age_select);
@@ -154,7 +151,7 @@ public class UserInfoRegister extends AppCompatActivity {
                         else if((!editMale.isChecked()) && (!editFemale.isChecked())) {
                             Toast.makeText(getApplicationContext(), "You must choose a gender", Toast.LENGTH_SHORT).show();
                         }
-                        editor.putInt("LastClick", position).apply();
+                        editor.putInt("LastPositionClicked", position).apply();
                         if((!Age.isEmpty()) && (!Height.isEmpty()) && (!Weight.isEmpty()) && ((editMale.isChecked()) || (editFemale.isChecked()))) {
                             startActivity(new Intent(UserInfoRegister.this, Settings.class));
                             Toast.makeText(getApplicationContext(), "Data saved", Toast.LENGTH_SHORT).show();
@@ -225,10 +222,5 @@ public class UserInfoRegister extends AppCompatActivity {
                     }
                 })
                 .create().show();
-
-        SharedPreferences sharedPreferencesFirstTime = getSharedPreferences(uid, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferencesFirstTime.edit();
-        editor.putBoolean(uid, false);
-        editor.apply();
     }
 }

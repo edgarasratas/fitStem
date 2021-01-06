@@ -137,7 +137,7 @@
         android:layout_width="345dp"
         android:layout_height="75dp"
         android:gravity="center_horizontal"
-        android:text="Choose when do you want to be reminded:"
+        android:text="Choose when you want to be reminded:"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="25sp"

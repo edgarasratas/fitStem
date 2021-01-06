@@ -2,12 +2,12 @@ plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
 }
-
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
     defaultConfig {
+		vectorDrawables.useSupportLibrary = true
         applicationId "com.example.stemfit3"
         minSdkVersion 16
         targetSdkVersion 30
