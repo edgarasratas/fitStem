@@ -144,9 +144,11 @@ public class UserInfoRegister extends AppCompatActivity {
                         String Gender2 = editFemale.getText().toString();
                         if(editMale.isChecked()){
                             mDatabase.child(uid).child("Gender").setValue(Gender1);
+
                         }
                         else if(editFemale.isChecked()){
                             mDatabase.child(uid).child("Gender").setValue(Gender2);
+
                         }
                         else if((!editMale.isChecked()) && (!editFemale.isChecked())) {
                             Toast.makeText(getApplicationContext(), "You must choose a gender", Toast.LENGTH_SHORT).show();

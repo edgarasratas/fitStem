@@ -38,6 +38,7 @@
 
 
     <EditText
+        android:digits ="0123456789qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
         android:id="@+id/mealName"
         android:layout_width="177dp"
         android:layout_height="wrap_content"
@@ -61,7 +62,6 @@
         android:background="@drawable/round_button"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="addIngredient"
         android:text="Add"
         android:textColor="@color/white"
         android:textSize="15sp"
@@ -84,9 +84,12 @@
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.571" />
+        app:layout_constraintVertical_bias="0.571"
+        android:scrollbars="vertical"
+        />
 
     <Button
         android:id="@+id/addMealButton"
@@ -102,6 +105,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.939" />
@@ -113,12 +117,13 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.179">
 
         <EditText
+            android:digits ="0123456789qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
             android:id="@+id/ingredient"
             android:layout_width="177dp"
             android:layout_height="wrap_content"
@@ -132,6 +137,7 @@
             android:textSize="22sp" />
 
         <EditText
+            android:digits ="0123456789"
             android:id="@+id/ingredientCount"
             android:layout_width="49dp"
             android:layout_height="wrap_content"

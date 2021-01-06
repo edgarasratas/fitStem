@@ -110,18 +110,15 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener{
         }
     }
     private void logIn(String email, String pass){
-
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = currentUser.getUid();
-
-        SharedPreferences sharedPreferencesFirstTime = getSharedPreferences(uid, MODE_PRIVATE);
-        boolean firstTimeMessage = sharedPreferencesFirstTime.getBoolean(uid, true);
-
         mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                    String uid = user.getUid();
+                    SharedPreferences sharedPreferencesFirstTime = getSharedPreferences(uid, MODE_PRIVATE);
+                    boolean firstTimeMessage = sharedPreferencesFirstTime.getBoolean(uid, true);
                     if(user.isEmailVerified()){
                         if(firstTimeMessage) {
                             firstTime();
@@ -140,8 +137,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener{
             }});
     }
     private void userLogin() {
-
-
         Log.w("kek","1");
         nickName = emailEditText.getText().toString().trim();
         password = passwordEditText.getText().toString().trim();
@@ -258,9 +253,13 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener{
     }
 
     private void firstTime() {
+        Log.i("TAG3", "logIn: ");
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        Log.i("TAG4", "logIn: ");
         String uid = currentUser.getUid();
+        Log.i("TAG5", "logIn: ");
         SharedPreferences sharedPreferencesFirstTime = getSharedPreferences(uid, MODE_PRIVATE);
+        Log.i("TAG6", "logIn: ");
         SharedPreferences.Editor editor = sharedPreferencesFirstTime.edit();
         editor.putBoolean(uid, false);
         editor.apply();
