@@ -185,7 +185,6 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                                     }
                                     else if(snapshot.child("Activity").getValue().toString().equals("Light: exercise 1-3/week")){
                                         BMR = (10*weight+6.25*height-5*age +5)*1.375;
-
                                     }
                                     else if(snapshot.child("Activity").getValue().toString().equals("Active: intense exercise 3-4/week")){
                                         BMR =( 10*weight+6.25*height-5*age +5)*1.5;
@@ -205,7 +204,6 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                                         BMR = (10 * weight + 6.25 * height - 5 * age - 161) * 1.2;
                                     } else if (snapshot.child("Activity").getValue().toString().equals("Light: exercise 1-3/week")) {
                                         BMR = (10 * weight + 6.25 * height - 5 * age - 161) * 1.375;
-
                                     } else if (snapshot.child("Activity").getValue().toString().equals("Active: intense exercise 3-4/week")) {
                                         BMR = (10 * weight + 6.25 * height - 5 * age - 161) * 1.5;
                                     } else if (snapshot.child("Activity").getValue().toString().equals("Moderate: exercise 4-5/week")) {

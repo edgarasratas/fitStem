@@ -43,23 +43,18 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8804bbe-2ce9-4ad4-93cc-c16bc2211dd0" name="Default Changelist" comment="">
+    <list default="true" id="f8804bbe-2ce9-4ad4-93cc-c16bc2211dd0" name="Default Changelist" comment="Once again with the login stuff">
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/UserInfoRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/UserInfoRegister.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/kcal.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/kcal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_log_in.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_log_in.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_kcal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_kcal.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fridge_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fridge_dialog.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -356,7 +351,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609963490327</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Once again with the login stuff">
+      <created>1609967025118</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1609967025119</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -429,7 +431,8 @@
     <MESSAGE value="You can change passwords now!" />
     <MESSAGE value="Sleep and Water front-end" />
     <MESSAGE value="Sleep most back-end work is done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sleep most back-end work is done" />
+    <MESSAGE value="Once again with the login stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="Once again with the login stuff" />
   </component>
   <component name="WindowStateProjectService">
     <state x="747" y="319" key="#Gradle" timestamp="1609964334672">
@@ -503,10 +506,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="162" y="94" key="DiffContextDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1609355368339" />
-    <state x="740" y="280" key="FileChooserDialogImpl" timestamp="1609965745790">
+    <state x="740" y="280" key="FileChooserDialogImpl" timestamp="1609967721263">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="740" y="280" key="FileChooserDialogImpl/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1609965745790" />
+    <state x="740" y="280" key="FileChooserDialogImpl/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1609967721263" />
     <state x="740" y="277" key="FileChooserDialogImpl/0.0.1920.1040/2.-1080.1920.1080@0.0.1920.1040" timestamp="1609964330779" />
     <state x="740" y="288" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1604603104935" />
     <state width="938" height="265" key="GridCell.Tab.0.bottom" timestamp="1609964848652">
@@ -565,9 +568,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="662" y="334" key="com.android.tools.idea.run.deployment.ModifyDeviceSetDialog/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1603888603524" />
-    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1609522563974">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1609966992790">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
+    <state x="769" y="438" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1609966992790" />
     <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/2.-1080.1920.1080@0.0.1920.1040" timestamp="1609522563974" />
     <state x="769" y="451" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1080@0.0.1920.1080" timestamp="1609355190619" />
     <state x="-951" y="169" width="1296" height="1036" key="dock-window-1" timestamp="1604341878801">
