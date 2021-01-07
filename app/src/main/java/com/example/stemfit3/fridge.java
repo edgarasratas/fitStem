@@ -220,7 +220,8 @@ public class fridge extends AppCompatActivity implements PopupMenu.OnMenuItemCli
         if(daysLeft<3){
             TextView tempText = (TextView) findViewById(R.id.itemsExp);
             tillExp++;
-            tempText.setText(tillExp+" itmes nearing expiration!");
+            String placeHolder =tillExp+" items nearing expiration!";
+            tempText.setText(placeHolder);
         }
 
     }
