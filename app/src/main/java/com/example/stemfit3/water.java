@@ -87,8 +87,8 @@ public class water extends AppCompatActivity {
             }
         });
         np.setMinValue(0);
-        np.setMaxValue(4);
-        np.setDisplayedValues(new String[] {"At Bedtime", "15 minutes before", "30 minutes before", "45 minutes before", "An hour before"});
+        np.setMaxValue(3);
+        np.setDisplayedValues(new String[] { "Every 15 minutes", "Every 30 minutes", "Every 45 minutes", "Every hour"});
         builder.setNegativeButton("close", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
