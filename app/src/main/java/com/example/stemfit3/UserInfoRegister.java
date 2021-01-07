@@ -137,6 +137,7 @@ public class UserInfoRegister extends AppCompatActivity {
                             mDatabase.child(uid).child("Weight").setValue(Weight);
                         }
 
+                        mDatabase.child(uid).child("neededCal").setValue("");
                         String Activity = editActivity.getSelectedItem().toString();
                         mDatabase.child(uid).child("Activity").setValue(Activity);
 
