@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import android.widget.EditText;
@@ -50,6 +51,7 @@ public class UserInfo extends AppCompatActivity {
     private RadioButton editMale, editFemale;
     private Spinner editActivity;
     private EditText editAge, editHeight, editWeight;
+    private TextView username;
     private Button mSave, mBack;
     private DatabaseReference mDatabase;
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -80,6 +82,7 @@ public class UserInfo extends AppCompatActivity {
 
         mSave = (Button) findViewById(R.id.Save);
         mBack = (Button) findViewById(R.id.Back);
+        username = (TextView)findViewById(R.id.username);
         editAge = (EditText)findViewById(R.id.age_select);
         editGender = (RadioGroup)findViewById(R.id.radioGenderGroup);
         editMale = (RadioButton)findViewById(R.id.radioMale);
@@ -87,6 +90,22 @@ public class UserInfo extends AppCompatActivity {
         editHeight = (EditText)findViewById(R.id.set_height);
         editWeight = (EditText)findViewById(R.id.set_weight);
         editActivity = (Spinner)findViewById(R.id.set_activity);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String usernameString = snapshot.child("Users").child(uid).child("username").getValue().toString();
+                username.setText(usernameString);
+
+                mDatabase.child(uid).child("Username").setValue(usernameString);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         Context context=getApplicationContext();
         String[] foo_array = context.getResources().getStringArray(R.array.Activity);

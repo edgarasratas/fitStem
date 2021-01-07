@@ -2,44 +2,34 @@
 package com.example.stemfit3;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DigitalClock;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -56,8 +46,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
-import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -79,6 +67,8 @@ public class sleep extends AppCompatActivity {
     public AppCompatButton sleepGoal;
     public ImageView sleepSwitch;
     public TextView sleepSwitchText;
+    public LinearLayout linearLayoutSleepSwitch;
+    public ArrayList<ToggleButton> weekDays = new ArrayList<ToggleButton>();
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     BarChart barchart;
 
@@ -101,6 +91,7 @@ public class sleep extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(uid, MODE_PRIVATE);
 
+        linearLayoutSleepSwitch = findViewById(R.id.linearLayoutSleepSwitch);
         sleepSwitchText = findViewById(R.id.sleepSwitchText);
         sleepSwitch = findViewById(R.id.sleepSwitchButton);
         bedTime = findViewById(R.id.bedTimeButton);
@@ -111,7 +102,6 @@ public class sleep extends AppCompatActivity {
         bedTimeReminder = findViewById(R.id.sleepSwitchText);
         sleepGoal = findViewById(R.id.sleepGoalButton);
 
-        boolean switchState = reminderSleep.isChecked();
         String switchStateOff = "Bedtime reminder: OFF";
         String switchStateOn = "Bedtime reminder: ON";
 
@@ -128,7 +118,6 @@ public class sleep extends AppCompatActivity {
 
         reminderSleep.setTextOff("OFF");
         reminderSleep.setTextOn("ON");
-
 
         String bedTimeSP = sharedPreferences.getString("BEDTIME", "Bedtime\n22:00");
         bedTime.setText(bedTimeSP);
@@ -148,6 +137,12 @@ public class sleep extends AppCompatActivity {
 
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
                 if(isChecked) {
+                    sleepSwitch.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            reminderSleep();
+                        }
+                    });
                     bedTimeReminder.setText(switchStateOn);
                     mDatabase.child(uid).child("sleepReminder").setValue(switchStateOn);
 
@@ -156,6 +151,12 @@ public class sleep extends AppCompatActivity {
                     editor.apply();
                 }
                 else {
+                    sleepSwitch.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            reminderOffDialog();
+                        }
+                    });
                     bedTimeReminder.setText(switchStateOff);
                     mDatabase.child(uid).child("sleepReminder").setValue(switchStateOff);
 
@@ -468,7 +469,22 @@ public class sleep extends AppCompatActivity {
         dialog.show();
     }
 
-    public void reminderSleep(View v){
+    public void reminderOffDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(sleep.this);
+        builder.setTitle("!!!");
+        builder.setMessage("You must have bed time reminder on!");
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void reminderSleep(){
         mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String uid = currentUser.getUid();
@@ -478,6 +494,7 @@ public class sleep extends AppCompatActivity {
         final NumberPicker np = view.findViewById(R.id.reminderPickerSleep);
         np.setMinValue(0);
         np.setMaxValue(4);
+
         np.setDisplayedValues(new String[] {"At Bedtime", "15 minutes before", "30 minutes before", "45 minutes before", "An hour before"});
         builder.setNegativeButton("close", new DialogInterface.OnClickListener() {
             @Override
@@ -495,6 +512,15 @@ public class sleep extends AppCompatActivity {
 
                 Calendar calendar = Calendar.getInstance();
 
+                ToggleButton monday = (ToggleButton) view.findViewById(R.id.Mon);
+                ToggleButton tuesday = (ToggleButton) view.findViewById(R.id.Tue);
+                ToggleButton wednesday = (ToggleButton) view.findViewById(R.id.Wed);
+                ToggleButton thursday = (ToggleButton) view.findViewById(R.id.Thu);
+                ToggleButton friday = (ToggleButton) view.findViewById(R.id.Fri);
+                ToggleButton saturday = (ToggleButton) view.findViewById(R.id.Sat);
+                ToggleButton sunday = (ToggleButton) view.findViewById(R.id.Sun);
+
+
                 mDatabase.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -507,14 +533,60 @@ public class sleep extends AppCompatActivity {
 
                             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-                            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                            calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                            calendar.set(Calendar.SECOND, 0);
+                            if(monday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(tuesday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(wednesday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(thursday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(friday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(saturday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(sunday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
 
                             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,
                                     pendingIntent);
 
-                            Log.i("test", "1");
+                            reminderSleep.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                @Override
+                                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                    if(!isChecked) {
+                                        alarmManager.cancel(pendingIntent);
+                                    }
+                                }
+                            });
                         }
                         else if(np.getValue() == 1) {
                             Intent intent = new Intent(sleep.this, MyReceiver.class);
@@ -522,16 +594,53 @@ public class sleep extends AppCompatActivity {
 
                             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-                            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                            calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                            calendar.set(Calendar.SECOND, 0);
+                            if(monday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(tuesday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(wednesday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(thursday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(friday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(saturday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(sunday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
 
                             int minutes_15 = 15 * 60000;
 
                             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - minutes_15, AlarmManager.INTERVAL_DAY,
                                     pendingIntent);
-
-                            Log.i("test", "2");
                         }
                         else if(np.getValue() == 2) {
                             Intent intent = new Intent(sleep.this, MyReceiver.class);
@@ -539,16 +648,53 @@ public class sleep extends AppCompatActivity {
 
                             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-                            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                            calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                            calendar.set(Calendar.SECOND, 0);
+                            if(monday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(tuesday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(wednesday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(thursday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(friday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(saturday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(sunday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
 
                             int minutes_30 = 30 * 60000;
 
                             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - minutes_30, AlarmManager.INTERVAL_DAY,
                                     pendingIntent);
-
-                            Log.i("test", "3");
                         }
                         else if(np.getValue() == 3) {
                             Intent intent = new Intent(sleep.this, MyReceiver.class);
@@ -556,16 +702,53 @@ public class sleep extends AppCompatActivity {
 
                             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-                            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                            calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                            calendar.set(Calendar.SECOND, 0);
+                            if(monday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(tuesday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(wednesday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(thursday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(friday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(saturday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(sunday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
 
                             int minutes_45 = 45 * 60000;
 
                             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - minutes_45, AlarmManager.INTERVAL_DAY,
                                     pendingIntent);
-
-                            Log.i("test", "4");
                         }
                         else if(np.getValue() == 4) {
                             Intent intent = new Intent(sleep.this, MyReceiver.class);
@@ -573,16 +756,53 @@ public class sleep extends AppCompatActivity {
 
                             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-                            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                            calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                            calendar.set(Calendar.SECOND, 0);
+                            if(monday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(tuesday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(wednesday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(thursday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(friday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(saturday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
+                            if(sunday.isChecked()) {
+                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                                calendar.set(Calendar.SECOND, 0);
+                            }
 
                             int minutes_60 = 60 * 60000;
 
                             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - minutes_60, AlarmManager.INTERVAL_DAY,
                                     pendingIntent);
-
-                            Log.i("test", "5");
                         }
                     }
 
