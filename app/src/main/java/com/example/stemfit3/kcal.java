@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
@@ -27,6 +29,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +44,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import com.example.stemfit3.LogIn;
 import com.example.stemfit3.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -75,11 +79,15 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
     private int countIng = 0;
     private int totalCal = 0;
     public boolean exist;
+    public boolean startsWith0=false;
     public double BMR=0;
     private DatabaseReference mealDatabase;
     private com.example.stemfit3.meal Meal;
     private Button newBtn;
     private int getTotalCal =0;
+    public Button removeMeal;
+    public ProgressBar kcalAmountPercent;
+    public TextView ingList;
     LinearLayout linearLayout;
     List<com.example.stemfit3.ingredient> Ingredients;
     public boolean check = true;
@@ -157,7 +165,6 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                                     tempButton.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            Toast.makeText(v.getContext(),"Meal Addded",Toast.LENGTH_LONG).show();
                                             SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
                                             SharedPreferences.Editor editor = sharedPreferences.edit();
                                             openMealInfo(tempButton.getText().toString());
@@ -180,38 +187,40 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                                         weight = Integer.parseInt(snapshot.child("Weight").getValue().toString());
                                         age = Integer.parseInt(snapshot.child("Age").getValue().toString());
                                 if(snapshot.child("Gender").getValue().toString().equals("Male")){
+                                    BMR = (10*weight+6.25*height-5*age +5);
                                     if(snapshot.child("Activity").getValue().toString().equals("Sedentary: little or no exercise")){
-                                        BMR = (10*weight+6.25*height-5*age +5)*1.2;
+                                        BMR *=1.2;
                                     }
                                     else if(snapshot.child("Activity").getValue().toString().equals("Light: exercise 1-3/week")){
-                                        BMR = (10*weight+6.25*height-5*age +5)*1.375;
+                                        BMR *=1.375;
                                     }
                                     else if(snapshot.child("Activity").getValue().toString().equals("Active: intense exercise 3-4/week")){
-                                        BMR =( 10*weight+6.25*height-5*age +5)*1.5;
+                                        BMR *=1.5;
                                     }
                                     else if(snapshot.child("Activity").getValue().toString().equals("Moderate: exercise 4-5/week")){
-                                        BMR = (10*weight+6.25*height-5*age +5)*1.6;
+                                        BMR *=1.6;
                                     }
                                     else if(snapshot.child("Activity").getValue().toString().equals("Very active: intense exercise 6-7/week")){
-                                        BMR = (10*weight+6.25*height-5*age +5)*1.725;
+                                        BMR *=1.725;
                                     }
                                     else if(snapshot.child("Activity").getValue().toString().equals("Extra active: very intense exercise daily")){
-                                        BMR = (10*weight+6.25*height-5*age +5)*1.9;
+                                        BMR *=1.9;
                                     }
                                 }
                                 else {
+                                    BMR = (10 * weight + 6.25 * height - 5 * age - 161);
                                     if (snapshot.child("Activity").getValue().toString().equals("Sedentary: little or no exercise")) {
-                                        BMR = (10 * weight + 6.25 * height - 5 * age - 161) * 1.2;
+                                        BMR  *= 1.2;
                                     } else if (snapshot.child("Activity").getValue().toString().equals("Light: exercise 1-3/week")) {
-                                        BMR = (10 * weight + 6.25 * height - 5 * age - 161) * 1.375;
+                                        BMR *= 1.375;
                                     } else if (snapshot.child("Activity").getValue().toString().equals("Active: intense exercise 3-4/week")) {
-                                        BMR = (10 * weight + 6.25 * height - 5 * age - 161) * 1.5;
+                                        BMR *= 1.5;
                                     } else if (snapshot.child("Activity").getValue().toString().equals("Moderate: exercise 4-5/week")) {
-                                        BMR = (10 * weight + 6.25 * height - 5 * age - 161) * 1.6;
+                                        BMR *= 1.6;
                                     } else if (snapshot.child("Activity").getValue().toString().equals("Very active: intense exercise 6-7/week")) {
-                                        BMR = (10 * weight + 6.25 * height - 5 * age - 161) * 1.725;
+                                        BMR *= 1.725;
                                     } else if (snapshot.child("Activity").getValue().toString().equals("Extra active: very intense exercise daily")) {
-                                        BMR = (10 * weight + 6.25 * height - 5 * age - 161) * 1.9;
+                                        BMR *= 1.9;
                                     }
                                 }
 
@@ -219,6 +228,10 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                                         String tempFormat  =df.format(BMR);
                                 neededCal.child("UserInfo").child(uId).child("neededCal").setValue(tempFormat);
                                 tempText.setText(String.valueOf(getTotalCal)+"/"+tempFormat);
+                                String progress = df.format(getTotalCal *100/ BMR);
+                                Log.i(progress, "progress: ");
+                                kcalAmountPercent = findViewById(R.id.progressBar2);
+                                kcalAmountPercent.setProgress(Integer.valueOf(progress));
                             }
 
                                 @Override
@@ -286,7 +299,7 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                     tempButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(v.getContext(),"Meal Addded",Toast.LENGTH_LONG).show();
+                            Toast.makeText(v.getContext(),"Meal Added",Toast.LENGTH_LONG).show();
                             DatabaseReference myDatabase = FirebaseDatabase.getInstance().getReference().child("Meal").child(username).child(tempButton.getText().toString());
                             int a = Integer.parseInt(snapshot.child("mealCount").getValue().toString());
                             a++;
@@ -294,7 +307,9 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                             finish();
                             dialog.dismiss();
                             Intent intent = new Intent(getApplicationContext(),kcal.class);
+                            overridePendingTransition(0, 0);
                             startActivity(intent);
+                            overridePendingTransition(0, 0);
                         }
                     });
                     tempButton.setOnLongClickListener(new View.OnLongClickListener() {
@@ -352,6 +367,31 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         Units =  (Spinner) dialog.findViewById(R.id.Units);
         CaloryCount  = (TextView) dialog.findViewById(R.id.calorieCount);
         mealName = (EditText) dialog.findViewById(R.id.mealName);
+        ingList = (TextView) dialog.findViewById(R.id.ingredientList);
+        totalCal = 0;
+        Count.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String firstLetter = s.toString();
+                if(firstLetter.startsWith("0")){
+                    Toast.makeText(kcal.this, "Please enter a proper amount", Toast.LENGTH_SHORT).show();
+                    startsWith0 = true;
+                    return;
+                }
+                else
+                    startsWith0=false;
+            }
+        });
 
         AddIng.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -360,7 +400,10 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                     Ingredient.setError("Must not be empty!");
                     return;
                 }
-
+                if(startsWith0==true){
+                    Toast.makeText(kcal.this, "Please enter a proper amount", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 String url = "https://api.wolframalpha.com/v2/query?input=";
                 if(Units.getSelectedItem().equals("vnt"))
                     url +=  Count.getText().toString()+"+"+ Ingredient.getText().toString()+ "+" +"Kcal";
@@ -414,7 +457,6 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         TextView calories;
         AlertDialog.Builder builder = new AlertDialog.Builder(kcal.this);
         View view = getLayoutInflater().inflate(R.layout.kcal_dialog_meal_info, null);
-        builder.setTitle("Meal0= information");
         builder.setNegativeButton("close", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -438,6 +480,17 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 calories.setText(snapshot.child("totalKcal").getValue().toString()+" Kcal");
+                removeMeal = dialog.findViewById(R.id.removeMealButton);
+                removeMeal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ref.child("mealCount").setValue(Integer.valueOf(snapshot.child("mealCount").getValue().toString())-1);
+                        dialog.dismiss();
+                        overridePendingTransition(0, 0);
+                        startActivity(getIntent());
+                        overridePendingTransition(0, 0);
+                    }
+                });
             }
 
             @Override
@@ -501,11 +554,16 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
             mealName.setError("Must not be empty!");
             return;
         }
+        Log.i("check1", "Toast1");
+        if(ingList.getText().toString().isEmpty()){
+            Toast.makeText(v.getContext(),"Please add ingredients",Toast.LENGTH_LONG).show();
+            return;
+        }
+        Log.i("check1", "Toast1");
         mealDatabase = FirebaseDatabase.getInstance().getReference();
         Meal = new com.example.stemfit3.meal(mealName.getText().toString(),totalCal,Ingredients);
         Log.i("url2", String.valueOf(exist));
 
-        Log.i("check1", "Toast1");
         creteNewMeal();
         Log.i("check4", "Toast4");
         //    Toast.makeText(this, "Added meal", Toast.LENGTH_SHORT).show();
@@ -534,7 +592,9 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
     public void onBackPressed(){
         Intent intent = new Intent(this, LogIn.class);
         finish();
+        overridePendingTransition(0, 0);
         startActivity(intent);
+        overridePendingTransition(0, 0);
     }
 
     @Override

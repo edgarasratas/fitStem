@@ -1,6 +1,16 @@
 package com.example.stemfit3;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ListMenuPresenter;
+
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -35,7 +45,7 @@ public class UserInfo extends AppCompatActivity {
     private Spinner editActivity;
     private EditText editAge, editHeight, editWeight;
     private TextView username;
-    private Button mSave;
+    private Button mSave, mBack;
     private DatabaseReference mDatabase;
     private final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     String uid;
@@ -110,53 +120,102 @@ public class UserInfo extends AppCompatActivity {
             editActivity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    mSave.setOnClickListener(v -> {
-                        saveData();
+                    mSave.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            saveData();
 
-                        mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
-                        uid = currentUser.getUid();
+                            mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
+                            uid = currentUser.getUid();
 
-                        String Age = editAge.getText().toString();
-                        if(Age.isEmpty()) {
-                            mDatabase.child(uid).child("Age").setValue("Not specified");
+                            String Age = editAge.getText().toString();
+                            if(Age.isEmpty()) {
+                                mDatabase.child(uid).child("Age").setValue("Not specified");
+                            }
+                            else{
+                                mDatabase.child(uid).child("Age").setValue(Age);
+                            }
+
+                            String Height = editHeight.getText().toString();
+                            if(Height.isEmpty()){
+                                mDatabase.child(uid).child("Height").setValue("Not specified");
+                            }
+                            else{
+                                mDatabase.child(uid).child("Height").setValue(Height);
+                            }
+
+                            String Weight = editWeight.getText().toString();
+                            if(Weight.isEmpty()){
+                                mDatabase.child(uid).child("Weight").setValue("Not specified");
+                            }
+                            else{
+                                mDatabase.child(uid).child("Weight").setValue(Weight);
+                            }
+
+                            mDatabase.child(uid).child("neededCal").setValue("");
+                            String Activity = editActivity.getSelectedItem().toString();
+                            mDatabase.child(uid).child("Activity").setValue(Activity);
+
+                            String Gender1 = editMale.getText().toString();
+                            String Gender2 = editFemale.getText().toString();
+                            if(editMale.isChecked()){
+                                mDatabase.child(uid).child("Gender").setValue(Gender1);
+                            }
+                            else{
+                                mDatabase.child(uid).child("Gender").setValue(Gender2);
+                            }
+                            editor.putInt("LastPositionClicked", position).apply();
+                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Water").child(uid);
+
+                            if(editMale.isChecked()){
+                                switch (Activity) {
+                                    case "Sedentary: little or no exercise":
+                                        ref.child("neededWater").setValue("3750");
+                                        break;
+                                    case "Light: exercise 1-3/week":
+                                        ref.child("neededWater").setValue("3750");
+                                        break;
+                                    case "Moderate: exercise 4-5/week":
+                                        ref.child("neededWater").setValue("4000");
+                                        break;
+                                    case "Active: intense exercise 3-4/week":
+                                        ref.child("neededWater").setValue("4000");
+                                        break;
+                                    case "Very active: intense exercise 6-7/week":
+                                        ref.child("neededWater").setValue("4250");
+                                        break;
+                                    case "Extra active: very intense exercise daily":
+                                        ref.child("neededWater").setValue("4500");
+                                        break;
+                                }
+                            }
+                            if(editFemale.isChecked()){
+                                switch (Activity) {
+                                    case "Sedentary: little or no exercise":
+                                        ref.child("neededWater").setValue("2750");
+                                        break;
+                                    case "Light: exercise 1-3/week":
+                                        ref.child("neededWater").setValue("3000");
+                                        break;
+                                    case "Moderate: exercise 4-5/week":
+                                        ref.child("neededWater").setValue("3500");
+                                        break;
+                                    case " Active: intense exercise 3-4/week":
+                                        ref.child("neededWater").setValue("3750");
+                                        break;
+                                    case "Very active: intense exercise 6-7/week":
+                                        ref.child("neededWater").setValue("4000");
+                                        break;
+                                    case "Extra active: very intense exercise daily":
+                                        ref.child("neededWater").setValue("4250");
+                                        break;
+                                }
+                            }
+                            exitUserInfo(v);
+
+
+
                         }
-                        else{
-                            mDatabase.child(uid).child("Age").setValue(Age);
-                        }
-
-                        String Height = editHeight.getText().toString();
-                        if(Height.isEmpty()){
-                            mDatabase.child(uid).child("Height").setValue("Not specified");
-                        }
-                        else{
-                            mDatabase.child(uid).child("Height").setValue(Height);
-                        }
-
-                        String Weight = editWeight.getText().toString();
-                        if(Weight.isEmpty()){
-                            mDatabase.child(uid).child("Weight").setValue("Not specified");
-                        }
-                        else{
-                            mDatabase.child(uid).child("Weight").setValue(Weight);
-                        }
-
-                        mDatabase.child(uid).child("neededCal").setValue("");
-                        String Activity = editActivity.getSelectedItem().toString();
-                        mDatabase.child(uid).child("Activity").setValue(Activity);
-
-                        String Gender1 = editMale.getText().toString();
-                        String Gender2 = editFemale.getText().toString();
-                        if(editMale.isChecked()){
-                            mDatabase.child(uid).child("Gender").setValue(Gender1);
-                        }
-                        else{
-                            mDatabase.child(uid).child("Gender").setValue(Gender2);
-                        }
-                        editor.putInt("LastPositionClicked", position).apply();
-                        exitUserInfo(v);
-
-
-
                     });
                 }
 
@@ -169,10 +228,13 @@ public class UserInfo extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
         uid = currentUser.getUid();
 
-        mBack.setOnClickListener(v -> {
-            String newAge = editAge.getText().toString();
-            String newHeight = editHeight.getText().toString();
-            String newWeight = editWeight.getText().toString();
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newAge = editAge.getText().toString();
+                String newHeight = editHeight.getText().toString();
+                String newWeight = editWeight.getText().toString();
+                int selectedItemPositionNew = editActivity.getSelectedItemPosition();
 
             mDatabase.child(uid).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -203,8 +265,10 @@ public class UserInfo extends AppCompatActivity {
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
+                    }
+                });
+            }
+
         });
 
         loadData();
