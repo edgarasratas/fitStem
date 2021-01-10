@@ -329,7 +329,7 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         View view = getLayoutInflater().inflate(R.layout.kcal_dialog_create, null);
         builder.setTitle("Create meal");
         final Spinner units = (Spinner) view.findViewById(R.id.Units);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.kcal_unit, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.kCal_unit, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         units.setAdapter(adapter);
         units.setOnItemSelectedListener(this);

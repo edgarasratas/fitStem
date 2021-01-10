@@ -11,7 +11,7 @@
         android:id="@+id/Settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sleep tracker"
+        android:text="@string/sleep_tracker"
         android:textColor="@color/white"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,11 +21,10 @@
         app:layout_constraintVertical_bias="0.025" />
 
     <TextView
-        android:id="@+id/dateviewSleep"
+        android:id="@+id/dateViewSleep"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="2020-11-01"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -67,7 +66,7 @@
         android:background="@drawable/button_border"
         android:clickable="true"
         android:focusable="true"
-        android:text="Bedtime\n20:00"
+        android:text="@string/bedtime_n20_00"
         android:textSize="20sp"
         android:onClick="bedTime"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -83,7 +82,7 @@
         android:background="@drawable/button_border"
         android:clickable="true"
         android:focusable="true"
-        android:text="Wake time\n7:00"
+        android:text="@string/wake_time_n7_00"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +98,7 @@
         android:background="@drawable/button_border"
         android:clickable="true"
         android:focusable="true"
-        android:text="Sleep goal\n 8 hours 0 minutes"
+        android:text="@string/sleep_goal_n_8_hours_0_minutes"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +114,7 @@
         android:background="@drawable/button_border"
         android:clickable="true"
         android:focusable="true"
-        android:text="Sleep statistics"
+        android:text="@string/sleep_statistics"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -143,8 +142,6 @@
         android:layout_height="41dp"
         android:layout_marginEnd="72dp"
         android:layout_marginRight="72dp"
-        android:textOff="Off"
-        android:textOn="On"
         android:textSize="20sp"
         android:theme="@style/SwitchCustom"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -158,9 +155,9 @@
         android:id="@+id/sleepSwitchText"
         android:layout_width="258dp"
         android:layout_height="30dp"
-        android:text="Bedtime reminder: OFF"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:text="@string/bedtime_reminder_off"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -180,7 +177,9 @@
         app:layout_constraintStart_toStartOf="@+id/sleepSwitchText"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.899"
-        app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+        app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+        android:focusable="true"
+        android:contentDescription="@string/opensReminderDialog" />
 
     <include layout="@layout/layout_bottom_nav_view"/>
 

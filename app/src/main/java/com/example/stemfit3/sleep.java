@@ -1,13 +1,6 @@
 
 package com.example.stemfit3;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.app.NotificationManagerCompat;
-
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -23,13 +16,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.DigitalClock;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.ToggleButton;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -48,15 +44,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 
 public class sleep extends AppCompatActivity {
     public static final String NOTIFICATION_CHANNEL_ID = "10001";
-    private final static String default_notification_channel_id = "default";
-    private NotificationManagerCompat notificationManager;
 
     public TextView dateText;
     public DigitalClock clockText;
@@ -66,9 +61,6 @@ public class sleep extends AppCompatActivity {
     public AppCompatButton wakeUpTime;
     public AppCompatButton sleepGoal;
     public ImageView sleepSwitch;
-    public TextView sleepSwitchText;
-    public LinearLayout linearLayoutSleepSwitch;
-    public ArrayList<ToggleButton> weekDays = new ArrayList<ToggleButton>();
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     BarChart barchart;
 
@@ -86,17 +78,15 @@ public class sleep extends AppCompatActivity {
         setContentView(R.layout.fragment_sleep);
         setupBottomNavigationView();
 
+
         createNotificationChannel();
-        notificationManager = NotificationManagerCompat.from(this);
 
         SharedPreferences sharedPreferences = getSharedPreferences(uid, MODE_PRIVATE);
 
-        linearLayoutSleepSwitch = findViewById(R.id.linearLayoutSleepSwitch);
-        sleepSwitchText = findViewById(R.id.sleepSwitchText);
         sleepSwitch = findViewById(R.id.sleepSwitchButton);
         bedTime = findViewById(R.id.bedTimeButton);
         wakeUpTime = findViewById(R.id.wakeTimeButton);
-        dateText = findViewById(R.id.dateviewSleep);
+        dateText = findViewById(R.id.dateViewSleep);
         clockText = findViewById(R.id.fridgeClock);
         reminderSleep = findViewById(R.id.sleepSwitch);
         bedTimeReminder = findViewById(R.id.sleepSwitchText);
@@ -106,10 +96,10 @@ public class sleep extends AppCompatActivity {
         String switchStateOn = "Bedtime reminder: ON";
 
         long date = System.currentTimeMillis();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat timeonly = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+        SimpleDateFormat timeOnly = new SimpleDateFormat("hh:mm", Locale.getDefault());
         String dateString = sdf.format(date);
-        String timeString = timeonly.format(date);
+        String timeString = timeOnly.format(date);
         //show present date
         dateText.setText(dateString);
 
@@ -128,51 +118,38 @@ public class sleep extends AppCompatActivity {
         String sleepGoalSP = sharedPreferences.getString("SLEEP GOAL", "Sleep goal\n8 h 0 min");
         sleepGoal.setText(sleepGoalSP);
 
-        reminderSleep.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferences lastSwitchState;
+        reminderSleep.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SharedPreferences lastSwitchState;
 
-                lastSwitchState = getSharedPreferences(uid, Context.MODE_PRIVATE);
+            lastSwitchState = getSharedPreferences(uid, Context.MODE_PRIVATE);
 
-                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
-                if(isChecked) {
-                    sleepSwitch.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            reminderSleep();
-                        }
-                    });
-                    bedTimeReminder.setText(switchStateOn);
-                    mDatabase.child(uid).child("sleepReminder").setValue(switchStateOn);
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
+            if(isChecked) {
+                sleepSwitch.setOnClickListener(v -> reminderSleep());
+                bedTimeReminder.setText(switchStateOn);
+                mDatabase.child(uid).child("sleepReminder").setValue(switchStateOn);
 
-                    SharedPreferences.Editor editor = lastSwitchState.edit();
-                    editor.putBoolean("lastClick", true);
-                    editor.apply();
-                }
-                else {
-                    sleepSwitch.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            reminderOffDialog();
-                        }
-                    });
-                    bedTimeReminder.setText(switchStateOff);
-                    mDatabase.child(uid).child("sleepReminder").setValue(switchStateOff);
+                SharedPreferences.Editor editor = lastSwitchState.edit();
+                editor.putBoolean("lastClick", true);
+                editor.apply();
+            }
+            else {
+                sleepSwitch.setOnClickListener(v -> reminderOffDialog());
+                bedTimeReminder.setText(switchStateOff);
+                mDatabase.child(uid).child("sleepReminder").setValue(switchStateOff);
 
-                    SharedPreferences.Editor editor = getSharedPreferences(uid, MODE_PRIVATE).edit();
-                    editor.putBoolean("lastClick", false);
-                    editor.apply();
-                }
+                SharedPreferences.Editor editor = getSharedPreferences(uid, MODE_PRIVATE).edit();
+                editor.putBoolean("lastClick", false);
+                editor.apply();
             }
         });
         reminderSleep.setChecked(sharedPreferences.getBoolean("lastClick", true));
     }
 
     private void setupBottomNavigationView() {
-        BottomNavigationView navigationbar = (BottomNavigationView) findViewById(R.id.nav);
-        BottomNavigationViewHelper.enableNavigation(sleep.this, navigationbar);
-        Menu menu = navigationbar.getMenu();
+        BottomNavigationView navigationBar = (BottomNavigationView) findViewById(R.id.nav);
+        BottomNavigationViewHelper.enableNavigation(sleep.this, navigationBar);
+        Menu menu = navigationBar.getMenu();
         MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
     }
@@ -188,64 +165,53 @@ public class sleep extends AppCompatActivity {
         nph.setMaxValue(23);
         npm.setMinValue(0);
         npm.setMaxValue(59);
-        nph.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int i) {
-                return String.format("%02d", i);
-            }
-        });
-        npm.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int i) {
-                return String.format("%02d", i);
-            }
-        });
-        builder.setNegativeButton("close", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
+        nph.setFormatter(i -> String.format(Locale.getDefault(), "%02d", i));
+        npm.setFormatter(i -> String.format(Locale.getDefault(), "%02d", i));
+        builder.setNegativeButton("close", (dialog, which) -> {
         });
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                SharedPreferences sharedPreferences = getSharedPreferences(uid, MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            SharedPreferences sharedPreferences = getSharedPreferences(uid, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                mDatabase = FirebaseDatabase.getInstance().getReference().child("Sleep");
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                String uid = currentUser.getUid();
-                if((nph.getValue() < 10) && (npm.getValue() < 10)) {
-                    bedTime.setText("Bedtime\n" + "0" + nph.getValue() + ":0" + npm.getValue());
-                    mDatabase.child(uid).child("Bed time (hour)").setValue(nph.getValue());
-                    mDatabase.child(uid).child("Bed time (minute)").setValue(npm.getValue());
-                    editor.putString("BEDTIME", "Bedtime\n" + "0" + nph.getValue() + ":0" + npm.getValue());
-                    editor.apply();
-                }
-                else if((nph.getValue() < 10) && (npm.getValue() >= 10)) {
-                    bedTime.setText("Bedtime\n" + "0" + nph.getValue() + ":" + npm.getValue());
-                    mDatabase.child(uid).child("Bed time (hour)").setValue(nph.getValue());
-                    mDatabase.child(uid).child("Bed time (minute)").setValue(npm.getValue());
-                    editor.putString("BEDTIME", "Bedtime\n" + "0" + nph.getValue() + ":" + npm.getValue());
-                    editor.apply();
-                }
-                else if((nph.getValue() >= 10) && (npm.getValue() < 10)) {
-                    bedTime.setText("Bedtime\n" + nph.getValue() + ":0" + npm.getValue());
-                    mDatabase.child(uid).child("Bed time (hour)").setValue(nph.getValue());
-                    mDatabase.child(uid).child("Bed time (minute)").setValue(npm.getValue());
-                    editor.putString("BEDTIME", "Bedtime\n" + nph.getValue() + ":0" + npm.getValue());
-                    editor.apply();
-                }
-                else if ((nph.getValue() >= 10) && (npm.getValue() >= 10)) {
-                    bedTime.setText("Bedtime\n" + nph.getValue() + ":" + npm.getValue());
-                    mDatabase.child(uid).child("Bed time (hour)").setValue(nph.getValue());
-                    mDatabase.child(uid).child("Bed time (minute)").setValue(npm.getValue());
-                    editor.putString("BEDTIME", "Bedtime\n" + nph.getValue() + ":" + npm.getValue());
-                    editor.apply();
-                }
-                String bedTimeSP = sharedPreferences.getString("BEDTIME", "");
-                bedTime.setText(bedTimeSP);
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("Sleep");
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            assert currentUser != null;
+            String uid = currentUser.getUid();
+            if((nph.getValue() < 10) && (npm.getValue() < 10)) {
+                String bedTimeText = "Bedtime\n" + "0" + nph.getValue() + ":0" + npm.getValue();
+                bedTime.setText(bedTimeText);
+                mDatabase.child(uid).child("Bed time (hour)").setValue(nph.getValue());
+                mDatabase.child(uid).child("Bed time (minute)").setValue(npm.getValue());
+                editor.putString("BEDTIME", "Bedtime\n" + "0" + nph.getValue() + ":0" + npm.getValue());
+                editor.apply();
             }
+            else if((nph.getValue() < 10) && (npm.getValue() >= 10)) {
+                String bedTimeText = "Bedtime\n0" + nph.getValue() + ":" + npm.getValue();
+                bedTime.setText(bedTimeText);
+                mDatabase.child(uid).child("Bed time (hour)").setValue(nph.getValue());
+                mDatabase.child(uid).child("Bed time (minute)").setValue(npm.getValue());
+                editor.putString("BEDTIME", "Bedtime\n" + "0" + nph.getValue() + ":" + npm.getValue());
+                editor.apply();
+            }
+            else if((nph.getValue() >= 10) && (npm.getValue() < 10)) {
+                String bedTimeText = "Bedtime\n" + nph.getValue() + ":0" + npm.getValue();
+                bedTime.setText(bedTimeText);
+                mDatabase.child(uid).child("Bed time (hour)").setValue(nph.getValue());
+                mDatabase.child(uid).child("Bed time (minute)").setValue(npm.getValue());
+                editor.putString("BEDTIME", "Bedtime\n" + nph.getValue() + ":0" + npm.getValue());
+                editor.apply();
+            }
+            else if ((nph.getValue() >= 10) && (npm.getValue() >= 10)) {
+                String bedTimeText = "Bedtime\n" + nph.getValue() + ":" + npm.getValue();
+                bedTime.setText(bedTimeText);
+                mDatabase.child(uid).child("Bed time (hour)").setValue(nph.getValue());
+                mDatabase.child(uid).child("Bed time (minute)").setValue(npm.getValue());
+                editor.putString("BEDTIME", "Bedtime\n" + nph.getValue() + ":" + npm.getValue());
+                editor.apply();
+            }
+            String bedTimeSP = sharedPreferences.getString("BEDTIME", "");
+            bedTime.setText(bedTimeSP);
         });
         builder.setView(view);
         AlertDialog dialog = builder.create();
@@ -263,60 +229,49 @@ public class sleep extends AppCompatActivity {
         nph.setMaxValue(23);
         npm.setMinValue(0);
         npm.setMaxValue(59);
-        nph.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int i) {
-                return String.format("%02d", i);
-            }
-        });
-        npm.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int i) {
-                return String.format("%02d", i);
-            }
-        });
-        builder.setNegativeButton("close", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        nph.setFormatter(i -> String.format(Locale.getDefault(), "%02d", i));
+        npm.setFormatter(i -> String.format(Locale.getDefault(), "%02d", i));
+        builder.setNegativeButton("close", (dialog, which) -> {
 
-            }
         });
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                SharedPreferences sharedPreferences = getSharedPreferences(uid, MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            SharedPreferences sharedPreferences = getSharedPreferences(uid, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                String uid = currentUser.getUid();
-                if((nph.getValue() < 10) && (npm.getValue() < 10)) {
-                    wakeUpTime.setText("Wake up time\n" + "0" + nph.getValue() + ":0" + npm.getValue());
-                    mDatabase.child(uid).child("Wake up time").setValue("0" + nph.getValue() + ":0" + npm.getValue());
-                    editor.putString("WAKE UP TIME", "Wake up time\n" + "0" + nph.getValue() + ":0" + npm.getValue());
-                    editor.apply();
-                }
-                else if((nph.getValue() < 10) && (npm.getValue() >= 10)) {
-                    wakeUpTime.setText("Wake up time\n" + "0" + nph.getValue() + ":" + npm.getValue());
-                    mDatabase.child(uid).child("Wake up time").setValue("0" + nph.getValue() + ":" + npm.getValue());
-                    editor.putString("WAKE UP TIME", "Wake up time\n" + "0" + nph.getValue() + ":" + npm.getValue());
-                    editor.apply();
-                }
-                else if((nph.getValue() >= 10) && (npm.getValue() < 10)) {
-                    wakeUpTime.setText("Wake up time\n" + nph.getValue() + ":0" + npm.getValue());
-                    mDatabase.child(uid).child("Wake up time").setValue(nph.getValue() + ":0" + npm.getValue());
-                    editor.putString("WAKE UP TIME", "Wake up time\n" + nph.getValue() + ":0" + npm.getValue());
-                    editor.apply();
-                }
-                else if ((nph.getValue() >= 10) && (npm.getValue() >= 10)) {
-                    wakeUpTime.setText("Wake up time\n" + nph.getValue() + ":" + npm.getValue());
-                    mDatabase.child(uid).child("Wake up time").setValue(nph.getValue() + ":" + npm.getValue());
-                    editor.putString("WAKE UP TIME", "Wake up time\n" + nph.getValue() + ":" + npm.getValue());
-                    editor.apply();
-                }
-                String bedTimeSP = sharedPreferences.getString("WAKE UP TIME", "");
-                wakeUpTime.setText(bedTimeSP);
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            assert currentUser != null;
+            String uid = currentUser.getUid();
+            if((nph.getValue() < 10) && (npm.getValue() < 10)) {
+                String wakeUpTimeText = "Wake up time\n" + "0" + nph.getValue() + ":0" + npm.getValue();
+                wakeUpTime.setText(wakeUpTimeText);
+                mDatabase.child(uid).child("Wake up time").setValue("0" + nph.getValue() + ":0" + npm.getValue());
+                editor.putString("WAKE UP TIME", "Wake up time\n" + "0" + nph.getValue() + ":0" + npm.getValue());
+                editor.apply();
             }
+            else if((nph.getValue() < 10) && (npm.getValue() >= 10)) {
+                String wakeUpTimeText = "Wake up time\n" + "0" + nph.getValue() + ":" + npm.getValue();
+                wakeUpTime.setText(wakeUpTimeText);
+                mDatabase.child(uid).child("Wake up time").setValue("0" + nph.getValue() + ":" + npm.getValue());
+                editor.putString("WAKE UP TIME", "Wake up time\n" + "0" + nph.getValue() + ":" + npm.getValue());
+                editor.apply();
+            }
+            else if((nph.getValue() >= 10) && (npm.getValue() < 10)) {
+                String wakeUpTimeText = "Wake up time\n" + nph.getValue() + ":0" + npm.getValue();
+                wakeUpTime.setText(wakeUpTimeText);
+                mDatabase.child(uid).child("Wake up time").setValue(nph.getValue() + ":0" + npm.getValue());
+                editor.putString("WAKE UP TIME", "Wake up time\n" + nph.getValue() + ":0" + npm.getValue());
+                editor.apply();
+            }
+            else if ((nph.getValue() >= 10) && (npm.getValue() >= 10)) {
+                String wakeUpTimeText = "Wake up time\n" + nph.getValue() + ":" + npm.getValue();
+                wakeUpTime.setText(wakeUpTimeText);
+                mDatabase.child(uid).child("Wake up time").setValue(nph.getValue() + ":" + npm.getValue());
+                editor.putString("WAKE UP TIME", "Wake up time\n" + nph.getValue() + ":" + npm.getValue());
+                editor.apply();
+            }
+            String bedTimeSP = sharedPreferences.getString("WAKE UP TIME", "");
+            wakeUpTime.setText(bedTimeSP);
         });
         builder.setView(view);
         AlertDialog dialog = builder.create();
@@ -334,42 +289,29 @@ public class sleep extends AppCompatActivity {
         nph.setMaxValue(23);
         npm.setMinValue(0);
         npm.setMaxValue(59);
-        nph.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int i) {
-                return String.format("%02d", i);
-            }
+        nph.setFormatter(i -> String.format(Locale.getDefault(), "%02d", i));
+        npm.setFormatter(i -> String.format(Locale.getDefault(), "%02d", i));
+        builder.setNegativeButton("close", (dialog, which) -> {
+
         });
-        npm.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int i) {
-                return String.format("%02d", i);
-            }
-        });
-        builder.setNegativeButton("close", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            SharedPreferences sharedPreferences = getSharedPreferences(uid, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            }
-        });
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                SharedPreferences sharedPreferences = getSharedPreferences(uid, MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            assert currentUser != null;
+            String uid = currentUser.getUid();
 
-                mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                String uid = currentUser.getUid();
+            String sleepGoalText = "Sleep goal\n" + nph.getValue() + " h " + npm.getValue() + " min";
 
-                    sleepGoal.setText("Sleep goal\n" + nph.getValue() + " h " + npm.getValue() + " min");
-                    mDatabase.child(uid).child("Sleep goal").setValue(nph.getValue() + " h " + npm.getValue() + " min");
-                    editor.putString("SLEEP GOAL", "Sleep goal\n" + nph.getValue() + " h " + npm.getValue() + " min");
-                    editor.apply();
+                sleepGoal.setText(sleepGoalText);
+                mDatabase.child(uid).child("Sleep goal").setValue(nph.getValue() + " h " + npm.getValue() + " min");
+                editor.putString("SLEEP GOAL", "Sleep goal\n" + nph.getValue() + " h " + npm.getValue() + " min");
+                editor.apply();
 
-                String bedTimeSP = sharedPreferences.getString("SLEEP GOAL", "");
-                sleepGoal.setText(bedTimeSP);
-            }
+            String bedTimeSP = sharedPreferences.getString("SLEEP GOAL", "");
+            sleepGoal.setText(bedTimeSP);
         });
         builder.setView(view);
         AlertDialog dialog = builder.create();
@@ -380,10 +322,10 @@ public class sleep extends AppCompatActivity {
         mDatabase.child("UserInfo").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String bedTime = snapshot.child("Bed time").getValue().toString();
-                String wakeUpTime = snapshot.child("Wake up time").getValue().toString();
+                String bedTime = Objects.requireNonNull(snapshot.child("Bed time").getValue()).toString();
+                String wakeUpTime = Objects.requireNonNull(snapshot.child("Wake up time").getValue()).toString();
 
-                java.text.DateFormat dateFormat = new java.text.SimpleDateFormat("HH:mm");
+                java.text.DateFormat dateFormat = new java.text.SimpleDateFormat("HH:mm", Locale.getDefault());
                 Date date1 = null;
                 try {
                     date1 = dateFormat.parse(bedTime);
@@ -396,6 +338,8 @@ public class sleep extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                assert date2 != null;
+                assert date1 != null;
                 long diff = date2.getTime() - date1.getTime();
                 int time = (int) (diff / 1000 / 3600);
 /*                long timeInSeconds = diff / 1000;
@@ -430,7 +374,7 @@ public class sleep extends AppCompatActivity {
 
         barchart = view.findViewById(R.id.barchart);
 
-        BarDataSet barDataSet1 = new BarDataSet(dataValue1(), "Dataset 1");
+        BarDataSet barDataSet1 = new BarDataSet(dataValue1(), "DataSet 1");
         barDataSet1.setColor(Color.GREEN);
 
         BarData barData = new BarData();
@@ -458,11 +402,8 @@ public class sleep extends AppCompatActivity {
         barchart.setData(barData);
         barchart.invalidate();
 
-        builder.setNegativeButton("close", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setNegativeButton("close", (dialog, which) -> {
 
-            }
         });
         builder.setView(view);
         AlertDialog dialog = builder.create();
@@ -473,12 +414,7 @@ public class sleep extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(sleep.this);
         builder.setTitle("!!!");
         builder.setMessage("You must have bed time reminder on!");
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        builder.setPositiveButton("Ok", (dialog, which) -> dialog.dismiss());
 
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -486,8 +422,6 @@ public class sleep extends AppCompatActivity {
 
     public void reminderSleep(){
         mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = currentUser.getUid();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(sleep.this);
         View view = getLayoutInflater().inflate(R.layout.sleep_bedtime_reminder, null);
@@ -496,322 +430,117 @@ public class sleep extends AppCompatActivity {
         np.setMaxValue(4);
 
         np.setDisplayedValues(new String[] {"At Bedtime", "15 minutes before", "30 minutes before", "45 minutes before", "An hour before"});
-        builder.setNegativeButton("close", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setNegativeButton("close", (dialog, which) -> dialog.dismiss());
+        builder.setPositiveButton("Confirm", (DialogInterface.OnClickListener) (dialog, which) -> {
 
-                mDatabase = FirebaseDatabase.getInstance().getReference().child("Sleep");
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                String uid = currentUser.getUid();
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("Sleep");
+            FirebaseUser currentUser1 = FirebaseAuth.getInstance().getCurrentUser();
+            assert currentUser1 != null;
+            String uid1 = currentUser1.getUid();
 
-                Calendar calendar = Calendar.getInstance();
+            Calendar calendar = Calendar.getInstance();
 
-                ToggleButton monday = (ToggleButton) view.findViewById(R.id.Mon);
-                ToggleButton tuesday = (ToggleButton) view.findViewById(R.id.Tue);
-                ToggleButton wednesday = (ToggleButton) view.findViewById(R.id.Wed);
-                ToggleButton thursday = (ToggleButton) view.findViewById(R.id.Thu);
-                ToggleButton friday = (ToggleButton) view.findViewById(R.id.Fri);
-                ToggleButton saturday = (ToggleButton) view.findViewById(R.id.Sat);
-                ToggleButton sunday = (ToggleButton) view.findViewById(R.id.Sun);
+            mDatabase.child(uid1).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String bedTimeReminderHour = Objects.requireNonNull(snapshot.child("Bed time (hour)").getValue()).toString();
+                    String bedTimeReminderMinute = Objects.requireNonNull(snapshot.child("Bed time (minute)").getValue()).toString();
 
+                    if(np.getValue() == 0) {
+                        Intent intent = new Intent(sleep.this, MyReceiver.class);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(sleep.this, 0, intent, 0);
 
-                mDatabase.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String bedTimeReminderHour = snapshot.child("Bed time (hour)").getValue().toString();
-                        String bedTimeReminderMinute = snapshot.child("Bed time (minute)").getValue().toString();
+                        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-                        if(np.getValue() == 0) {
-                            Intent intent = new Intent(sleep.this, MyReceiver.class);
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(sleep.this, 0, intent, 0);
+                        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                        calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                        calendar.set(Calendar.SECOND, 0);
 
-                            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,
+                                pendingIntent);
 
-                            if(monday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
+                        reminderSleep.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                            if(!isChecked) {
+                                alarmManager.cancel(pendingIntent);
                             }
-                            if(tuesday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(wednesday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(thursday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(friday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(saturday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(sunday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-
-                            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,
-                                    pendingIntent);
-
-                            reminderSleep.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                @Override
-                                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                    if(!isChecked) {
-                                        alarmManager.cancel(pendingIntent);
-                                    }
-                                }
-                            });
-                        }
-                        else if(np.getValue() == 1) {
-                            Intent intent = new Intent(sleep.this, MyReceiver.class);
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(sleep.this, 0, intent, 0);
-
-                            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-                            if(monday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(tuesday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(wednesday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(thursday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(friday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(saturday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(sunday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-
-                            int minutes_15 = 15 * 60000;
-
-                            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - minutes_15, AlarmManager.INTERVAL_DAY,
-                                    pendingIntent);
-                        }
-                        else if(np.getValue() == 2) {
-                            Intent intent = new Intent(sleep.this, MyReceiver.class);
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(sleep.this, 0, intent, 0);
-
-                            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-                            if(monday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(tuesday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(wednesday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(thursday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(friday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(saturday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(sunday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-
-                            int minutes_30 = 30 * 60000;
-
-                            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - minutes_30, AlarmManager.INTERVAL_DAY,
-                                    pendingIntent);
-                        }
-                        else if(np.getValue() == 3) {
-                            Intent intent = new Intent(sleep.this, MyReceiver.class);
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(sleep.this, 0, intent, 0);
-
-                            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-                            if(monday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(tuesday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(wednesday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(thursday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(friday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(saturday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(sunday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-
-                            int minutes_45 = 45 * 60000;
-
-                            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - minutes_45, AlarmManager.INTERVAL_DAY,
-                                    pendingIntent);
-                        }
-                        else if(np.getValue() == 4) {
-                            Intent intent = new Intent(sleep.this, MyReceiver.class);
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(sleep.this, 0, intent, 0);
-
-                            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-                            if(monday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(tuesday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(wednesday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(thursday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(friday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(saturday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-                            if(sunday.isChecked()) {
-                                calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-                                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
-                                calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
-                                calendar.set(Calendar.SECOND, 0);
-                            }
-
-                            int minutes_60 = 60 * 60000;
-
-                            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - minutes_60, AlarmManager.INTERVAL_DAY,
-                                    pendingIntent);
-                        }
+                        });
+                        Log.i("Test", "0");
                     }
+                    else if(np.getValue() == 1) {
+                        Intent intent = new Intent(sleep.this, MyReceiver.class);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(sleep.this, 0, intent, 0);
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
+                        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                        calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                        calendar.set(Calendar.SECOND, 0);
+
+                        int minutes_15 = 15 * 60000;
+
+                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - minutes_15, AlarmManager.INTERVAL_DAY,
+                                pendingIntent);
+                        Log.i("Test", "1");
                     }
-                });
-            }
+                    else if(np.getValue() == 2) {
+                        Intent intent = new Intent(sleep.this, MyReceiver.class);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(sleep.this, 0, intent, 0);
+
+                        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+                        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                        calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                        calendar.set(Calendar.SECOND, 0);
+
+                        int minutes_30 = 30 * 60000;
+
+                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - minutes_30, AlarmManager.INTERVAL_DAY,
+                                pendingIntent);
+                        Log.i("Test", "2");
+                    }
+                    else if(np.getValue() == 3) {
+                        Intent intent = new Intent(sleep.this, MyReceiver.class);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(sleep.this, 0, intent, 0);
+
+                        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+                        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                        calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                        calendar.set(Calendar.SECOND, 0);
+
+                        int minutes_45 = 45 * 60000;
+
+                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - minutes_45, AlarmManager.INTERVAL_DAY,
+                                pendingIntent);
+                        Log.i("Test", "3");
+                    }
+                    else if(np.getValue() == 4) {
+                        Intent intent = new Intent(sleep.this, MyReceiver.class);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(sleep.this, 0, intent, 0);
+
+                        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+                        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(bedTimeReminderHour));
+                        calendar.set(Calendar.MINUTE, Integer.parseInt(bedTimeReminderMinute));
+                        calendar.set(Calendar.SECOND, 0);
+
+
+                        int minutes_60 = 60 * 60000;
+
+                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - minutes_60, AlarmManager.INTERVAL_DAY,
+                                pendingIntent);
+                        Log.i("Test", "4");
+                    }
+                    else {
+                        Log.i("Test", "5");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         });
         builder.setView(view);
         AlertDialog dialog = builder.create();

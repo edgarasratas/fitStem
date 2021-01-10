@@ -1,49 +1,26 @@
 package com.example.stemfit3;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.ListMenuPresenter;
-
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.hardware.usb.UsbConfiguration;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import android.widget.EditText;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
-
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 
 
 public class UserInfoRegister extends AppCompatActivity {
@@ -54,8 +31,13 @@ public class UserInfoRegister extends AppCompatActivity {
     private EditText editAge, editHeight, editWeight;
     private Button mContinue;
     private DatabaseReference mDatabase;
-    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-    String uid = currentUser.getUid();
+    private final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    String uid;
+
+    {
+        assert currentUser != null;
+        uid = currentUser.getUid();
+    }
 
     public static final String AGE = "Age";
     public static final String GENDER = "Gender";
@@ -94,7 +76,7 @@ public class UserInfoRegister extends AppCompatActivity {
         Context context=getApplicationContext();
         String[] foo_array = context.getResources().getStringArray(R.array.Activity);
 
-        ArrayAdapter adapter = new ArrayAdapter<>
+        ArrayAdapter<String> adapter = new ArrayAdapter<>
                 (UserInfoRegister.this,R.layout.support_simple_spinner_dropdown_item, foo_array);
         editActivity.setAdapter(adapter);
         editActivity.setSelection(LastClick);
@@ -102,63 +84,60 @@ public class UserInfoRegister extends AppCompatActivity {
         editActivity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mContinue.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        saveData();
+                mContinue.setOnClickListener(v -> {
+                    saveData();
 
-                        mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
-                        uid = currentUser.getUid();
+                    mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
+                    uid = currentUser.getUid();
 
-                        String Age = editAge.getText().toString();
-                        if(Age.isEmpty()) {
-                            editAge.setError("This field is required");
-                            editAge.requestFocus();
-                        }
-                        else{
-                            mDatabase.child(uid).child("Age").setValue(Age);
-                        }
+                    String Age = editAge.getText().toString();
+                    if(Age.isEmpty()) {
+                        editAge.setError("This field is required");
+                        editAge.requestFocus();
+                    }
+                    else{
+                        mDatabase.child(uid).child("Age").setValue(Age);
+                    }
 
-                        String Height = editHeight.getText().toString();
-                        if(Height.isEmpty()){
-                            editHeight.setError("This field is required");
-                            editHeight.requestFocus();
-                        }
-                        else{
-                            mDatabase.child(uid).child("Height").setValue(Height);
-                        }
+                    String Height = editHeight.getText().toString();
+                    if(Height.isEmpty()){
+                        editHeight.setError("This field is required");
+                        editHeight.requestFocus();
+                    }
+                    else{
+                        mDatabase.child(uid).child("Height").setValue(Height);
+                    }
 
-                        String Weight = editWeight.getText().toString();
-                        if(Weight.isEmpty()){
-                            editWeight.setError("This field is required");
-                            editWeight.requestFocus();
-                        }
-                        else{
-                            mDatabase.child(uid).child("Weight").setValue(Weight);
-                        }
+                    String Weight = editWeight.getText().toString();
+                    if(Weight.isEmpty()){
+                        editWeight.setError("This field is required");
+                        editWeight.requestFocus();
+                    }
+                    else{
+                        mDatabase.child(uid).child("Weight").setValue(Weight);
+                    }
 
-                        mDatabase.child(uid).child("neededCal").setValue("");
-                        String Activity = editActivity.getSelectedItem().toString();
-                        mDatabase.child(uid).child("Activity").setValue(Activity);
+                    mDatabase.child(uid).child("neededCal").setValue("");
+                    String Activity = editActivity.getSelectedItem().toString();
+                    mDatabase.child(uid).child("Activity").setValue(Activity);
 
-                        String Gender1 = editMale.getText().toString();
-                        String Gender2 = editFemale.getText().toString();
-                        if(editMale.isChecked()){
-                            mDatabase.child(uid).child("Gender").setValue(Gender1);
+                    String Gender1 = editMale.getText().toString();
+                    String Gender2 = editFemale.getText().toString();
+                    if(editMale.isChecked()){
+                        mDatabase.child(uid).child("Gender").setValue(Gender1);
 
-                        }
-                        else if(editFemale.isChecked()){
-                            mDatabase.child(uid).child("Gender").setValue(Gender2);
+                    }
+                    else if(editFemale.isChecked()){
+                        mDatabase.child(uid).child("Gender").setValue(Gender2);
 
-                        }
-                        else if((!editMale.isChecked()) && (!editFemale.isChecked())) {
-                            Toast.makeText(getApplicationContext(), "You must choose a gender", Toast.LENGTH_SHORT).show();
-                        }
-                        editor.putInt("LastPositionClicked", position).apply();
-                        if((!Age.isEmpty()) && (!Height.isEmpty()) && (!Weight.isEmpty()) && ((editMale.isChecked()) || (editFemale.isChecked()))) {
-                            startActivity(new Intent(UserInfoRegister.this, Settings.class));
-                            Toast.makeText(getApplicationContext(), "Data saved", Toast.LENGTH_SHORT).show();
-                        }
+                    }
+                    else if((!editMale.isChecked()) && (!editFemale.isChecked())) {
+                        Toast.makeText(getApplicationContext(), "You must choose a gender", Toast.LENGTH_SHORT).show();
+                    }
+                    editor.putInt("LastPositionClicked", position).apply();
+                    if((!Age.isEmpty()) && (!Height.isEmpty()) && (!Weight.isEmpty()) && ((editMale.isChecked()) || (editFemale.isChecked()))) {
+                        startActivity(new Intent(UserInfoRegister.this, Settings.class));
+                        Toast.makeText(getApplicationContext(), "Data saved", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -219,10 +198,7 @@ public class UserInfoRegister extends AppCompatActivity {
                 .setTitle("Welcome!")
                 .setMessage("To finalize your registration, finish your profile." +
                         "\n\nThis information is used for calculations.")
-                .setPositiveButton("Got it", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
+                .setPositiveButton("Got it", (dialog, which) -> {
                 })
                 .create().show();
     }

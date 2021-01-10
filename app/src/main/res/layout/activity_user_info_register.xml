@@ -11,7 +11,7 @@
         android:id="@+id/imageView"
         android:layout_width="223dp"
         android:layout_height="212dp"
-        android:contentDescription="Logo"
+        android:contentDescription="@string/logo"
         android:src="@drawable/icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +23,7 @@
         android:id="@+id/UserInfo"
         android:layout_width="53dp"
         android:layout_height="36dp"
-        android:text="Age"
+        android:text="@string/age"
         android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,13 +47,15 @@
         app:layout_constraintHorizontal_bias="0.376"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.420" />
+        app:layout_constraintVertical_bias="0.420"
+        android:hint="@string/age"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/userInfo"
         android:layout_width="87dp"
         android:layout_height="48dp"
-        android:text="Gender"
+        android:text="@string/gender"
         android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -78,17 +80,15 @@
             android:id="@+id/radioMale"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:buttonTint="@color/secondary"
             android:checked="true"
-            android:text="Male" />
+            android:text="@string/male" />
 
         <RadioButton
             android:id="@+id/radioFemale"
             android:layout_width="80dp"
             android:layout_height="35dp"
-            android:buttonTint="@color/secondary"
             android:checked="true"
-            android:text="Female" />
+            android:text="@string/female" />
 
     </RadioGroup>
 
@@ -96,7 +96,7 @@
         android:id="@+id/Height"
         android:layout_width="89dp"
         android:layout_height="33dp"
-        android:text="Height"
+        android:text="@string/height"
         android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -121,13 +121,15 @@
         app:layout_constraintHorizontal_bias="0.577"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.584" />
+        app:layout_constraintVertical_bias="0.584"
+        android:hint="@string/height"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/Weight"
         android:layout_width="89dp"
         android:layout_height="33dp"
-        android:text="Weight"
+        android:text="@string/weight"
         android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -152,13 +154,15 @@
         app:layout_constraintHorizontal_bias="0.577"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.657" />
+        app:layout_constraintVertical_bias="0.657"
+        android:hint="@string/weight"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/Activity"
         android:layout_width="89dp"
         android:layout_height="33dp"
-        android:text="Activity"
+        android:text="@string/activity"
         android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -187,7 +191,7 @@
         android:layout_width="181dp"
         android:layout_height="40dp"
         android:background="@drawable/round_button"
-        android:text="Continue"
+        android:text="@string/Continue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -200,10 +204,10 @@
         android:layout_width="39dp"
         android:layout_height="35dp"
         android:gravity="center"
-        android:text="cm"
+        android:text="@string/cm"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.881"
@@ -216,10 +220,10 @@
         android:layout_width="37dp"
         android:layout_height="32dp"
         android:gravity="center"
-        android:text="kg"
+        android:text="@string/kg"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.877"

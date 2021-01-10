@@ -81,6 +81,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginBottom="84dp"
+        android:backgroundTint="#5fff26"
         android:clickable="true"
         android:focusable="true"
         android:onClick="fridgeMenu"
@@ -89,7 +90,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:menu="@menu/add_item_menu"
-        app:srcCompat="@drawable/ic_baseline_add_24"
-        android:contentDescription="@string/virtual_fridge" />
+        app:srcCompat="@drawable/ic_baseline_add_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

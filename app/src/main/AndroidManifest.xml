@@ -4,6 +4,7 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_icon"
@@ -14,7 +15,7 @@
         <activity android:name=".UserInfoRegister"/>
         <activity
             android:name=".fridge"
-            android:label="@string/title_activity_scrolling_activitytest"
+            android:label="@string/title_activity_scrolling_activityTest"
             android:theme="@style/Theme.StemFit3.NoActionBar" />
         <activity android:name=".Register" />
         <activity android:name=".kcal" />

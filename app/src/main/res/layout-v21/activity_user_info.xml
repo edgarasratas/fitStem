@@ -122,6 +122,7 @@
             android:id="@+id/radioMale"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:buttonTint="@color/secondary"
             android:checked="true"
             android:text="@string/male" />
 
@@ -129,6 +130,7 @@
             android:id="@+id/radioFemale"
             android:layout_width="80dp"
             android:layout_height="35dp"
+            android:buttonTint="@color/secondary"
             android:checked="true"
             android:text="@string/female" />
 

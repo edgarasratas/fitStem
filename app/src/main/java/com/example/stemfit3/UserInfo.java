@@ -1,34 +1,23 @@
 package com.example.stemfit3;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.ListMenuPresenter;
-
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import android.widget.EditText;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,13 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
 
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public class UserInfo extends AppCompatActivity {
@@ -52,10 +35,15 @@ public class UserInfo extends AppCompatActivity {
     private Spinner editActivity;
     private EditText editAge, editHeight, editWeight;
     private TextView username;
-    private Button mSave, mBack;
+    private Button mSave;
     private DatabaseReference mDatabase;
-    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-    String uid = currentUser.getUid();
+    private final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    String uid;
+
+    {
+        assert currentUser != null;
+        uid = currentUser.getUid();
+    }
 
     public static final String AGE = "Age";
     public static final String GENDER = "Gender";
@@ -81,7 +69,7 @@ public class UserInfo extends AppCompatActivity {
         final int LastClick = LastSelect.getInt("LastPositionClicked", 0);
 
         mSave = (Button) findViewById(R.id.Save);
-        mBack = (Button) findViewById(R.id.Back);
+        Button mBack = (Button) findViewById(R.id.Back);
         username = (TextView)findViewById(R.id.username);
         editAge = (EditText)findViewById(R.id.age_select);
         editGender = (RadioGroup)findViewById(R.id.radioGenderGroup);
@@ -91,11 +79,15 @@ public class UserInfo extends AppCompatActivity {
         editWeight = (EditText)findViewById(R.id.set_weight);
         editActivity = (Spinner)findViewById(R.id.set_activity);
 
+        editAge.setOnFocusChangeListener((v, hasFocus) -> editAge.setHint(""));
+        editHeight.setOnFocusChangeListener((v, hasFocus) -> editHeight.setHint(""));
+        editWeight.setOnFocusChangeListener((v, hasFocus) -> editWeight.setHint(""));
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String usernameString = snapshot.child("Users").child(uid).child("username").getValue().toString();
+                String usernameString = Objects.requireNonNull(snapshot.child("Users").child(uid).child("username").getValue()).toString();
                 username.setText(usernameString);
 
                 mDatabase.child(uid).child("Username").setValue(usernameString);
@@ -110,7 +102,7 @@ public class UserInfo extends AppCompatActivity {
         Context context=getApplicationContext();
         String[] foo_array = context.getResources().getStringArray(R.array.Activity);
 
-        ArrayAdapter adapter = new ArrayAdapter<>
+        ArrayAdapter<String> adapter = new ArrayAdapter<>
                 (UserInfo.this,R.layout.support_simple_spinner_dropdown_item, foo_array);
         editActivity.setAdapter(adapter);
         editActivity.setSelection(LastClick);
@@ -118,56 +110,53 @@ public class UserInfo extends AppCompatActivity {
             editActivity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    mSave.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            saveData();
+                    mSave.setOnClickListener(v -> {
+                        saveData();
 
-                            mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
-                            uid = currentUser.getUid();
+                        mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
+                        uid = currentUser.getUid();
 
-                            String Age = editAge.getText().toString();
-                            if(Age.isEmpty()) {
-                                mDatabase.child(uid).child("Age").setValue("Not specified");
-                            }
-                            else{
-                                mDatabase.child(uid).child("Age").setValue(Age);
-                            }
-
-                            String Height = editHeight.getText().toString();
-                            if(Height.isEmpty()){
-                                mDatabase.child(uid).child("Height").setValue("Not specified");
-                            }
-                            else{
-                                mDatabase.child(uid).child("Height").setValue(Height);
-                            }
-
-                            String Weight = editWeight.getText().toString();
-                            if(Weight.isEmpty()){
-                                mDatabase.child(uid).child("Weight").setValue("Not specified");
-                            }
-                            else{
-                                mDatabase.child(uid).child("Weight").setValue(Weight);
-                            }
-
-                            mDatabase.child(uid).child("neededCal").setValue("");
-                            String Activity = editActivity.getSelectedItem().toString();
-                            mDatabase.child(uid).child("Activity").setValue(Activity);
-
-                            String Gender1 = editMale.getText().toString();
-                            String Gender2 = editFemale.getText().toString();
-                            if(editMale.isChecked()){
-                                mDatabase.child(uid).child("Gender").setValue(Gender1);
-                            }
-                            else{
-                                mDatabase.child(uid).child("Gender").setValue(Gender2);
-                            }
-                            editor.putInt("LastPositionClicked", position).apply();
-                            exitUserInfo(v);
-
-
-
+                        String Age = editAge.getText().toString();
+                        if(Age.isEmpty()) {
+                            mDatabase.child(uid).child("Age").setValue("Not specified");
                         }
+                        else{
+                            mDatabase.child(uid).child("Age").setValue(Age);
+                        }
+
+                        String Height = editHeight.getText().toString();
+                        if(Height.isEmpty()){
+                            mDatabase.child(uid).child("Height").setValue("Not specified");
+                        }
+                        else{
+                            mDatabase.child(uid).child("Height").setValue(Height);
+                        }
+
+                        String Weight = editWeight.getText().toString();
+                        if(Weight.isEmpty()){
+                            mDatabase.child(uid).child("Weight").setValue("Not specified");
+                        }
+                        else{
+                            mDatabase.child(uid).child("Weight").setValue(Weight);
+                        }
+
+                        mDatabase.child(uid).child("neededCal").setValue("");
+                        String Activity = editActivity.getSelectedItem().toString();
+                        mDatabase.child(uid).child("Activity").setValue(Activity);
+
+                        String Gender1 = editMale.getText().toString();
+                        String Gender2 = editFemale.getText().toString();
+                        if(editMale.isChecked()){
+                            mDatabase.child(uid).child("Gender").setValue(Gender1);
+                        }
+                        else{
+                            mDatabase.child(uid).child("Gender").setValue(Gender2);
+                        }
+                        editor.putInt("LastPositionClicked", position).apply();
+                        exitUserInfo(v);
+
+
+
                     });
                 }
 
@@ -180,47 +169,42 @@ public class UserInfo extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
         uid = currentUser.getUid();
 
-        mBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String newAge = editAge.getText().toString();
-                String newHeight = editHeight.getText().toString();
-                String newWeight = editWeight.getText().toString();
-                int selectedItemPositionNew = editActivity.getSelectedItemPosition();
+        mBack.setOnClickListener(v -> {
+            String newAge = editAge.getText().toString();
+            String newHeight = editHeight.getText().toString();
+            String newWeight = editWeight.getText().toString();
 
-                mDatabase.child(uid).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String ageStr = snapshot.child("Age").getValue().toString();
-                        String genderStr = snapshot.child("Gender").getValue().toString();
-                        String heightStr = snapshot.child("Height").getValue().toString();
-                        String weightStr = snapshot.child("Weight").getValue().toString();
-                        String activityStr = snapshot.child("Activity").getValue().toString();
-                        String genderNew = null;
+            mDatabase.child(uid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String ageStr = Objects.requireNonNull(snapshot.child("Age").getValue()).toString();
+                    String genderStr = Objects.requireNonNull(snapshot.child("Gender").getValue()).toString();
+                    String heightStr = Objects.requireNonNull(snapshot.child("Height").getValue()).toString();
+                    String weightStr = Objects.requireNonNull(snapshot.child("Weight").getValue()).toString();
+                    String activityStr = Objects.requireNonNull(snapshot.child("Activity").getValue()).toString();
+                    String genderNew = null;
 
-                        if(editMale.isChecked())
-                            genderNew = editMale.getText().toString();
-                        else if(editFemale.isChecked())
-                            genderNew = editFemale.getText().toString();
+                    if(editMale.isChecked())
+                        genderNew = editMale.getText().toString();
+                    else if(editFemale.isChecked())
+                        genderNew = editFemale.getText().toString();
 
-                        String activityString = editActivity.getSelectedItem().toString();
+                    String activityString = editActivity.getSelectedItem().toString();
 
-                        if(!ageStr.equals(newAge) || (!genderStr.equals(genderNew)) || (!heightStr.equals(newHeight) || (!weightStr.equals(newWeight)) || (!activityStr.equals(activityString)))) {
-                            unsavedChangesDialog(v);
-                        }
-                        else {
-                            exitUserInfo(v);
-                        }
-
+                    if(!ageStr.equals(newAge) || (!genderStr.equals(genderNew)) || (!heightStr.equals(newHeight) || (!weightStr.equals(newWeight)) || (!activityStr.equals(activityString)))) {
+                        unsavedChangesDialog(v);
+                    }
+                    else {
+                        exitUserInfo(v);
                     }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                }
 
-                    }
-                });
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
+                }
+            });
         });
 
         loadData();
@@ -266,18 +250,8 @@ public class UserInfo extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(UserInfo.this);
         builder.setTitle("Are you sure?");
         builder.setMessage("You have some unsaved changes");
-        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.setPositiveButton("Discard", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                exitUserInfo(v);
-            }
-        });
+        builder.setNegativeButton("cancel", (dialog, which) -> dialog.dismiss());
+        builder.setPositiveButton("Discard", (dialog, which) -> exitUserInfo(v));
         AlertDialog dialog = builder.create();
         if(!isFinishing()) {
             dialog.show();
