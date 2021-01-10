@@ -36,7 +36,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     public FirebaseAuth mAuth;
     public CardView register;
     public TextView account;
-    public Username username;
+    public String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,22 +80,23 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     private void registerUser() {
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
-        username =new Username(usernameEditText.getText().toString().trim());
         String confirm = confirmPassEditText.getText().toString().trim();
+        TextView tempUsername = findViewById(R.id.usernameRegister);
+        username = tempUsername.getText().toString();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Usernames");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren())
-                    if(username.equals(snapshot.getValue().toString())){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    if(username.equals(snapshot.child("username").getValue().toString())){
                         usernameEditText.setError("Username is taken");
                         return;
-                    }else{
-                        reference.setValue(username);
                     }
+             }
 
-            }
+               }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -130,11 +131,13 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             passwordEditText.setError("Password must be longer than 8 characters");
             return;
         }
-
+        Log.i("tag1", "registerUser: ");
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    Log.i("tag2", "registerUser: ");
+
                     User user = new User(usernameEditText.getText().toString().trim(),email);
                     FirebaseUser newUser = FirebaseAuth.getInstance().getCurrentUser();
                     FirebaseDatabase.getInstance().getReference("Users")
@@ -150,12 +153,15 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                             }
                             else
                                 Toast.makeText(Register.this, "Failed to register!",Toast.LENGTH_LONG).show();
+                            Log.i("tag3", "registerUser: ");
+
                         }
                     });
                 }else
                     Toast.makeText(Register.this, "Failed to register!",Toast.LENGTH_LONG).show();
             }
         });
+        Log.i("tag4", "registerUser: ");
 
 
     }

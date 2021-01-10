@@ -163,6 +163,52 @@ public class UserInfo extends AppCompatActivity {
                                 mDatabase.child(uid).child("Gender").setValue(Gender2);
                             }
                             editor.putInt("LastPositionClicked", position).apply();
+                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Water").child(uid);
+
+                            if(editMale.isChecked()){
+                                switch (Activity) {
+                                    case "Sedentary: little or no exercise":
+                                        ref.child("neededWater").setValue("3750");
+                                        break;
+                                    case "Light: exercise 1-3/week":
+                                        ref.child("neededWater").setValue("3750");
+                                        break;
+                                    case "Moderate: exercise 4-5/week":
+                                        ref.child("neededWater").setValue("4000");
+                                        break;
+                                    case "Active: intense exercise 3-4/week":
+                                        ref.child("neededWater").setValue("4000");
+                                        break;
+                                    case "Very active: intense exercise 6-7/week":
+                                        ref.child("neededWater").setValue("4250");
+                                        break;
+                                    case "Extra active: very intense exercise daily":
+                                        ref.child("neededWater").setValue("4500");
+                                        break;
+                                }
+                            }
+                            if(editFemale.isChecked()){
+                                switch (Activity) {
+                                    case "Sedentary: little or no exercise":
+                                        ref.child("neededWater").setValue("2750");
+                                        break;
+                                    case "Light: exercise 1-3/week":
+                                        ref.child("neededWater").setValue("3000");
+                                        break;
+                                    case "Moderate: exercise 4-5/week":
+                                        ref.child("neededWater").setValue("3500");
+                                        break;
+                                    case " Active: intense exercise 3-4/week":
+                                        ref.child("neededWater").setValue("3750");
+                                        break;
+                                    case "Very active: intense exercise 6-7/week":
+                                        ref.child("neededWater").setValue("4000");
+                                        break;
+                                    case "Extra active: very intense exercise daily":
+                                        ref.child("neededWater").setValue("4250");
+                                        break;
+                                }
+                            }
                             exitUserInfo(v);
 
 
