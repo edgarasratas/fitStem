@@ -28,6 +28,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SwitchCompat;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -42,11 +43,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -60,7 +60,13 @@ public class sleep extends AppCompatActivity {
     public AppCompatButton bedTime;
     public AppCompatButton wakeUpTime;
     public AppCompatButton sleepGoal;
+    public AppCompatButton sleepStats;
     public ImageView sleepSwitch;
+    public double weekAvg;
+    public int currentSleepHour;
+    public int currentSleepMinute;
+    public Calendar dayOfWeek = Calendar.getInstance();
+    public int Day = dayOfWeek.get(Calendar.DAY_OF_WEEK);
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     BarChart barchart;
 
@@ -91,6 +97,7 @@ public class sleep extends AppCompatActivity {
         reminderSleep = findViewById(R.id.sleepSwitch);
         bedTimeReminder = findViewById(R.id.sleepSwitchText);
         sleepGoal = findViewById(R.id.sleepGoalButton);
+        sleepStats = findViewById(R.id.sleepStatsButton);
 
         String switchStateOff = "Bedtime reminder: OFF";
         String switchStateOn = "Bedtime reminder: ON";
@@ -100,6 +107,7 @@ public class sleep extends AppCompatActivity {
         SimpleDateFormat timeOnly = new SimpleDateFormat("hh:mm", Locale.getDefault());
         String dateString = sdf.format(date);
         String timeString = timeOnly.format(date);
+
         //show present date
         dateText.setText(dateString);
 
@@ -144,6 +152,97 @@ public class sleep extends AppCompatActivity {
             }
         });
         reminderSleep.setChecked(sharedPreferences.getBoolean("lastClick", true));
+        getInfo();
+
+                switch (Day) {
+                    case Calendar.SUNDAY:
+                        addSleepHoursToDay(Calendar.SUNDAY);
+                        Log.i("Monday", "1");
+                        break;
+                    case Calendar.MONDAY:
+                        addSleepHoursToDay(Calendar.MONDAY);
+                        Log.i("Tuesday", "2");
+                        break;
+                    case Calendar.TUESDAY:
+                        addSleepHoursToDay(Calendar.TUESDAY);
+                        Log.i("Wednesday", "3");
+                        break;
+                    case Calendar.WEDNESDAY:
+                        addSleepHoursToDay(Calendar.WEDNESDAY);
+                        Log.i("Thursday", "4");
+                        break;
+                    case Calendar.THURSDAY:
+                        addSleepHoursToDay(Calendar.THURSDAY);
+                        Log.i("Friday", "5");
+                        break;
+                    case Calendar.FRIDAY:
+                        addSleepHoursToDay(Calendar.FRIDAY);
+                        Log.i("Saturday", "6");
+                        break;
+                    case Calendar.SATURDAY:
+                        addSleepHoursToDay(Calendar.SATURDAY);
+                        Log.i("Sunday", "7");
+                        break;
+                }
+    }
+
+    public void getInfo() {
+        mDatabase.child("Sleep").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                currentSleepHour = Integer.parseInt(Objects.requireNonNull(snapshot.child("Bed time (hour)").getValue()).toString());
+                currentSleepMinute = Integer.parseInt(Objects.requireNonNull(snapshot.child("Bed time (minute)").getValue()).toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void addSleepHoursToDay(int currentDay) {
+        mDatabase.child("Sleep").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String hourBedTime = Objects.requireNonNull(snapshot.child("Bed time (hour)").getValue()).toString();
+                String minuteBedTime = Objects.requireNonNull(snapshot.child("Bed time (minute)").getValue()).toString();
+                String hourWakeUpTime = Objects.requireNonNull(snapshot.child("Wake up time (hour)").getValue()).toString();
+                String minuteWakeUpTime = Objects.requireNonNull(snapshot.child("Wake up time (minute)").getValue()).toString();
+
+                double sleptTimeMin = (Double.parseDouble(minuteBedTime) - Double.parseDouble(minuteWakeUpTime)) / 60;
+                final double v = Integer.parseInt(hourWakeUpTime) - Integer.parseInt(hourBedTime) - sleptTimeMin;
+                if((Integer.parseInt(hourBedTime) >= 0) && (Integer.parseInt(hourBedTime) < 10) && (Integer.parseInt(hourWakeUpTime) >= 10) && (Integer.parseInt(hourWakeUpTime) < 24)) {
+                    double sleptTime = Math.abs(v);
+                    mDatabase.child("Sleep").child(uid).child("day").child(String.valueOf(currentDay)).setValue(sleptTime);
+                    Log.i("if", "1");
+                }
+                else if((Integer.parseInt(hourBedTime) >= 10) && (Integer.parseInt(hourBedTime) < 24) && (Integer.parseInt(hourWakeUpTime) >= 10) && (Integer.parseInt(hourWakeUpTime) < 24)){
+                    double sleptTime = Math.abs(v);
+                    mDatabase.child("Sleep").child(uid).child("day").child(String.valueOf(currentDay)).setValue(sleptTime);
+                    Log.i("if", "2");
+                }
+                else if((Integer.parseInt(hourBedTime) >= 10) && (Integer.parseInt(hourBedTime) < 24) && (Integer.parseInt(hourWakeUpTime) >= 0) && (Integer.parseInt(hourWakeUpTime) < 10)){
+                    double sleptTime = Math.abs((24 - Integer.parseInt(hourBedTime) + Integer.parseInt(hourWakeUpTime) - sleptTimeMin));
+                    mDatabase.child("Sleep").child(uid).child("day").child(String.valueOf(currentDay)).setValue(sleptTime);
+                    Log.i("if", "3");
+                }
+                else if((Integer.parseInt(hourBedTime) >= 0) && (Integer.parseInt(hourBedTime) < 10) && (Integer.parseInt(hourWakeUpTime) >= 0) && (Integer.parseInt(hourWakeUpTime) < 10)){
+                    double sleptTime = Math.abs(v);
+                    mDatabase.child("Sleep").child(uid).child("day").child(String.valueOf(currentDay)).setValue(sleptTime);
+                    Log.i("if", "4");
+                }
+                else {
+                    Log.i("if", "NULL");
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void setupBottomNavigationView() {
@@ -181,6 +280,7 @@ public class sleep extends AppCompatActivity {
             if((nph.getValue() < 10) && (npm.getValue() < 10)) {
                 String bedTimeText = "Bedtime\n" + "0" + nph.getValue() + ":0" + npm.getValue();
                 bedTime.setText(bedTimeText);
+                mDatabase.child(uid).child("day").child(String.valueOf(Calendar.DAY_OF_WEEK));
                 mDatabase.child(uid).child("Bed time (hour)").setValue(nph.getValue());
                 mDatabase.child(uid).child("Bed time (minute)").setValue(npm.getValue());
                 editor.putString("BEDTIME", "Bedtime\n" + "0" + nph.getValue() + ":0" + npm.getValue());
@@ -239,12 +339,15 @@ public class sleep extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
             mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
+            DatabaseReference sleepDB = FirebaseDatabase.getInstance().getReference().child("Sleep");
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
             assert currentUser != null;
             String uid = currentUser.getUid();
             if((nph.getValue() < 10) && (npm.getValue() < 10)) {
                 String wakeUpTimeText = "Wake up time\n" + "0" + nph.getValue() + ":0" + npm.getValue();
                 wakeUpTime.setText(wakeUpTimeText);
+                sleepDB.child(uid).child("Wake up time (hour)").setValue(nph.getValue());
+                sleepDB.child(uid).child("Wake up time (minute)").setValue(npm.getValue());
                 mDatabase.child(uid).child("Wake up time").setValue("0" + nph.getValue() + ":0" + npm.getValue());
                 editor.putString("WAKE UP TIME", "Wake up time\n" + "0" + nph.getValue() + ":0" + npm.getValue());
                 editor.apply();
@@ -252,6 +355,8 @@ public class sleep extends AppCompatActivity {
             else if((nph.getValue() < 10) && (npm.getValue() >= 10)) {
                 String wakeUpTimeText = "Wake up time\n" + "0" + nph.getValue() + ":" + npm.getValue();
                 wakeUpTime.setText(wakeUpTimeText);
+                sleepDB.child(uid).child("Wake up time (hour)").setValue(nph.getValue());
+                sleepDB.child(uid).child("Wake up time (minute)").setValue(npm.getValue());
                 mDatabase.child(uid).child("Wake up time").setValue("0" + nph.getValue() + ":" + npm.getValue());
                 editor.putString("WAKE UP TIME", "Wake up time\n" + "0" + nph.getValue() + ":" + npm.getValue());
                 editor.apply();
@@ -259,6 +364,8 @@ public class sleep extends AppCompatActivity {
             else if((nph.getValue() >= 10) && (npm.getValue() < 10)) {
                 String wakeUpTimeText = "Wake up time\n" + nph.getValue() + ":0" + npm.getValue();
                 wakeUpTime.setText(wakeUpTimeText);
+                sleepDB.child(uid).child("Wake up time (hour)").setValue(nph.getValue());
+                sleepDB.child(uid).child("Wake up time (minute)").setValue(npm.getValue());
                 mDatabase.child(uid).child("Wake up time").setValue(nph.getValue() + ":0" + npm.getValue());
                 editor.putString("WAKE UP TIME", "Wake up time\n" + nph.getValue() + ":0" + npm.getValue());
                 editor.apply();
@@ -266,6 +373,8 @@ public class sleep extends AppCompatActivity {
             else if ((nph.getValue() >= 10) && (npm.getValue() >= 10)) {
                 String wakeUpTimeText = "Wake up time\n" + nph.getValue() + ":" + npm.getValue();
                 wakeUpTime.setText(wakeUpTimeText);
+                sleepDB.child(uid).child("Wake up time (hour)").setValue(nph.getValue());
+                sleepDB.child(uid).child("Wake up time (minute)").setValue(npm.getValue());
                 mDatabase.child(uid).child("Wake up time").setValue(nph.getValue() + ":" + npm.getValue());
                 editor.putString("WAKE UP TIME", "Wake up time\n" + nph.getValue() + ":" + npm.getValue());
                 editor.apply();
@@ -318,37 +427,83 @@ public class sleep extends AppCompatActivity {
         dialog.show();
     }
 
-    public ArrayList<BarEntry> dataValue1() {
-        mDatabase.child("UserInfo").child(uid).addValueEventListener(new ValueEventListener() {
+
+
+    public void statisticsSleep(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(sleep.this);
+        View view = getLayoutInflater().inflate(R.layout.sleep_statistics_dialog, null);
+
+        builder.setNegativeButton("close", (dialog, which) -> {
+
+        });
+
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        barchart = view.findViewById(R.id.barchart);
+
+        ArrayList<Double> dataVal = new ArrayList<>();
+
+        uid = currentUser.getUid();
+
+        mDatabase.child("Sleep").child(uid).child("day").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String bedTime = Objects.requireNonNull(snapshot.child("Bed time").getValue()).toString();
-                String wakeUpTime = Objects.requireNonNull(snapshot.child("Wake up time").getValue()).toString();
+                weekAvg = 0;
 
-                java.text.DateFormat dateFormat = new java.text.SimpleDateFormat("HH:mm", Locale.getDefault());
-                Date date1 = null;
-                try {
-                    date1 = dateFormat.parse(bedTime);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                ArrayList<BarEntry> barEntryArrayList;
+                ArrayList<String> xAxisLabel;
+                xAxisLabel = new ArrayList<>();
+
+                TextView avgSleep = dialog.findViewById(R.id.averageSleep);
+
+                for(DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    double sleepHours = Double.parseDouble(Objects.requireNonNull(snapshot1.getValue()).toString());
+                    dataVal.add(sleepHours);
+                    weekAvg += sleepHours;
                 }
-                Date date2 = null;
-                try {
-                    date2 = dateFormat.parse(wakeUpTime);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                DecimalFormat decimalFormat = new DecimalFormat("#");
+                String tempFormat = decimalFormat.format(weekAvg/7);
+                assert avgSleep != null;
+                avgSleep.setText(tempFormat);
+
+                xAxisLabel.add("M");
+                xAxisLabel.add("T");
+                xAxisLabel.add("W");
+                xAxisLabel.add("T");
+                xAxisLabel.add("F");
+                xAxisLabel.add("S");
+                xAxisLabel.add("S");
+
+                barEntryArrayList = new ArrayList<>();
+                for (int i = 0; i < 7; i++) {
+                    double tempSleep = dataVal.get(i);
+                    barEntryArrayList.add(new BarEntry(i, (float) tempSleep));
                 }
-                assert date2 != null;
-                assert date1 != null;
-                long diff = date2.getTime() - date1.getTime();
-                int time = (int) (diff / 1000 / 3600);
-/*                long timeInSeconds = diff / 1000;
-                long hours, minutes, seconds;
-                hours = timeInSeconds / 3600;
-                timeInSeconds = timeInSeconds - (hours * 3600);
-                minutes = timeInSeconds / 60;
-                timeInSeconds = timeInSeconds - (minutes * 60);*/
-                Log.i("Test", String.valueOf(time));
+
+                BarDataSet barDataSet = new BarDataSet(barEntryArrayList, "Your sleep during the past week");
+                barDataSet.setColor(Color.GREEN);
+                BarData barData = new BarData(barDataSet);
+                barData.setBarWidth(0.5f);
+
+
+                XAxis xAxis = barchart.getXAxis();
+                xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabel));
+                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
+                xAxis.setDrawGridLines(false);
+                xAxis.setDrawAxisLine(false);
+                xAxis.setGranularity(1f);
+                xAxis.setGranularityEnabled(true);
+                xAxis.setLabelCount(xAxisLabel.size());
+                Description description = new Description();
+                description.setText("");
+
+
+                barchart.setDescription(description);
+                barchart.setData(barData);
+                barchart.animateY(2000);
+                barchart.invalidate();
             }
 
             @Override
@@ -356,58 +511,6 @@ public class sleep extends AppCompatActivity {
 
             }
         });
-
-        ArrayList<BarEntry> dataVal = new ArrayList<>();
-        dataVal.add(new BarEntry(0,9));
-        dataVal.add(new BarEntry(1,8));
-        dataVal.add(new BarEntry(2,6));
-        dataVal.add(new BarEntry(3,5));
-        dataVal.add(new BarEntry(4,4));
-        dataVal.add(new BarEntry(5,8));
-        dataVal.add(new BarEntry(6,12));
-        return dataVal;
-    }
-
-    public void statisticsSleep(View v) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(sleep.this);
-        View view = getLayoutInflater().inflate(R.layout.sleep_statistics_dialog, null);
-
-        barchart = view.findViewById(R.id.barchart);
-
-        BarDataSet barDataSet1 = new BarDataSet(dataValue1(), "DataSet 1");
-        barDataSet1.setColor(Color.GREEN);
-
-        BarData barData = new BarData();
-        barData.addDataSet(barDataSet1);
-
-        barData.setBarWidth(0.5f);
-
-        final ArrayList<String> xAxisLabel = new ArrayList<>();
-        xAxisLabel.add("M");
-        xAxisLabel.add("T");
-        xAxisLabel.add("W");
-        xAxisLabel.add("T");
-        xAxisLabel.add("F");
-        xAxisLabel.add("S");
-        xAxisLabel.add("S");
-
-        XAxis xAxis = barchart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisLabel));
-        xAxis.setGranularity(1f);
-        xAxis.setGranularityEnabled(true);
-
-        barchart.getDescription().setEnabled(false);
-
-        barchart.setData(barData);
-        barchart.invalidate();
-
-        builder.setNegativeButton("close", (dialog, which) -> {
-
-        });
-        builder.setView(view);
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 
     public void reminderOffDialog() {

@@ -1,15 +1,6 @@
 package com.example.stemfit3;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.ListMenuPresenter;
-
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -93,115 +84,118 @@ public class UserInfoRegister extends AppCompatActivity {
         editActivity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mContinue.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        saveData();
+                mContinue.setOnClickListener(v -> {
+                    saveData();
 
-                        mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
-                        uid = currentUser.getUid();
+                    mDatabase = FirebaseDatabase.getInstance().getReference().child("UserInfo");
+                    uid = currentUser.getUid();
 
-                        String Age = editAge.getText().toString();
-                        if(Age.isEmpty()) {
-                            editAge.setError("This field is required");
-                            editAge.requestFocus();
-                        }
-                        else{
-                            mDatabase.child(uid).child("Age").setValue(Age);
-                        }
+                    String Age = editAge.getText().toString();
+                    if(Age.isEmpty()) {
+                        editAge.setError("This field is required");
+                        editAge.requestFocus();
+                    }
+                    else{
+                        mDatabase.child(uid).child("Age").setValue(Age);
+                    }
 
-                        String Height = editHeight.getText().toString();
-                        if(Height.isEmpty()){
-                            editHeight.setError("This field is required");
-                            editHeight.requestFocus();
-                        }
-                        else{
-                            mDatabase.child(uid).child("Height").setValue(Height);
-                        }
+                    String Height = editHeight.getText().toString();
+                    if(Height.isEmpty()){
+                        editHeight.setError("This field is required");
+                        editHeight.requestFocus();
+                    }
+                    else{
+                        mDatabase.child(uid).child("Height").setValue(Height);
+                    }
 
-                        String Weight = editWeight.getText().toString();
-                        if(Weight.isEmpty()){
-                            editWeight.setError("This field is required");
-                            editWeight.requestFocus();
-                        }
-                        else{
-                            mDatabase.child(uid).child("Weight").setValue(Weight);
-                        }
+                    String Weight = editWeight.getText().toString();
+                    if(Weight.isEmpty()){
+                        editWeight.setError("This field is required");
+                        editWeight.requestFocus();
+                    }
+                    else{
+                        mDatabase.child(uid).child("Weight").setValue(Weight);
+                    }
 
-                        mDatabase.child(uid).child("neededCal").setValue("");
-                        String Activity = editActivity.getSelectedItem().toString();
-                        mDatabase.child(uid).child("Activity").setValue(Activity);
+                    mDatabase.child(uid).child("neededCal").setValue("");
+                    String Activity = editActivity.getSelectedItem().toString();
+                    mDatabase.child(uid).child("Activity").setValue(Activity);
 
-                        String Gender1 = editMale.getText().toString();
-                        String Gender2 = editFemale.getText().toString();
-                        if(editMale.isChecked()){
-                            mDatabase.child(uid).child("Gender").setValue(Gender1);
-
-                        }
-                        else if(editFemale.isChecked()){
-                            mDatabase.child(uid).child("Gender").setValue(Gender2);
-
-                        }
-                        else if((!editMale.isChecked()) && (!editFemale.isChecked())) {
-                            Toast.makeText(getApplicationContext(), "You must choose a gender", Toast.LENGTH_SHORT).show();
-                        }
-                        editor.putInt("LastPositionClicked", position).apply();
-                        if((!Age.isEmpty()) && (!Height.isEmpty()) && (!Weight.isEmpty()) && ((editMale.isChecked()) || (editFemale.isChecked()))) {
-                            startActivity(new Intent(UserInfoRegister.this, Settings.class));
-                            Toast.makeText(getApplicationContext(), "Data saved", Toast.LENGTH_SHORT).show();
-                        }
-                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Water").child(uid);
-                        ref.child("waterValue").setValue("250");
-                        for (int i = 1; i < 8; i++) {
-                            ref.child("day").child(String.valueOf(i)).setValue(0);
-                        }
-                        ref.child("currentWaterIntake").setValue(0);
-                        if(editMale.isChecked()){
-                            switch (Activity) {
-                                case "Sedentary: little or no exercise":
-                                    ref.child("neededWater").setValue("3750");
-                                    break;
-                                case "Light: exercise 1-3/week":
-                                    ref.child("neededWater").setValue("3750");
-                                    break;
-                                case "Moderate: exercise 4-5/week":
-                                    ref.child("neededWater").setValue("4000");
-                                    break;
-                                case "Active: intense exercise 3-4/week":
-                                    ref.child("neededWater").setValue("4000");
-                                    break;
-                                case "Very active: intense exercise 6-7/week":
-                                    ref.child("neededWater").setValue("4250");
-                                    break;
-                                case "Extra active: very intense exercise daily":
-                                    ref.child("neededWater").setValue("4500");
-                                    break;
-                            }
-                        }
-                        if(editFemale.isChecked()){
-                            switch (Activity) {
-                                case "Sedentary: little or no exercise":
-                                    ref.child("neededWater").setValue("2750");
-                                    break;
-                                case "Light: exercise 1-3/week":
-                                    ref.child("neededWater").setValue("3000");
-                                    break;
-                                case "Moderate: exercise 4-5/week":
-                                    ref.child("neededWater").setValue("3500");
-                                    break;
-                                case " Active: intense exercise 3-4/week":
-                                    ref.child("neededWater").setValue("3750");
-                                    break;
-                                case "Very active: intense exercise 6-7/week":
-                                    ref.child("neededWater").setValue("4000");
-                                    break;
-                                case "Extra active: very intense exercise daily":
-                                    ref.child("neededWater").setValue("4250");
-                                    break;
-                            }
-                        }
+                    String Gender1 = editMale.getText().toString();
+                    String Gender2 = editFemale.getText().toString();
+                    if(editMale.isChecked()){
+                        mDatabase.child(uid).child("Gender").setValue(Gender1);
 
                     }
+                    else if(editFemale.isChecked()){
+                        mDatabase.child(uid).child("Gender").setValue(Gender2);
+
+                    }
+                    else if((!editMale.isChecked()) && (!editFemale.isChecked())) {
+                        Toast.makeText(getApplicationContext(), "You must choose a gender", Toast.LENGTH_SHORT).show();
+                    }
+                    editor.putInt("LastPositionClicked", position).apply();
+                    if((!Age.isEmpty()) && (!Height.isEmpty()) && (!Weight.isEmpty()) && ((editMale.isChecked()) || (editFemale.isChecked()))) {
+                        startActivity(new Intent(UserInfoRegister.this, Settings.class));
+                        Toast.makeText(getApplicationContext(), "Data saved", Toast.LENGTH_SHORT).show();
+                    }
+                    DatabaseReference refWater = FirebaseDatabase.getInstance().getReference().child("Water").child(uid);
+                    DatabaseReference refSleep = FirebaseDatabase.getInstance().getReference().child("Sleep").child(uid);
+                    refWater.child("waterValue").setValue("250");
+                    for (int i = 1; i < 8; i++) {
+                        refWater.child("day").child(String.valueOf(i)).setValue(0);
+                    }
+                    refWater.child("currentWaterIntake").setValue(0);
+                    for (int i = 1; i < 8; i++) {
+                        refSleep.child("day").child(String.valueOf(i)).setValue(0);
+                    }
+                    refSleep.child("Bed time (hour)").setValue(0);
+                    refSleep.child("Bed time (minute)").setValue(0);
+                    if(editMale.isChecked()){
+                        switch (Activity) {
+                            case "Sedentary: little or no exercise":
+                                refWater.child("neededWater").setValue("3750");
+                                break;
+                            case "Light: exercise 1-3/week":
+                                refWater.child("neededWater").setValue("3750");
+                                break;
+                            case "Moderate: exercise 4-5/week":
+                                refWater.child("neededWater").setValue("4000");
+                                break;
+                            case "Active: intense exercise 3-4/week":
+                                refWater.child("neededWater").setValue("4000");
+                                break;
+                            case "Very active: intense exercise 6-7/week":
+                                refWater.child("neededWater").setValue("4250");
+                                break;
+                            case "Extra active: very intense exercise daily":
+                                refWater.child("neededWater").setValue("4500");
+                                break;
+                        }
+                    }
+                    if(editFemale.isChecked()){
+                        switch (Activity) {
+                            case "Sedentary: little or no exercise":
+                                refWater.child("neededWater").setValue("2750");
+                                break;
+                            case "Light: exercise 1-3/week":
+                                refWater.child("neededWater").setValue("3000");
+                                break;
+                            case "Moderate: exercise 4-5/week":
+                                refWater.child("neededWater").setValue("3500");
+                                break;
+                            case " Active: intense exercise 3-4/week":
+                                refWater.child("neededWater").setValue("3750");
+                                break;
+                            case "Very active: intense exercise 6-7/week":
+                                refWater.child("neededWater").setValue("4000");
+                                break;
+                            case "Extra active: very intense exercise daily":
+                                refWater.child("neededWater").setValue("4250");
+                                break;
+                        }
+                    }
+
                 });
             }
 
