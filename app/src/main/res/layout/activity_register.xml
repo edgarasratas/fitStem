@@ -41,7 +41,7 @@
         android:autofillHints="" />
 
     <EditText
-        android:digits ="0123456789qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM@?$%^*()."
+        android:digits ="0123456789qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM@?$%^*()._[]!#$%^*_"
         android:id="@+id/emailRegister"
         android:layout_width="210dp"
         android:layout_height="50dp"
