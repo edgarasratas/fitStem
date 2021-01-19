@@ -54,6 +54,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.IgnoreExtraProperties;
 import org.w3c.dom.Text;
@@ -98,7 +99,6 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_kcal);
         setupBottomNavigationView();
-        Ingredients  = new ArrayList<>();
         createMeals();
     }
     private void setupBottomNavigationView() {
@@ -131,6 +131,7 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         }
     }
     void createMeals(){
+        Log.i("test1", "createMeals: ");
         String uId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference referenceUsername  = FirebaseDatabase.getInstance().getReference().child("Users").child(uId).child("username");
         referenceUsername.addValueEventListener(new ValueEventListener() {
@@ -139,16 +140,23 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                 username = snapshot.getValue().toString();
 
                 check = true;
+                Log.i("test2", "createMeals: ");
+
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Meal").child(username);
                 reference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         linearLayout = (LinearLayout) findViewById(R.id.mealButtonsLayout);
                         int count = 0;
+                        Log.i("test3", "createMeals: ");
+
                         for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                             if(check) {
+                                Log.i("test4", "createMeals: ");
 
                                 for (int i = 0; i < Integer.parseInt(snapshot.child("mealCount").getValue().toString()); i++) {
+                                    Log.i(String.valueOf(i), "createMeals: ");
+
                                     getTotalCal += Integer.parseInt(snapshot.child("totalKcal").getValue().toString());
                                     newBtn = new Button(linearLayout.getContext());
                                     newBtn.setText(snapshot.getKey());
@@ -177,6 +185,8 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                             }
 
                         }
+                        Log.i("tes5", "createMeals: ");
+
                         check = false;
                         TextView tempText = (TextView) findViewById(R.id.textView9);
                         DatabaseReference neededCal = FirebaseDatabase.getInstance().getReference();
@@ -184,8 +194,10 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         double height,weight,age;
-                                        String temp = snapshot.child("Height").getValue().toString();
+                                        Log.i(uId, "createMeals: ");
+                                       Log.i("tes7", "createMeals: ");
                                         height = Integer.parseInt(snapshot.child("Height").getValue().toString());
+                                     Log.i("tes8", "createMeals: ");
                                         weight = Integer.parseInt(snapshot.child("Weight").getValue().toString());
                                         age = Integer.parseInt(snapshot.child("Age").getValue().toString());
                                 if(snapshot.child("Gender").getValue().toString().equals("Male")){
@@ -308,15 +320,10 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                         @Override
                         public void onClick(View v) {
                             Toast.makeText(v.getContext(),"Meal Added",Toast.LENGTH_LONG).show();
-                            DatabaseReference myDatabase = FirebaseDatabase.getInstance().getReference().child("Meal").child(username).child(tempButton.getText().toString());
-                            int a = Integer.parseInt(snapshot.child("mealCount").getValue().toString());
-                            a++;
-                            myDatabase.child("mealCount").setValue(a);
-                            Log.i( snapshot.child("mealCount").getValue().toString(), "onClick: ");
-                            myDatabase.child("mealCount").setValue(a);
-                            finish();
+                            Log.i(tempButton.getText().toString(), "onClick: ");
+                            int a = Integer.parseInt(snapshot.child("mealCount").getValue().toString())+1;
+                            Log.i( String.valueOf(a+1), "onClick: ");
                             dialog.dismiss();
-                            overridePendingTransition(0, 0);
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
@@ -325,8 +332,15 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                                     overridePendingTransition(0, 0);
                                     startActivity(intent);
                                     overridePendingTransition(0, 0);
+                                    Log.i(String.valueOf(a), "run:1 ");
+                                    Log.i(snapshot.child("mealCount").getValue().toString(), "database value1 ");
+                                    String mealName = tempButton.getText().toString();
+                                    reference.child("Meal").child(username).child(mealName).child("mealCount").setValue(a);
+                                    Log.i(String.valueOf(a), "run:2 ");
+                                    Log.i(snapshot.child("mealCount").getValue().toString(), "database value2 ");
+
                                 }
-                            },350);
+                            },500);
 
                         }
                     });
@@ -359,6 +373,7 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         result = "";
         //  Meal.totalKcal = 0;
         countIng = 0;
+        Ingredients  = new ArrayList<>();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(kcal.this);
         View view = getLayoutInflater().inflate(R.layout.kcal_dialog_create, null);
@@ -424,6 +439,7 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                     Toast.makeText(kcal.this, "Please enter a proper amount", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                String tempIng = Ingredient.getText().toString();
                 String url = "https://api.wolframalpha.com/v2/query?input=";
                 if(Units.getSelectedItem().equals("vnt"))
                     url +=  Count.getText().toString()+"+"+ Ingredient.getText().toString()+ "+" +"Kcal";
@@ -448,18 +464,22 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                                 Pattern pattern = Pattern.compile("alt='(.*?) Cal ");
                                 Matcher matcher = pattern.matcher(allText);
                                 if(matcher.find()){
-                                    com.example.stemfit3.ingredient TempIngredient = new com.example.stemfit3.ingredient(Ingredient.getText().toString(),Integer.parseInt(matcher.group(1)),Integer.parseInt(Count.getText().toString()),Units.getSelectedItem().toString());
+                                    com.example.stemfit3.ingredient TempIngredient = new com.example.stemfit3.ingredient(tempIng,Integer.parseInt(matcher.group(1)),Integer.parseInt(Count.getText().toString()),Units.getSelectedItem().toString());
                                     Ingredients.add(TempIngredient);
 
-                                    result += String.valueOf(countIng+1) + ". " +Ingredient.getText().toString() +" "+Count.getText().toString()+ Units.getSelectedItem().toString()+ " " +matcher.group(1) + "Kcal"+ '\n';
+                                    result += String.valueOf(countIng+1) + ". " +tempIng +" "+Count.getText().toString()+ Units.getSelectedItem().toString()+ " " +matcher.group(1) + "Kcal"+ '\n';
                                     Recipy.setText(result);
                                     totalCal += Integer.parseInt(matcher.group(1));
 
                                     CaloryCount.setText(String.valueOf(totalCal));
+                                    countIng++;
                                 }
+                                else
+                                    Ingredient.setError("Ingredient not found!");
                                 if(countIng>=4)
                                     Recipy.setMovementMethod(new ScrollingMovementMethod());
-                                countIng++;
+
+
                             }
                         });
 
@@ -552,7 +572,7 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         ref.child("ingredients").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String ingName,ingKcal,ingCount,ingType,rez = "",tempIngRez;
+                String ingName,ingKcal,ingCount,ingType,rez = "",tempIngRez = "";
                 int count = 1;
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                     ingCount=  snapshot.child("Count").getValue().toString();
@@ -623,18 +643,26 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
     public void creteNewMeal(){
         Log.i("url", username);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Meal").child(username);
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                reference.child(Meal.mealName).setValue(Meal);
-                Log.i("check2", "Toast2");
-            }
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    Log.i(snapshot.child("mealName").getValue().toString(), "NAMESOF ");
+                    if( snapshot.child("mealName").getValue().toString().equals(mealName.getText().toString())){
+                        mealName.setError("Name is taken");
+                        return;
+                    }
+                    reference.child(Meal.mealName).setValue(Meal);
+                }
 
+
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+
         Log.i("check3", "Toast3");
 
         return;
