@@ -151,6 +151,8 @@ public class UserInfoRegister extends AppCompatActivity {
                     }
                     refSleep.child("Bed time (hour)").setValue(0);
                     refSleep.child("Bed time (minute)").setValue(0);
+                    refSleep.child("Wake up time (hour)").setValue(0);
+                    refSleep.child("Wake up time (minute)").setValue(0);
                     if(editMale.isChecked()){
                         switch (Activity) {
                             case "Sedentary: little or no exercise":

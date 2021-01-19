@@ -46,15 +46,13 @@
     <list default="true" id="cdbb8c64-a8ef-4549-b48a-a3df01d3ad74" name="Default Changelist" comment="Bed time reminder should work now">
       <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/stemfit3/waterNotification.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="cdbb8c64-a8ef-4549-b48a-a3df01d3ad74" name="Default Changelist" comment="Sleep statistics should work now (although still buggy)">
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -72,6 +70,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_3a_API_30]" />
   <component name="ExportToHTMLSettings">
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../fitStem\exportToHTML" />
@@ -348,7 +347,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610024709474</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Sleep statistics should work now (although still buggy)">
+      <created>1611013506041</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1611013506041</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -422,7 +428,8 @@
     <MESSAGE value="Sleep and Water front-end" />
     <MESSAGE value="Sleep most back-end work is done" />
     <MESSAGE value="Bed time reminder should work now" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bed time reminder should work now" />
+    <MESSAGE value="Sleep statistics should work now (although still buggy)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sleep statistics should work now (although still buggy)" />
   </component>
   <component name="WindowStateProjectService">
     <state x="747" y="319" key="#Gradle" timestamp="1609964334672">
@@ -508,32 +515,32 @@
     <state x="740" y="280" key="FileChooserDialogImpl/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1611016719780" />
     <state x="740" y="277" key="FileChooserDialogImpl/0.0.1920.1040/2.-1080.1920.1080@0.0.1920.1040" timestamp="1610025313737" />
     <state x="740" y="288" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1604603104935" />
-    <state width="1859" height="266" key="GridCell.Tab.0.bottom" timestamp="1611012940313">
+    <state width="1859" height="266" key="GridCell.Tab.0.bottom" timestamp="1611013560582">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1876" height="285" key="GridCell.Tab.0.bottom/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604046785332" />
-    <state width="1859" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1611012940313" />
+    <state width="1859" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1611013560582" />
     <state width="938" height="265" key="GridCell.Tab.0.bottom/0.0.1920.1040/2.-1080.1920.1080@0.0.1920.1040" timestamp="1610283825391" />
     <state width="1877" height="226" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1609354860808" />
-    <state width="1859" height="266" key="GridCell.Tab.0.center" timestamp="1611012940313">
+    <state width="1859" height="266" key="GridCell.Tab.0.center" timestamp="1611013560582">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1876" height="285" key="GridCell.Tab.0.center/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604046785332" />
-    <state width="1859" height="266" key="GridCell.Tab.0.center/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1611012940313" />
+    <state width="1859" height="266" key="GridCell.Tab.0.center/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1611013560582" />
     <state width="938" height="265" key="GridCell.Tab.0.center/0.0.1920.1040/2.-1080.1920.1080@0.0.1920.1040" timestamp="1610283825390" />
     <state width="1877" height="226" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1609354860808" />
-    <state width="1859" height="266" key="GridCell.Tab.0.left" timestamp="1611012940313">
+    <state width="1859" height="266" key="GridCell.Tab.0.left" timestamp="1611013560582">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1876" height="285" key="GridCell.Tab.0.left/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604046785332" />
-    <state width="1859" height="266" key="GridCell.Tab.0.left/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1611012940313" />
+    <state width="1859" height="266" key="GridCell.Tab.0.left/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1611013560582" />
     <state width="938" height="265" key="GridCell.Tab.0.left/0.0.1920.1040/2.-1080.1920.1080@0.0.1920.1040" timestamp="1610283825390" />
     <state width="1877" height="226" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1609354860807" />
-    <state width="1859" height="266" key="GridCell.Tab.0.right" timestamp="1611012940313">
+    <state width="1859" height="266" key="GridCell.Tab.0.right" timestamp="1611013560582">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1876" height="285" key="GridCell.Tab.0.right/-1280.0.1280.994/0.0.1920.1050@0.0.1920.1050" timestamp="1604046785332" />
-    <state width="1859" height="266" key="GridCell.Tab.0.right/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1611012940313" />
+    <state width="1859" height="266" key="GridCell.Tab.0.right/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1611013560582" />
     <state width="938" height="265" key="GridCell.Tab.0.right/0.0.1920.1040/2.-1080.1920.1080@0.0.1920.1040" timestamp="1610283825391" />
     <state width="1877" height="226" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1609354860808" />
     <state x="184" y="86" key="MergeDialog" timestamp="1609963607032">
@@ -560,9 +567,10 @@
     <state x="207" y="133" key="SettingsEditor/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1610972074591" />
     <state x="211" y="99" width="998" height="708" key="SettingsEditor/0.0.1920.1040/2.-1080.1920.1080@0.0.1920.1040" timestamp="1609744321694" />
     <state x="211" y="103" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1604526359888" />
-    <state x="418" y="278" key="Vcs.Push.Dialog.v2" timestamp="1610024873935">
+    <state x="418" y="278" key="Vcs.Push.Dialog.v2" timestamp="1611013513116">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="418" y="278" key="Vcs.Push.Dialog.v2/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1611013513116" />
     <state x="418" y="278" key="Vcs.Push.Dialog.v2/0.0.1920.1040/2.-1080.1920.1080@0.0.1920.1040" timestamp="1610024873935" />
     <state x="418" y="289" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1609355512421" />
     <state x="534" y="268" key="caller.chooser.dialog" timestamp="1610917203193">
