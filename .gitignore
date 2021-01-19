@@ -53,3 +53,13 @@ local.properties
 *.properties
 local.properties
 *.xml
+.idea/workspace.xml
+.gradle/buildOutputCleanup/outputFiles.bin
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
+.gradle/6.5/javaCompile/javaCompile.lock
+.gradle/6.5/javaCompile/classAnalysis.bin
+.gradle/6.5/fileHashes/resourceHashesCache.bin
+.gradle/6.5/fileHashes/fileHashes.lock
+.gradle/6.5/fileHashes/fileHashes.bin
+.gradle/6.5/executionHistory/executionHistory.lock
+.gradle/6.5/executionHistory/executionHistory.bin
