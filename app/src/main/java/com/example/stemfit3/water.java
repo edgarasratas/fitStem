@@ -117,8 +117,11 @@ public class water extends AppCompatActivity {
             public void onClick(View v) {
                 if (waterSwitch.isChecked())
                     setAlarm();
-                else
+                else{
+
                     cancelAlarm();
+                    waterSwitchText.setText("Water intake reminder: OFF");
+                }
             }
         });
     }
@@ -211,30 +214,32 @@ public class water extends AppCompatActivity {
                    switch (snapshot.child("waterReminderTime").getValue().toString()){
                        case "15":
                            Log.i("15", "onDataChange: ");
-                            time = calendar.getTimeInMillis()+6000;
-                            //900000
+                            time = calendar.getTimeInMillis()+900000;
+                            //
 
-                           alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,time,60000,pendingIntent);
+                           alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,time,900000,pendingIntent);
                            break;
                        case "30":
                            time = calendar.getTimeInMillis()+900000*2;
 
                            Log.i("30", "onDataChange: ");
-
-                           alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,time,30*60000,pendingIntent);
+                            long intervalTime30 = 900000 * 2;
+                           alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,time,intervalTime30,pendingIntent);
                            break;
                        case "45":
                            time = calendar.getTimeInMillis()+900000*3;
+                           long intervalTime45 = 900000 * 2;
 
                            Log.i("45", "onDataChange: ");
 
-                           alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,time,45*60000,pendingIntent);
+                           alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,time,intervalTime45,pendingIntent);
                            break;
                        case "60":
+                           long intervalTime60 = 900000 * 2;
                            time = calendar.getTimeInMillis()+900000*4;
                            Log.i("60", "onDataChange: ");
 
-                           alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,time,60*60000,pendingIntent);
+                           alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,time,intervalTime60,pendingIntent);
                            break;
                    }
                 }

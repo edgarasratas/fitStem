@@ -316,10 +316,18 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                             myDatabase.child("mealCount").setValue(a);
                             finish();
                             dialog.dismiss();
-                            Intent intent = new Intent(getApplicationContext(),kcal.class);
                             overridePendingTransition(0, 0);
-                            startActivity(intent);
-                            overridePendingTransition(0, 0);
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(getApplicationContext(),kcal.class);
+                                    overridePendingTransition(0, 0);
+                                    startActivity(intent);
+                                    overridePendingTransition(0, 0);
+                                }
+                            },350);
+
                         }
                     });
                     tempButton.setOnLongClickListener(new View.OnLongClickListener() {

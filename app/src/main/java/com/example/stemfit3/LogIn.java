@@ -167,11 +167,13 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener{
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     int k=0;
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                           // logIn(nickName,password);
+                            logIn(nickName,password);
+                        Log.i("user1", "onDataChange: ");
                             User user = snapshot.getValue(User.class);
+                        Log.i("user2", "onDataChange: ");
 
                             users.add(user);
-                         //   Log.w("kek",users.get(users.indexOf(nickName)).email);
+                            Log.w("kek",users.get(users.indexOf(nickName)).email);
                             if(users.get(k).username.equals(nickName)){
                                 String mail = users.get(k).email.toString();
                                  logIn(mail,password);

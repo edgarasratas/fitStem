@@ -52,3 +52,4 @@ local.properties
 local.properties
 *.properties
 local.properties
+*.xml

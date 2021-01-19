@@ -195,12 +195,7 @@ public class UserInfoRegister extends AppCompatActivity {
                                 break;
                         }
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Water").child(uid);
-                        ref.child("notificationOption").setValue(false);
-                        ref.child("waterReminderTime").setValue("15");
-                        ref.child("waterValue").setValue("250");
-                        for (int i = 1; i < 8; i++) {
-                            ref.child("day").child(String.valueOf(i)).setValue(0);
-                        }
+
                         ref.child("currentWaterIntake").setValue(0);
                         if(editMale.isChecked()){
                             switch (Activity) {
@@ -248,7 +243,13 @@ public class UserInfoRegister extends AppCompatActivity {
                         }
 
                     }
-
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Water").child(uid);
+                    ref.child("waterReminderTime").setValue(15);
+                    ref.child("notificationOption").setValue(false);
+                    ref.child("waterValue").setValue(250);
+                    for (int i = 1; i < 8; i++) {
+                        ref.child("day").child(String.valueOf(i)).setValue(0);
+                    }
                 });
             }
 

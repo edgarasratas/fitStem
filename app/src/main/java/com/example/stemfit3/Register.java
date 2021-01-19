@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -37,8 +38,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     public CardView register;
     public TextView account;
     public String username;
+    public ArrayList<String> USERNAMES;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        USERNAMES = new ArrayList<String>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         confirmPassEditText  = findViewById(R.id.confirmPasswordRegister);
@@ -54,8 +57,26 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
         account = (TextView) findViewById(R.id.textView4);
         account.setOnClickListener(this);
+        getUsernames();
 
 
+    }
+    public void getUsernames(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int i = 0;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Log.i(snapshot.child("username").getValue().toString(), "onDataChange: ");
+                    USERNAMES.add(i,snapshot.child("username").getValue().toString());
+                    i++;
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 //    public void logIn(View v){
 //        Intent login = new Intent(this, LogIn.class);
@@ -83,25 +104,17 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         String confirm = confirmPassEditText.getText().toString().trim();
         TextView tempUsername = findViewById(R.id.usernameRegister);
         username = tempUsername.getText().toString();
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    if(username.equals(snapshot.child("username").getValue().toString())){
-                        usernameEditText.setError("Username is taken");
-                        return;
-                    }
-             }
-
-               }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        Boolean usernameIsTake = true;
+        for (int i = 0; i < USERNAMES.size(); i++) {
+            if(USERNAMES.get(i).equals(username)){
+                usernameEditText.setError("Username is taken!");
+                usernameIsTake = false;
+                return;
             }
-        });
+        }
+        if (!usernameIsTake){
+            return;
+        }
         if(email.isEmpty()){
             emailEditText.setError("Email is required");
             emailEditText.requestFocus();
@@ -161,6 +174,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                     Toast.makeText(Register.this, "Failed to register!",Toast.LENGTH_LONG).show();
             }
         });
+
+
         Log.i("tag4", "registerUser: ");
 
 
