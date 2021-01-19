@@ -260,5 +260,10 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener{
         editor.putBoolean(uid, false);
         editor.apply();
     }
+
+    @Override
+    public void onBackPressed(){
+
+    }
 }
 

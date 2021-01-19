@@ -180,4 +180,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
 
     }
+    @Override
+    public void onBackPressed(){
+
+    }
+
 }
