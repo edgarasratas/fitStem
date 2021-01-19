@@ -94,8 +94,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                     }else{
                         reference.setValue(username);
                     }
-
-            }
+             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
