@@ -154,36 +154,36 @@ public class sleep extends AppCompatActivity {
         reminderSleep.setChecked(sharedPreferences.getBoolean("lastClick", true));
         getInfo();
 
-                switch (Day) {
-                    case Calendar.SUNDAY:
-                        addSleepHoursToDay(Calendar.SUNDAY);
-                        Log.i("Monday", "1");
-                        break;
-                    case Calendar.MONDAY:
-                        addSleepHoursToDay(Calendar.MONDAY);
-                        Log.i("Tuesday", "2");
-                        break;
-                    case Calendar.TUESDAY:
-                        addSleepHoursToDay(Calendar.TUESDAY);
-                        Log.i("Wednesday", "3");
-                        break;
-                    case Calendar.WEDNESDAY:
-                        addSleepHoursToDay(Calendar.WEDNESDAY);
-                        Log.i("Thursday", "4");
-                        break;
-                    case Calendar.THURSDAY:
-                        addSleepHoursToDay(Calendar.THURSDAY);
-                        Log.i("Friday", "5");
-                        break;
-                    case Calendar.FRIDAY:
-                        addSleepHoursToDay(Calendar.FRIDAY);
-                        Log.i("Saturday", "6");
-                        break;
-                    case Calendar.SATURDAY:
-                        addSleepHoursToDay(Calendar.SATURDAY);
-                        Log.i("Sunday", "7");
-                        break;
-                }
+        switch (Day) {
+            case Calendar.SUNDAY:
+                addSleepHoursToDay(Calendar.SUNDAY - 1);
+                Log.i("Monday", "1");
+                break;
+            case Calendar.MONDAY:
+                addSleepHoursToDay(Calendar.MONDAY - 1);
+                Log.i("Tuesday", "2");
+                break;
+            case Calendar.TUESDAY:
+                addSleepHoursToDay(Calendar.TUESDAY - 1);
+                Log.i("Wednesday", "3");
+                break;
+            case Calendar.WEDNESDAY:
+                addSleepHoursToDay(Calendar.WEDNESDAY - 1);
+                Log.i("Thursday", "4");
+                break;
+            case Calendar.THURSDAY:
+                addSleepHoursToDay(Calendar.THURSDAY - 1);
+                Log.i("Friday", "5");
+                break;
+            case Calendar.FRIDAY:
+                addSleepHoursToDay(Calendar.FRIDAY - 1);
+                Log.i("Saturday", "6");
+                break;
+            case Calendar.SATURDAY:
+                addSleepHoursToDay(Calendar.SATURDAY - 1);
+                Log.i("Sunday", "7");
+                break;
+        }
     }
 
     public void getInfo() {
@@ -280,7 +280,6 @@ public class sleep extends AppCompatActivity {
             if((nph.getValue() < 10) && (npm.getValue() < 10)) {
                 String bedTimeText = "Bedtime\n" + "0" + nph.getValue() + ":0" + npm.getValue();
                 bedTime.setText(bedTimeText);
-                mDatabase.child(uid).child("day").child(String.valueOf(Calendar.DAY_OF_WEEK));
                 mDatabase.child(uid).child("Bed time (hour)").setValue(nph.getValue());
                 mDatabase.child(uid).child("Bed time (minute)").setValue(npm.getValue());
                 editor.putString("BEDTIME", "Bedtime\n" + "0" + nph.getValue() + ":0" + npm.getValue());
@@ -485,7 +484,8 @@ public class sleep extends AppCompatActivity {
                 BarDataSet barDataSet = new BarDataSet(barEntryArrayList, "Your sleep during the past week");
                 barDataSet.setColor(Color.GREEN);
                 BarData barData = new BarData(barDataSet);
-                barData.setBarWidth(0.5f);
+                barData.setBarWidth(0.75f);
+                barData.setValueTextSize(12);
 
 
                 XAxis xAxis = barchart.getXAxis();

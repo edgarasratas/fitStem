@@ -652,9 +652,8 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                         mealName.setError("Name is taken");
                         return;
                     }
-                    reference.child(Meal.mealName).setValue(Meal);
                 }
-
+                reference.child(Meal.mealName).setValue(Meal);
 
             }
             @Override

@@ -586,7 +586,8 @@ public class water extends AppCompatActivity {
                 BarDataSet barDataSet = new BarDataSet(barEntryArrayList, "Weekly intake");
                 barDataSet.setColor(Color.GREEN);
                 BarData barData = new BarData(barDataSet);
-                barData.setBarWidth(0.5f);
+                barData.setBarWidth(0.75f);
+                barData.setValueTextSize(12);
 
 
                 XAxis xAxis = barchart.getXAxis();

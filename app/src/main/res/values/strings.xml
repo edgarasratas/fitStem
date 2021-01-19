@@ -53,6 +53,7 @@
     <string name="Continue">Continue</string>
     <string name="put_in_email">Please put in your e-mail. You will receive a link to change your password.</string>
     <string name="virtual_fridge">Virtual fridge</string>
+    <string name="version_1_1b">Version 1.1b</string>
 
     <string-array name="kCal_unit">
         <item>vnt</item>
