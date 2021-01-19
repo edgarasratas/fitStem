@@ -1,14 +1,35 @@
 package com.example.stemfit3;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
+import android.app.AlarmManager;
+import android.app.Notification;
+
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +37,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import android.widget.PopupMenu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -42,9 +66,9 @@ import java.util.Locale;
 
 public class water extends AppCompatActivity {
 
-    BarChart barchart;
+    public BarChart barchart;
     public Button waterIntakeButton;
-    public int currentIntake=0;
+    public int currentIntake = 0;
     public TextView waterIntakeCounter;
     public SimpleDateFormat sfd;
     public SimpleDateFormat tempFormat;
@@ -56,15 +80,30 @@ public class water extends AppCompatActivity {
     public DatabaseReference water = FirebaseDatabase.getInstance().getReference().child("Water");
     public Calendar dayOfWeek = Calendar.getInstance();
     public int Day = dayOfWeek.get(Calendar.DAY_OF_WEEK);
+    public TextView waterSwitchText;
+    public TextView waterReminder;
+    public boolean checkIfOpen = true;
+    public AlarmManager alarmManager;
+    public PendingIntent pendingIntent;
+    public static final String channelID = "20002";
+    public androidx.appcompat.widget.SwitchCompat waterSwitch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_water);
         setupBottomNavigationView();
         waterIntakeCounter = findViewById(R.id.waterIntakeCounter);
         waterIntakeButton = findViewById(R.id.waterIntakeButton);
 
-        sfd = new SimpleDateFormat("EE",Locale.ENGLISH);
+        sfd = new SimpleDateFormat("EE", Locale.ENGLISH);
+        waterSwitch = (SwitchCompat) findViewById(R.id.waterSwitch);
+        waterIntakeCounter = findViewById(R.id.waterIntakeCounter);
+        waterIntakeButton = findViewById(R.id.waterIntakeButton);
+        waterReminder = findViewById(R.id.waterReminderFrequencyText);
+        waterSwitchText = findViewById(R.id.waterSwitchText);
+        checkIfOpen = true;
         date = findViewById(R.id.dateviewWater);
         tempFormat = new SimpleDateFormat("yyyy/MM/dd");
         date.setText(tempFormat.format(new Date()));
@@ -72,7 +111,143 @@ public class water extends AppCompatActivity {
         uId = user.getUid();
         getInfo();
 
+
+        waterSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (waterSwitch.isChecked())
+                    setAlarm();
+                else
+                    cancelAlarm();
+            }
+        });
     }
+
+    private void cancelAlarm(){
+        waterSwitchText.setText("Water intake reminder: ON");
+        water.child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    CharSequence name = "Notification";
+                    String description = "Channel for the reminder";
+                    int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                    NotificationChannel channel = new NotificationChannel(channelID, name, importance);
+                    channel.setDescription(description);
+
+                    NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                    notificationManager.createNotificationChannel(channel);
+
+                    Intent intent = new Intent(water.this, waterNotification.class);
+                    intent.setAction("Drink your water!");
+
+                    pendingIntent = PendingIntent.getBroadcast(water.this, 0, intent, 0);
+                    alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+                    Calendar calendar = Calendar.getInstance();
+                    long time;
+                    switch (snapshot.child("waterReminderTime").getValue().toString()) {
+                        case "15":
+                            Log.i("15", "onDataChange: ");
+                            time = calendar.getTimeInMillis() + 6000;
+                            //900000
+
+                            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 60000, pendingIntent);
+                            break;
+                        case "30":
+                            time = calendar.getTimeInMillis() + 900000 * 2;
+
+                            Log.i("30", "onDataChange: ");
+
+                            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 30 * 60000, pendingIntent);
+                            break;
+                        case "45":
+                            time = calendar.getTimeInMillis() + 900000 * 3;
+
+                            Log.i("45", "onDataChange: ");
+
+                            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 45 * 60000, pendingIntent);
+                            break;
+                        case "60":
+                            time = calendar.getTimeInMillis() + 900000 * 4;
+                            Log.i("60", "onDataChange: ");
+
+                            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 60 * 60000, pendingIntent);
+                            break;
+                    }
+                    alarmManager.cancel(pendingIntent);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void setAlarm(){
+        waterSwitchText.setText("Water intake reminder: ON");
+        water.child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    CharSequence name = "Notification";
+                    String description = "Channel for the reminder";
+                    int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                    NotificationChannel channel = new NotificationChannel(channelID, name, importance);
+                    channel.setDescription(description);
+
+                    NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                    notificationManager.createNotificationChannel(channel);
+
+                    Intent intent = new Intent(water.this,waterNotification.class);
+                    intent.setAction("Drink your water!");
+
+                   pendingIntent= PendingIntent.getBroadcast(water.this,0,intent,0);
+                   alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+                    Calendar calendar = Calendar.getInstance();
+                    long time;
+                   switch (snapshot.child("waterReminderTime").getValue().toString()){
+                       case "15":
+                           Log.i("15", "onDataChange: ");
+                            time = calendar.getTimeInMillis()+6000;
+                            //900000
+
+                           alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,time,60000,pendingIntent);
+                           break;
+                       case "30":
+                           time = calendar.getTimeInMillis()+900000*2;
+
+                           Log.i("30", "onDataChange: ");
+
+                           alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,time,30*60000,pendingIntent);
+                           break;
+                       case "45":
+                           time = calendar.getTimeInMillis()+900000*3;
+
+                           Log.i("45", "onDataChange: ");
+
+                           alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,time,45*60000,pendingIntent);
+                           break;
+                       case "60":
+                           time = calendar.getTimeInMillis()+900000*4;
+                           Log.i("60", "onDataChange: ");
+
+                           alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,time,60*60000,pendingIntent);
+                           break;
+                   }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        water.child(uId).child("notificationOption").setValue(true);
+    }
+
     public void getInfo(){
         water.child(uId).addValueEventListener(new ValueEventListener() {
             @Override
@@ -80,8 +255,25 @@ public class water extends AppCompatActivity {
                 neededWater = Integer.parseInt(snapshot.child("neededWater").getValue().toString());
                 waterIntakeButton.setText(snapshot.child("waterValue").getValue().toString());
                 neededWater = Integer.parseInt(snapshot.child("neededWater").getValue().toString());
-                currentIntake = Integer.parseInt(snapshot.child("currentWaterIntake").getValue().toString());
+//<<<<<<< HEAD
+//                currentIntake = Integer.parseInt(snapshot.child("currentWaterIntake").getValue().toString());
+//                waterIntakeCounter.setText(currentIntake+"/"+neededWater);
+//=======
+                currentIntake = Integer.parseInt(snapshot.child("day").child(String.valueOf(Day)).getValue().toString());
                 waterIntakeCounter.setText(currentIntake+"/"+neededWater);
+                waterReminder.setText("  Every " + snapshot.child("waterReminderTime").getValue().toString() + " minutes");
+                if(checkIfOpen){
+                    String tempCheck= snapshot.child("notificationOption").getValue().toString();
+                    if(tempCheck.equals("true")){
+                        waterSwitchText.setText("Water intake reminder: ON");
+                        waterSwitch.setChecked(true);
+                    }
+
+                    else
+                        waterSwitch.setChecked(false);
+                }
+
+                checkIfOpen= false;
 
             }
 
@@ -99,18 +291,32 @@ public class water extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(3);
         menuItem.setChecked(true);
     }
-    public void addWater(View v){
+//<<<<<<< HEAD
+//    public void addWater(View v){
+//        currentIntake += Integer.valueOf(waterIntakeButton.getText().toString().trim());
+//        if(currentIntake>10000&&currentIntake<28000){
+//            Toast.makeText(this,"You should stop drinking water!",Toast.LENGTH_SHORT).show();
+//        }
+//        if(currentIntake>30000){
+//            Toast.makeText(this,"You should be dead",Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        waterIntakeCounter.setText(currentIntake+"/"+neededWater);
+//        water.child(uId).child("currentWaterIntake").setValue(currentIntake);
+//        switch (Day){
+//=======
+    public void addWater(View v) {
         currentIntake += Integer.valueOf(waterIntakeButton.getText().toString().trim());
-        if(currentIntake>10000&&currentIntake<28000){
-            Toast.makeText(this,"You should stop drinking water!",Toast.LENGTH_SHORT).show();
+        if (currentIntake > 10000 && currentIntake < 28000) {
+            Toast.makeText(this, "You should stop drinking water!", Toast.LENGTH_SHORT).show();
         }
-        if(currentIntake>30000){
-            Toast.makeText(this,"You should be dead",Toast.LENGTH_SHORT).show();
+        if (currentIntake > 30000) {
+            Toast.makeText(this, "You should be dead", Toast.LENGTH_SHORT).show();
             return;
         }
-        waterIntakeCounter.setText(currentIntake+"/"+neededWater);
+        waterIntakeCounter.setText(currentIntake + "/" + neededWater);
         water.child(uId).child("currentWaterIntake").setValue(currentIntake);
-        switch (Day){
+        switch (Day) {
             case Calendar.MONDAY:
                 addWaterToDay(Calendar.MONDAY);
                 break;
@@ -132,12 +338,36 @@ public class water extends AppCompatActivity {
             case Calendar.SUNDAY:
                 addWaterToDay(Calendar.SUNDAY);
                 break;
+
+
+
         }
+    }
+
+
+    private void addWaterToDay(int day) {
+        water.child(uId).child("day").child(String.valueOf(day)).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int tempWater = Integer.valueOf(snapshot.getValue().toString());
+                tempWater += Integer.valueOf( waterIntakeButton.getText().toString());
+                water.child(uId).child("day").child(String.valueOf(day)).setValue(tempWater);
+                waterIntakeCounter.setText(tempWater + "/" +snapshot.getValue());
+                return;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
-    public void addWaterToDay(int currentDay){
-        water.child(uId).child("day").child(String.valueOf(currentDay)).setValue(currentIntake);
-    }
+
+
+//    public void addWaterToDay(int currentDay){
+//        water.child(uId).child("day").child(String.valueOf(currentDay)).setValue(currentIntake);
+//    }
     public void cupSize(View v){
         AlertDialog.Builder builder = new AlertDialog.Builder(water.this);
         View view = getLayoutInflater().inflate(R.layout.water_dialog_cup_size, null);
@@ -211,14 +441,18 @@ public class water extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(water.this);
         View view = getLayoutInflater().inflate(R.layout.water_dialog_reminder_frequency, null);
         final NumberPicker np = view.findViewById(R.id.reminderPickerWater);
-        final NumberPicker from = view.findViewById(R.id.from);
-        final NumberPicker to = view.findViewById(R.id.to);
-        from.setMinValue(0);
-        from.setMaxValue(23);
-        from.setFormatter(i -> String.format(Locale.getDefault(), "%02d", i));
-        to.setMinValue(0);
-        to.setMaxValue(23);
-        to.setFormatter(i -> String.format(Locale.getDefault(), "%02d", i));
+//<<<<<<< HEAD
+//        final NumberPicker from = view.findViewById(R.id.from);
+//        final NumberPicker to = view.findViewById(R.id.to);
+//        from.setMinValue(0);
+//        from.setMaxValue(23);
+//        from.setFormatter(i -> String.format(Locale.getDefault(), "%02d", i));
+//        to.setMinValue(0);
+//        to.setMaxValue(23);
+//        to.setFormatter(i -> String.format(Locale.getDefault(), "%02d", i));
+//=======
+//
+//>>>>>>> Bugz
         np.setMinValue(0);
         np.setMaxValue(3);
         np.setDisplayedValues(new String[] { "Every 15 minutes", "Every 30 minutes", "Every 45 minutes", "Every hour"});
@@ -231,12 +465,50 @@ public class water extends AppCompatActivity {
         builder.setPositiveButton("set", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                String spinnerValue = String.valueOf(np.getValue());
+                Log.i(spinnerValue, "onClick: ");
+                switch (spinnerValue){
+                    case  "0":
+                        water.child(uId).child("waterReminderTime").setValue(15);
+                        break;
 
+                    case "1":
+                        water.child(uId).child("waterReminderTime").setValue(30);
+                        break;
+
+                    case  "2":
+                        water.child(uId).child("waterReminderTime").setValue(45);
+                        break;
+
+                    case  "3":
+                        water.child(uId).child("waterReminderTime").setValue(60);
+                        break;
+                }
+                if(waterSwitch.isChecked()){
+                    setAlarm();
+                }
             }
         });
         builder.setView(view);
         AlertDialog dialog = builder.create();
         dialog.show();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                water.child(uId).child("waterReminderTime").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        waterReminder.setText("  Every " + snapshot.getValue().toString() + " minutes");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+
     }
     public void statisticsWater(View v){
         AlertDialog.Builder builder = new AlertDialog.Builder(water.this);
@@ -278,7 +550,6 @@ public class water extends AppCompatActivity {
                 DecimalFormat df = new DecimalFormat("#");
                 String tempFormat = df.format(weekAvg/7);
                 avgConsumption.setText(String.valueOf(tempFormat));
-
 
                 labelName.add("M");
                 labelName.add("T");
@@ -325,8 +596,6 @@ public class water extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     @Override

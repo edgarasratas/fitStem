@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -89,6 +90,7 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
     public ProgressBar kcalAmountPercent;
     public TextView ingList;
     LinearLayout linearLayout;
+    public boolean longClickMealInfo;
     List<com.example.stemfit3.ingredient> Ingredients;
     public boolean check = true;
     @Override
@@ -274,6 +276,12 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         builder.setView(view);
         AlertDialog dialog = builder.create();
         dialog.show();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                longClickMealInfo = false;
+            }
+        });
         DatabaseReference reference  = FirebaseDatabase.getInstance().getReference();
         reference.child("Meal").child(username).addValueEventListener(new ValueEventListener() {
             @Override
@@ -304,6 +312,8 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                             int a = Integer.parseInt(snapshot.child("mealCount").getValue().toString());
                             a++;
                             myDatabase.child("mealCount").setValue(a);
+                            Log.i( snapshot.child("mealCount").getValue().toString(), "onClick: ");
+                            myDatabase.child("mealCount").setValue(a);
                             finish();
                             dialog.dismiss();
                             Intent intent = new Intent(getApplicationContext(),kcal.class);
@@ -315,11 +325,13 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                     tempButton.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View v) {
+                            longClickMealInfo = true;
                             openMealInfo(snapshot.getKey());
                             return false;
                         }
                     });
                     count++;
+
                 }
                 }
                 check = false;
@@ -410,9 +422,7 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                 else
                     url +=Ingredient.getText().toString() + "+" + Count.getText().toString()+"grams" + "+"+"Kcal";
                 url+="&appid=WK328G-8UXH23UPJT&includepodid=Result";
-
                 Log.i("url", url);
-
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder().url(url).build();
                 client.newCall(request).enqueue(new Callback() {
@@ -473,7 +483,7 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         recipe = (TextView) dialog.findViewById(R.id.ingredientListInfo);
 
         calories = (TextView) dialog.findViewById(R.id.mealCaloriesInfo);
-
+        Log.i(String.valueOf(longClickMealInfo), "openMealInfo: ");
         mealName.setText(btnName);
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Meal").child(username).child(btnName);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -484,10 +494,43 @@ public class kcal extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                 removeMeal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ref.child("mealCount").setValue(Integer.valueOf(snapshot.child("mealCount").getValue().toString())-1);
+                        if(!longClickMealInfo){
+                            ref.child("mealCount").setValue(Integer.valueOf(snapshot.child("mealCount").getValue().toString())-1);
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(getApplicationContext(),kcal.class);
+                                    startActivity(intent);
+                                }
+                            },350);
+
+                        }
+                        else{
+                            ref.removeValue();
+                            Log.i("removeTest", "onClick: ");
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(getApplicationContext(),kcal.class);
+                                    startActivity(intent);
+                                }
+                            },350);
+                        }
+
+
+
                         dialog.dismiss();
                         overridePendingTransition(0, 0);
-                        startActivity(getIntent());
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(getApplicationContext(),kcal.class);
+                                startActivity(intent);
+                            }
+                        },350);
                         overridePendingTransition(0, 0);
                     }
                 });
