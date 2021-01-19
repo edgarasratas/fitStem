@@ -82,7 +82,6 @@ public class water extends AppCompatActivity {
     public int Day = dayOfWeek.get(Calendar.DAY_OF_WEEK);
     public TextView waterSwitchText;
     public TextView waterReminder;
-    public boolean checkIfOpen = true;
     public AlarmManager alarmManager;
     public PendingIntent pendingIntent;
     public static final String channelID = "20002";
@@ -94,7 +93,6 @@ public class water extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_water);
         setupBottomNavigationView();
-        waterIntakeCounter = findViewById(R.id.waterIntakeCounter);
         waterIntakeButton = findViewById(R.id.waterIntakeButton);
 
         sfd = new SimpleDateFormat("EE", Locale.ENGLISH);
@@ -103,7 +101,6 @@ public class water extends AppCompatActivity {
         waterIntakeButton = findViewById(R.id.waterIntakeButton);
         waterReminder = findViewById(R.id.waterReminderFrequencyText);
         waterSwitchText = findViewById(R.id.waterSwitchText);
-        checkIfOpen = true;
         date = findViewById(R.id.dateviewWater);
         tempFormat = new SimpleDateFormat("yyyy/MM/dd");
         date.setText(tempFormat.format(new Date()));
@@ -115,12 +112,16 @@ public class water extends AppCompatActivity {
         waterSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (waterSwitch.isChecked())
+                if (waterSwitch.isChecked()){
                     setAlarm();
-                else{
+                    water.child(uId).child("notificationOption").setValue(true);
+                }
 
+                else{
                     cancelAlarm();
                     waterSwitchText.setText("Water intake reminder: OFF");
+                    water.child(uId).child("notificationOption").setValue(false);
+
                 }
             }
         });
@@ -257,6 +258,7 @@ public class water extends AppCompatActivity {
         water.child(uId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                waterSwitch.setChecked(Boolean.valueOf(snapshot.child("notificationOption").getValue().toString()));
                 neededWater = Integer.parseInt(snapshot.child("neededWater").getValue().toString());
                 waterIntakeButton.setText(snapshot.child("waterValue").getValue().toString());
                 neededWater = Integer.parseInt(snapshot.child("neededWater").getValue().toString());
@@ -267,18 +269,16 @@ public class water extends AppCompatActivity {
                 currentIntake = Integer.parseInt(snapshot.child("day").child(String.valueOf(Day)).getValue().toString());
                 waterIntakeCounter.setText(currentIntake+"/"+neededWater);
                 waterReminder.setText("  Every " + snapshot.child("waterReminderTime").getValue().toString() + " minutes");
-                if(checkIfOpen){
+                if(waterSwitch.isChecked()){
                     String tempCheck= snapshot.child("notificationOption").getValue().toString();
                     if(tempCheck.equals("true")){
                         waterSwitchText.setText("Water intake reminder: ON");
-                        waterSwitch.setChecked(true);
                     }
 
                     else
-                        waterSwitch.setChecked(false);
+                        waterSwitchText.setText("Water intake reminder: OFF");
                 }
 
-                checkIfOpen= false;
 
             }
 
@@ -311,6 +311,8 @@ public class water extends AppCompatActivity {
 //        switch (Day){
 //=======
     public void addWater(View v) {
+        if(currentIntake >= neededWater)
+            cancelAlarm();
         currentIntake += Integer.valueOf(waterIntakeButton.getText().toString().trim());
         if (currentIntake > 10000 && currentIntake < 28000) {
             Toast.makeText(this, "You should stop drinking water!", Toast.LENGTH_SHORT).show();
@@ -322,32 +324,40 @@ public class water extends AppCompatActivity {
         waterIntakeCounter.setText(currentIntake + "/" + neededWater);
         water.child(uId).child("currentWaterIntake").setValue(currentIntake);
         switch (Day) {
+            case Calendar.SUNDAY:
+                addWaterToDay(Calendar.SUNDAY);
+                Log.i("Monday", "1");
+                break;
             case Calendar.MONDAY:
                 addWaterToDay(Calendar.MONDAY);
-                break;
-            case Calendar.WEDNESDAY:
-                addWaterToDay(Calendar.WEDNESDAY);
+                Log.i("Tuesday", "2");
                 break;
             case Calendar.TUESDAY:
                 addWaterToDay(Calendar.TUESDAY);
+                Log.i("Wednesday", "3");
+                break;
+            case Calendar.WEDNESDAY:
+                addWaterToDay(Calendar.WEDNESDAY);
+                Log.i("Thursday", "4");
                 break;
             case Calendar.THURSDAY:
                 addWaterToDay(Calendar.THURSDAY);
+                Log.i("Friday", "5");
                 break;
             case Calendar.FRIDAY:
                 addWaterToDay(Calendar.FRIDAY);
+                Log.i("Saturday", "6");
                 break;
             case Calendar.SATURDAY:
                 addWaterToDay(Calendar.SATURDAY);
+                Log.i("Sunday", "7");
                 break;
-            case Calendar.SUNDAY:
-                addWaterToDay(Calendar.SUNDAY);
-                break;
+        }
 
 
 
         }
-    }
+
 
 
     private void addWaterToDay(int day) {
